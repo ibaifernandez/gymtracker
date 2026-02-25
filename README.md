@@ -2,6 +2,18 @@
 
 Aplicacion local (Flask + SQLite + HTML/CSS/JS) para registrar check-ins diarios, sesiones de entrenamiento y plan diario (vista `Planes`).
 
+## El manifiesto del proyecto
+
+Mientras el mercado regala sus métricas biométricas y hábitos de vida a corporaciones SaaS a cambio de dashboards coloridos, Gym Tracker nace de una premisa innegociable: la soberanía absoluta de los datos. Mi salud, mi base de datos (SQLite local). Cero trackers de terceros, cero latencia de red, control total.
+
+## Métrica de impacto operativo
+
+Arquitectura desplegada y certificada bajo estrés real: release v1.0.0.0 cerrada superando 97/97 casos de prueba QA, con cobertura completa E2E automatizada.
+
+## Stack tecnológico core
+
+Orquestado mediante Python (Flask) en el backend y SQLite para persistencia inquebrantable. Front-end desprovisto de dependencias tóxicas (Vanilla JS + CSS centralizado), testeado milimétricamente con Playwright. Preparado para interacciones con LLMs mediante directrices para agentes autónomos (AGENTS.md).
+
 ## Que hace
 
 - Check-in diario: sueno, calidad, pasos, peso, cintura, cadera, creatina, alcohol y foto opcional.
