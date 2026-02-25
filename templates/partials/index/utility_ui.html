@@ -1,0 +1,34 @@
+  <div class="help-tip-popover" id="helpTipPopover" role="dialog" aria-hidden="true" hidden>
+    <div class="help-tip-title" id="helpTipTitle">Información</div>
+    <div class="help-tip-text" id="helpTipText">—</div>
+    <a class="help-tip-link" id="helpTipLink" href="/help" rel="noopener">Ver manual</a>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="t1" id="toastT1">OK</div>
+    <div class="t2" id="toastT2">—</div>
+  </div>
+
+  <div class="fab-dock" id="mobileFabDock" aria-label="Accesos rápidos">
+    <div class="fab-menu" id="fabMenu" hidden>
+      <button class="fab-btn fab-supplements" id="fabSupplements" type="button">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4h10v4H7zM6 10h12v10H6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 14h4M10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Suplementos
+      </button>
+      <button class="fab-btn fab-workout" id="fabWorkout" type="button">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h6m4 0h6M10 9v6m4-8v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Entreno
+      </button>
+      <button class="fab-btn fab-diet" id="fabDiet" type="button">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Check-in
+      </button>
+    </div>
+    <button class="fab-main" id="fabMain" type="button" aria-expanded="false" aria-controls="fabMenu" aria-label="Abrir accesos rápidos">
+      <svg class="fab-main-open" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></svg>
+      <svg class="fab-main-close" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <script id="initial-state" type="application/json">{{ state | tojson }}</script>
+  <script src="{{ url_for('static', filename='app.js', v=asset_v_app_js) }}" defer></script>

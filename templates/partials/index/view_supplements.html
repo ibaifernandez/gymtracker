@@ -1,0 +1,40 @@
+    <section class="app-view" data-view="supplements">
+      <div class="section">
+        <div class="section-head">
+          <div class="section-title-row">
+            <h2><span class="section-title-main">Suplementos (últimos <span id="suppLimitLabel">15</span>)</span><button class="info-dot" type="button" data-help-tip data-tip-title="Tabla de suplementos" data-tip-text="Cada fila resume un día. Toca la fila para editar las tomas de esa fecha.">i</button></h2>
+            <p class="section-count mono" id="suppCountMeta">0 registros cargados.</p>
+          </div>
+          <div class="section-actions">
+            <div class="search">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input id="suppSearch" placeholder="Filtrar por fecha / estado / notas / detalle…"/>
+            </div>
+            <select id="suppLimitSelect" class="limit-select" aria-label="Ventana de suplementos">
+              <option value="7">Últimos 7 días</option>
+              <option value="15" selected>Últimos 15 días</option>
+              <option value="30">Últimos 30 días</option>
+              <option value="60">Últimos 60 días</option>
+              <option value="90">Últimos 90 días</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table card">
+          <table id="suppHistoryTable">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Objetivo</th>
+                <th>Realizadas</th>
+                <th>Adherencia</th>
+                <th>Estado</th>
+                <th>Detalle</th>
+                <th>Notas</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>

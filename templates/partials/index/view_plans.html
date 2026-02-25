@@ -1,0 +1,121 @@
+    <section class="app-view" data-view="plans">
+    <section class="plan-hub card" aria-labelledby="planHubTitle">
+      <div class="plan-hub-head">
+        <div class="plan-title-row">
+          <h3 id="planHubTitle">Planes</h3>
+          <button class="info-dot" type="button" data-help-tip data-tip-title="Plan del día" data-tip-text="Muestra lo que importaste por CSV para la fecha elegida. No prescribe nada automáticamente.">i</button>
+          <p id="planHubSub" class="plan-head-sub">Plan diario de dieta y entrenamiento importado por CSV.</p>
+        </div>
+        <div class="plan-hub-tools">
+          <div class="field compact">
+            <label>Fecha plan</label>
+            <input type="date" id="planDayDate"/>
+          </div>
+          <button class="btn ghost" id="planDayLoadBtn" type="button">Cargar día</button>
+          <button class="btn plan-builder-cta" id="btnPlanHubImport" type="button">Crear dieta y plan de entreno</button>
+        </div>
+      </div>
+
+      <div class="plan-cards">
+        <article class="plan-card">
+          <div class="plan-card-head">
+            <div class="plan-card-title">
+              <h4>Dieta del día</h4>
+              <button
+                class="info-dot plan-card-tip"
+                type="button"
+                data-help-tip
+                data-tip-title="Dieta del día (plan)"
+                data-tip-text="Aquí ves lo planificado para la fecha elegida. El registro real de tu día se guarda en Check-ins."
+              >i</button>
+            </div>
+            <span class="pill" id="planDietActualPill">Sin plan</span>
+          </div>
+          <div class="plan-macros mono" id="planDietMacros">Sin objetivos cargados.</div>
+          <div class="plan-meals" id="planDietMeals">
+            <div class="plan-empty">Importa <code>plan_diet_template.csv</code> y verás aquí tus comidas objetivo.</div>
+          </div>
+          <div class="plan-actions">
+            <button class="btn ghost danger" id="planDeleteDietDayBtn" type="button">Eliminar dieta del día</button>
+            <button class="btn ghost danger" id="planFlushDietBtn" type="button">Vaciar dieta plan completa</button>
+          </div>
+        </article>
+
+        <article class="plan-card">
+          <div class="plan-card-head">
+            <div class="plan-card-title">
+              <h4>Entreno planificado</h4>
+              <button
+                class="info-dot plan-card-tip"
+                type="button"
+                data-help-tip
+                data-tip-title="Entreno planificado (plan)"
+                data-tip-text="Aquí ves lo planificado para la fecha elegida. El registro real de tus sesiones se guarda en Entrenos."
+              >i</button>
+            </div>
+            <span class="pill" id="planWorkoutActualPill">Sin plan</span>
+          </div>
+          <div class="plan-macros mono" id="planWorkoutSummary">Sin entrenos cargados.</div>
+          <div class="plan-workout-list" id="planWorkoutSessions">
+            <div class="plan-empty">Importa <code>plan_workout_template.csv</code> para ver tus sesiones planificadas.</div>
+          </div>
+          <div class="plan-actions">
+            <button class="btn ghost danger" id="planFlushWorkoutBtn" type="button">Vaciar entreno plan completo</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="plan-adherence">
+        <div class="plan-adherence-grid">
+          <div class="field">
+            <label>Puntuación dieta</label>
+            <select id="planDietScore">
+              <option value="">—</option>
+              <option value="1">1 · Hecho</option>
+              <option value="0.5">0.5 · Parcial</option>
+              <option value="0">0 · No hecho</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Puntuación entreno</label>
+            <select id="planWorkoutScore">
+              <option value="">—</option>
+              <option value="1">1 · Hecho</option>
+              <option value="0.5">0.5 · Parcial</option>
+              <option value="0">0 · No hecho</option>
+            </select>
+          </div>
+          <div class="field span-all">
+            <label>Notas del día (opcional)</label>
+            <input type="text" id="planAdherenceNotes" placeholder="Qué salió bien, qué ajustar mañana..."/>
+          </div>
+        </div>
+        <div class="plan-adherence-actions">
+          <button class="btn ghost" id="planSaveAdherenceBtn" type="button">Guardar adherencia</button>
+        </div>
+        <div class="plan-adherence-history">
+          <div class="plan-adherence-history-head">
+            <strong>Histórico de adherencia</strong>
+            <div class="field compact">
+              <label for="planAdherenceWindow">Período</label>
+              <select id="planAdherenceWindow">
+                <option value="7">Últimos 7 días</option>
+                <option value="15" selected>Últimos 15 días</option>
+                <option value="30">Últimos 30 días</option>
+              </select>
+            </div>
+          </div>
+          <div class="mono plan-adherence-period" id="planAdherencePeriod">Resumen del período: sin puntuaciones guardadas.</div>
+          <div class="plan-adherence-history-list" id="planAdherenceHistoryList">
+            <div class="plan-empty">Sin puntuaciones guardadas en este período.</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="plan-disclaimer">
+        Gym Tracker muestra exactamente el plan que tú importas. No ofrece recomendaciones médicas, nutricionales ni deportivas.
+      </p>
+
+    </section>
+
+    </section>

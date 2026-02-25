@@ -1,0 +1,31 @@
+# OS / editor
+.DS_Store
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Local runtime data
+.tmp/
+test-results/
+stitch/
+tracker.db
+tracker.db-shm
+tracker.db-wal
+diet.csv
+check-ins.csv
+workout.csv
+supplements.csv
+static/uploads/
+
+# Local secrets
+.env.local
+AGENTS.md
+
+# Local launcher scripts
+run.command
+start_tracker.zsh

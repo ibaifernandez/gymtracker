@@ -1,0 +1,108 @@
+    <section class="app-view is-active" data-view="home">
+    <div class="home-overview">
+      <div class="home-main">
+        <div class="home-main-panel card">
+          <div class="kpis">
+            <div class="kpi card">
+              <div class="kpi-top">
+                <span class="kpi-title" id="kpiSleepTitle">SUEÑO</span>
+                <button class="info-dot" type="button" data-help-tip data-tip-title="Sueño" data-tip-text="Promedio de horas registradas en el período seleccionado.">i</button>
+              </div>
+              <div class="kpi-period mono" id="kSleepPeriod">
+                <span class="kpi-period-line">Del: —</span>
+                <span class="kpi-period-line">Al: —</span>
+              </div>
+              <div class="kpi-val" id="kSleep">—</div>
+              <div class="kpi-sub">promedio horas</div>
+              <div class="kpi-delta muted" id="kSleepDelta">Sin comparativa previa</div>
+            </div>
+
+            <div class="kpi card">
+              <div class="kpi-top">
+                <span class="kpi-title" id="kpiStepsTitle">PASOS</span>
+                <button class="info-dot" type="button" data-help-tip data-tip-title="Pasos" data-tip-text="Promedio de pasos diarios dentro del período seleccionado.">i</button>
+              </div>
+              <div class="kpi-period mono" id="kStepsPeriod">
+                <span class="kpi-period-line">Del: —</span>
+                <span class="kpi-period-line">Al: —</span>
+              </div>
+              <div class="kpi-val" id="kSteps">—</div>
+              <div class="kpi-sub">promedio diario</div>
+              <div class="kpi-delta muted" id="kStepsDelta">Sin comparativa previa</div>
+            </div>
+
+            <div class="kpi card">
+              <div class="kpi-top">
+                <span class="kpi-title" id="kpiWeightTitle">PESO</span>
+                <button class="info-dot" type="button" data-help-tip data-tip-title="Peso" data-tip-text="Promedio de peso corporal en el período seleccionado.">i</button>
+              </div>
+              <div class="kpi-period mono" id="kWeightPeriod">
+                <span class="kpi-period-line">Del: —</span>
+                <span class="kpi-period-line">Al: —</span>
+              </div>
+              <div class="kpi-val" id="kWeight">—</div>
+              <div class="kpi-sub">promedio kg</div>
+              <div class="kpi-delta muted" id="kWeightDelta">Sin comparativa previa</div>
+            </div>
+
+            <div class="kpi card">
+              <div class="kpi-top">
+                <span class="kpi-title" id="kpiWHRTitle">WHR</span>
+                <button class="info-dot" type="button" data-help-tip data-tip-title="WHR" data-tip-text="Relación cintura/cadera del período seleccionado.\n\nGuía de referencia general:\nmujer <= 0.85\nhombre <= 0.90.\n\nSi supera ambos umbrales, se considera fuera de rango.">i</button>
+              </div>
+              <div class="kpi-period mono" id="kWHRPeriod">
+                <span class="kpi-period-line">Del: —</span>
+                <span class="kpi-period-line">Al: —</span>
+              </div>
+              <div class="kpi-val" id="kWHR">—</div>
+              <div class="kpi-sub">cintura/cadera</div>
+              <div class="kpi-delta muted" id="kWHRDelta">Sin comparativa previa</div>
+            </div>
+          </div>
+
+          <div class="trend-line">
+            <div class="trend-title-row">
+              <div class="trend-title" id="trendTitle">Resumen del período</div>
+              <button class="info-dot" type="button" data-help-tip data-tip-title="Resumen del período" data-tip-text="Compara el inicio y el final del período seleccionado. Muestra la señal general y los cambios por métrica.">i</button>
+            </div>
+            <div class="trend-text" id="trendText">Aun no hay datos suficientes para mostrar tendencia.</div>
+            <div class="trend-delta" id="trendDelta">Necesitamos al menos dos registros comparables para calcular cambios.</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="home-side" aria-label="Análisis y filtros">
+        <div class="summary-bar card">
+          <div class="summary-headline">
+            <strong>Ventana de análisis</strong>
+            <button class="info-dot" type="button" data-help-tip data-tip-title="Ventana de análisis" data-tip-text="Elige un período predefinido (7/15/30/60/90) o uno personalizado para recalcular KPIs, tendencia y gráficas.">i</button>
+          </div>
+          <div class="summary-controls">
+            <div class="field">
+              <label>Ventana</label>
+              <select id="summaryModeSelect" aria-label="Tipo de ventana de análisis">
+                <option value="7">Últimos 7 días</option>
+                <option value="15">Últimos 15 días</option>
+                <option value="30">Últimos 30 días</option>
+                <option value="60">Últimos 60 días</option>
+                <option value="90">Últimos 90 días</option>
+                <option value="custom">Período personalizado</option>
+              </select>
+            </div>
+            <div class="summary-range-fields" id="summaryRangeFields" hidden>
+              <div class="field">
+                <label>Desde</label>
+                <input type="date" id="summaryFrom"/>
+              </div>
+              <div class="field">
+                <label>Hasta</label>
+                <input type="date" id="summaryTo"/>
+              </div>
+            </div>
+            <button class="btn ghost" id="summaryApplyBtn" type="button">Aplicar cambios</button>
+          </div>
+          <div class="summary-caption mono" id="summaryCaption">0 días con datos de un total de 0 en el período.</div>
+        </div>
+      </aside>
+    </div>
+    </section>

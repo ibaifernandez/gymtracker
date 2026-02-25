@@ -1,0 +1,21 @@
+{
+  "name": "tracker-local-qa",
+  "version": "0.0.1",
+  "private": true,
+  "description": "QA técnico (E2E) para Tracker local",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:ui": "playwright test --ui",
+    "release:check": "./release_check.sh",
+    "data:clear": "python3 tools/clear_data.py",
+    "data:seed": "python3 tools/seed_demo_data.py --reset-all --purge-future --days 45 --random-profile --random-seed",
+    "data:seed:90": "python3 tools/seed_demo_data.py --reset-all --purge-future --days 90 --random-profile --random-seed --diet-only",
+    "data:seed:90:full": "python3 tools/seed_demo_data.py --reset-all --purge-future --days 90 --random-profile --random-seed",
+    "seed:demo": "python3 tools/seed_demo_data.py --days 45 --profile fatloss --seed 42",
+    "seed:demo:reset": "python3 tools/seed_demo_data.py --reset-all --purge-future --days 45 --profile fatloss --seed 42"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.53.0"
+  }
+}

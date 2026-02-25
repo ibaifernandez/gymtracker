@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Acceso · Gym Tracker</title>
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem("theme");
+        if (mode !== "light" && mode !== "dark" && mode !== "system") mode = "system";
+        var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        var effective = mode === "system" ? (prefersLight ? "light" : "dark") : mode;
+        document.documentElement.setAttribute("data-theme", effective);
+        document.documentElement.setAttribute("data-theme-mode", mode);
+      } catch (_) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css', v=asset_v_css) }}"/>
+</head>
+<body class="page-login">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="head">
+        <div class="title">
+          <div>
+            <h1>Gym Tracker</h1>
+            <p class="sub">Acceso privado local</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap login-wrap">
+    <section class="login-card card">
+      <h2>Introduce tu clave</h2>
+      <p>Solo hay una cuenta local. No necesitas usuario.</p>
+
+      {% if error %}
+      <div class="login-error" role="alert">{{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="/login" class="login-form" autocomplete="off">
+        <input type="hidden" name="next" value="{{ next_path or '/' }}"/>
+        <div class="field">
+          <label for="password">Clave</label>
+          <input id="password" name="password" type="password" required autofocus placeholder="Tu clave local"/>
+        </div>
+        <button class="btn primary" type="submit">Entrar</button>
+      </form>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='login.js', v=asset_v_login_js) }}" defer></script>
+</body>
+</html>

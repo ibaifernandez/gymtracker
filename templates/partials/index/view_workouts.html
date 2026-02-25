@@ -1,0 +1,42 @@
+    <section class="app-view" data-view="workouts">
+    <div class="section">
+      <div class="section-head">
+        <div class="section-title-row">
+          <h2><span class="section-title-main">Entrenos (últimos <span id="workLimitLabel">15</span>)</span><button class="info-dot" type="button" data-help-tip data-tip-title="Tabla de entrenos" data-tip-text="Cada fila es una sesión. Toca la fila para editar o borrar.">i</button></h2>
+          <p class="section-count mono" id="workCountMeta">0 sesiones cargadas.</p>
+        </div>
+        <div class="section-actions">
+          <div class="search">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="workSearch" placeholder="Filtrar por fecha / tipo / clase / kg / reps…"/>
+          </div>
+          <select id="workLimitSelect" class="limit-select" aria-label="Ventana de entrenos">
+            <option value="7">Últimos 7 días</option>
+            <option value="15" selected>Últimos 15 días</option>
+            <option value="30">Últimos 30 días</option>
+            <option value="60">Últimos 60 días</option>
+            <option value="90">Últimos 90 días</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table card">
+        <table id="workTable">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Sesión</th>
+              <th>Hecho</th>
+              <th>Tipo</th>
+              <th>Clase / foco</th>
+              <th>RPE</th>
+              <th>Ejercicios</th>
+              <th>Notas</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    </section>

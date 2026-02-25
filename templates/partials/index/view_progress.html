@@ -1,0 +1,71 @@
+    <section class="app-view" data-view="progress">
+    <section class="performance card" aria-labelledby="perfTitle">
+      <div class="performance-head">
+        <div class="performance-title-row">
+          <h3 id="perfTitle">Rendimiento del periodo</h3>
+          <button class="info-dot" type="button" data-help-tip data-tip-title="Gráfica de rendimiento" data-tip-text="Muestra la evolución temporal de una métrica. Si faltan días, verás cobertura y huecos.">i</button>
+          <p id="perfSub">Serie temporal en el período seleccionado.</p>
+        </div>
+        <div class="performance-tools">
+          <button class="btn ghost" id="viewAllPhotosBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="2" stroke="currentColor" stroke-width="2"/><path d="M21 15l-4-4-5 5-3-3-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Ver fotos
+          </button>
+          <button class="btn ghost" id="shareReportBtn" type="button" hidden aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="2"/><path d="M8.8 10.7l6.4-3.4M8.8 13.3l6.4 3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Compartir
+          </button>
+          <button class="btn ghost" id="copyReportBtn" type="button" hidden aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Copiar
+          </button>
+          <button class="btn ghost" id="exportReportPdfBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15 3v3h3" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 14h8M8 18h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Informe PDF
+          </button>
+          <button class="btn ghost" id="exportReportBtn" type="button" hidden aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v3h16v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Informe PNG
+          </button>
+        </div>
+      </div>
+      <div class="performance-controls-row">
+        <div class="performance-metrics" id="perfMetricTabs">
+          <button class="chip active" data-chart-metric="weight_kg" type="button">Peso</button>
+          <button class="chip" data-chart-metric="whr" type="button">WHR</button>
+          <button class="chip" data-chart-metric="sleep_hours" type="button">Sueño</button>
+          <button class="chip" data-chart-metric="steps" type="button">Pasos</button>
+        </div>
+        <div class="field performance-mode-field">
+          <label class="sr-only" for="perfModeSelect">Ventana</label>
+          <select id="perfModeSelect" class="limit-select" aria-label="Ventana de análisis para progreso">
+            <option value="7">Últimos 7 días</option>
+            <option value="15" selected>Últimos 15 días</option>
+            <option value="30">Últimos 30 días</option>
+            <option value="60">Últimos 60 días</option>
+            <option value="90">Últimos 90 días</option>
+            <option value="custom">Período personalizado</option>
+          </select>
+        </div>
+      </div>
+      <div class="performance-range">
+        <div class="performance-range-fields" id="perfRangeFields" hidden>
+          <div class="field">
+            <label for="perfFrom">Desde</label>
+            <input type="date" id="perfFrom"/>
+          </div>
+          <div class="field">
+            <label for="perfTo">Hasta</label>
+            <input type="date" id="perfTo"/>
+          </div>
+        </div>
+        <button class="btn ghost" id="perfApplyBtn" type="button">Aplicar período</button>
+      </div>
+      <div class="performance-chart-wrap">
+        <svg id="perfChart" viewBox="0 0 1000 260" role="img" aria-label="Grafica temporal de rendimiento"></svg>
+        <div class="performance-empty" id="perfEmpty">Necesitamos al menos 2 puntos para dibujar la grafica.</div>
+      </div>
+      <div class="performance-foot" id="perfFoot">Sin datos suficientes para calcular variacion del periodo.</div>
+    </section>
+
+    </section>

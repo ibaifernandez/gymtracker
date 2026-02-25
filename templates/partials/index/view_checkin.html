@@ -1,0 +1,45 @@
+    <section class="app-view" data-view="checkin">
+    <div class="section">
+      <div class="section-head">
+        <div class="section-title-row">
+          <h2><span class="section-title-main">Check-ins (últimos <span id="dietLimitLabel">15</span>)</span><button class="info-dot" type="button" data-help-tip data-tip-title="Tabla de check-ins" data-tip-text="Filtra, toca una fila para editar o elimina desde el modal.">i</button></h2>
+          <p class="section-count mono" id="dietCountMeta">0 check-ins cargados.</p>
+        </div>
+        <div class="section-actions">
+          <div class="search">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="dietSearch" placeholder="Filtrar por fecha / sueño / pasos / peso…"/>
+          </div>
+          <select id="dietLimitSelect" class="limit-select" aria-label="Ventana de check-ins">
+            <option value="7">Últimos 7 días</option>
+            <option value="15" selected>Últimos 15 días</option>
+            <option value="30">Últimos 30 días</option>
+            <option value="60">Últimos 60 días</option>
+            <option value="90">Últimos 90 días</option>
+          </select>
+          <button class="btn ghost section-quick" id="btnImportDiet" type="button">Importar check-ins CSV</button>
+        </div>
+      </div>
+
+      <div class="table card">
+        <table id="dietTable">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Sueño</th>
+              <th>Calidad</th>
+              <th>Pasos</th>
+              <th>Peso</th>
+              <th>Cintura</th>
+              <th>Cadera</th>
+              <th>WHR</th>
+              <th>Foto</th>
+              <th>Alcohol</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    </section>

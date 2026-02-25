@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Gym Tracker</title>
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem("theme");
+        if (mode !== "light" && mode !== "dark" && mode !== "system") mode = "system";
+        var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        var effective = mode === "system" ? (prefersLight ? "light" : "dark") : mode;
+        document.documentElement.setAttribute("data-theme", effective);
+        document.documentElement.setAttribute("data-theme-mode", mode);
+      } catch (_) {}
+    })();
+  </script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css', v=asset_v_css) }}"/>
+</head>
+<body class="page-index">
+  {% include "partials/index/topbar.html" %}
+
+  <div class="wrap app-shell">
+    {% include "partials/index/view_home.html" %}
+    {% include "partials/index/view_plans.html" %}
+    {% include "partials/index/view_progress.html" %}
+    {% include "partials/index/view_checkin.html" %}
+    {% include "partials/index/view_supplements.html" %}
+    {% include "partials/index/view_workouts.html" %}
+    {% include "partials/index/view_data.html" %}
+    {% include "partials/index/footer.html" %}
+  </div>
+
+  {% include "partials/index/mobile_nav.html" %}
+  {% include "partials/index/utility_ui.html" %}
+  {% include "partials/index/modals.html" %}
+</body>
+</html>

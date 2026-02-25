@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Manual de uso · Gym Tracker</title>
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem("theme");
+        if (mode !== "light" && mode !== "dark" && mode !== "system") mode = "system";
+        var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        var effective = mode === "system" ? (prefersLight ? "light" : "dark") : mode;
+        document.documentElement.setAttribute("data-theme", effective);
+        document.documentElement.setAttribute("data-theme-mode", mode);
+      } catch (_) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css', v=asset_v_css) }}"/>
+</head>
+<body class="page-help">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="head">
+        <a class="title brand-title" href="/" rel="noopener">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 10h2v4H4V10Zm14 0h2v4h-2V10ZM7 8h2v8H7V8Zm8 0h2v8h-2V8Zm-5 3h4v2h-4v-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Gym Tracker</h1>
+          </div>
+        </a>
+
+        <nav class="view-nav top-nav-inline help-nav-inline" aria-label="Navegación principal">
+          <a class="view-tab" href="/#home" rel="noopener">Inicio</a>
+          <a class="view-tab" href="/#checkin" rel="noopener">Check-ins</a>
+          <a class="view-tab" href="/#workouts" rel="noopener">Entrenos</a>
+          <a class="view-tab" href="/#progress" rel="noopener">Progreso</a>
+          <a class="view-tab" href="/#plans" rel="noopener">Planes</a>
+          <a class="view-tab" href="/#data" rel="noopener">Datos</a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="topActions" aria-label="Abrir menú principal">
+          <svg class="menu-toggle-open" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="menu-toggle-close" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Menú
+        </button>
+
+        <div class="actions top-actions-compact" id="topActions">
+          <a class="btn ghost top-menu-link" href="/#home" rel="noopener">Inicio</a>
+          <a class="btn ghost top-menu-link" href="/#checkin" rel="noopener">Check-ins</a>
+          <a class="btn ghost top-menu-link" href="/#workouts" rel="noopener">Entrenos</a>
+          <a class="btn ghost top-menu-link" href="/#progress" rel="noopener">Progreso</a>
+          <a class="btn ghost top-menu-link" href="/#plans" rel="noopener">Planes</a>
+          <a class="btn ghost top-menu-link" href="/#data" rel="noopener">Datos</a>
+
+          <button class="btn ghost top-tool-btn" id="themeToggle" type="button" title="Cambiar tema">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="btn-label" id="themeLabel">Tema</span>
+          </button>
+
+          {% if auth_enabled %}
+          <button class="btn ghost top-tool-btn" id="btnLogout" type="button" title="Cerrar sesión">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="btn-label">Cerrar sesión</span>
+          </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="help-wrap">
+    <div class="help-top">
+      <div>
+        <h1>Como usar la plataforma</h1>
+        <p>
+          Esta pagina explica como completar cada tarea durante tu journey dentro del tracker:
+          registrar, editar, revisar, exportar y validar que todo funciona.
+        </p>
+      </div>
+      <div class="help-actions">
+        <div class="help-search">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="helpSearch" placeholder="Buscar: guardar, editar, foto, exportar, filtros..."/>
+        </div>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Indice del manual">
+      <a href="#inicio">Inicio rapido</a>
+      <a href="#onboarding">Onboarding guiado</a>
+      <a href="#acceso">Acceso (clave local)</a>
+      <a href="#plan">Planes (dieta y entreno)</a>
+      <a href="#checkin">Check-in diario</a>
+      <a href="#entreno">Registro de entreno</a>
+      <a href="#suplementos">Suplementos diarios</a>
+      <a href="#editar">Editar registros</a>
+      <a href="#fotos">Fotos de progreso</a>
+      <a href="#kpis-rango">KPIs por rango</a>
+      <a href="#graficas">Graficas e informe</a>
+      <a href="#filtros">Filtros y limites</a>
+      <a href="#exportar">Exportar CSV</a>
+      <a href="#importar">Importar CSV</a>
+      <a href="#importar-plan">Crear dieta y plan de entreno</a>
+      <a href="#backups">Backups</a>
+      <a href="#diagnostico">Diagnostico</a>
+    </nav>
+
+    <details class="panel" open id="inicio" data-keywords="inicio rapido usar app journey flujo principal">
+      <summary>
+        <h2>1) Inicio rapido (primeros 60 segundos)</h2>
+        <span class="caret">click para abrir/cerrar</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>Usa el botón flotante <span class="k">+</span> (FAB) para abrir acciones rápidas.</li>
+          <li>Pulsa <span class="k">Check-in</span> y guarda tu dia.</li>
+          <li>Pulsa <span class="k">Entreno</span> y guarda tu sesion.</li>
+          <li>Confirma que aparezcan filas nuevas en ambas tablas.</li>
+          <li>Si necesitas corregir algo, haz click en la fila y vuelve a guardar.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="panel" id="onboarding" data-keywords="onboarding primeros pasos checklist perfil plan diario kpi reportar bug">
+      <summary>
+        <h2>1.1) Onboarding guiado (5 minutos)</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>Configura tu clave local si quieres proteger la app (opcional).</li>
+          <li>Haz tu primer <span class="k">Check-in</span> y tu primer <span class="k">Entreno</span>.</li>
+          <li>Si ya tienes planificación, importa CSV en <span class="k">Hoy te toca</span>.</li>
+          <li>Ajusta ventana KPI con <span class="k">Desde/Hasta</span> para revisar tendencia real.</li>
+          <li>Cuando algo falle, usa <span class="k">Reportar bug</span> en el footer para copiar diagnóstico técnico.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="panel" id="plan" data-keywords="plan diario hoy te toca importar csv dieta rutina ejercicios adherencia">
+      <summary>
+        <h2>2.1) Plan diario (hoy te toca)</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li>En home tienes un bloque llamado <span class="k">Hoy te toca</span> con dos tarjetas: <span class="k">Dieta del dia</span> y <span class="k">Entreno planificado</span>.</li>
+          <li>Ese bloque muestra lo importado en tus CSV de plan, separado de tus registros reales.</li>
+          <li>Puedes elegir fecha del plan y cargar cualquier dia concreto con <span class="k">Cargar dia</span>.</li>
+          <li>Desde ahi puedes abrir en 1 click <span class="k">Check-in</span> o <span class="k">Entreno</span> para registrar lo que realmente hiciste.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="panel" id="acceso" data-keywords="login acceso clave auth sesion logout">
+      <summary>
+        <h2>2) Acceso (clave local opcional)</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li>Si el auth local esta activo, la app te lleva a <span class="k">/login</span>.</li>
+          <li>Solo introduces <span class="k">clave</span> (no hay usuario).</li>
+          <li>Cuando cierras sesion, cualquier intento de entrar a GUI/API vuelve a pedir la clave.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="panel" id="checkin" data-keywords="check-in dieta sueno pasos peso cintura cadera creatina alcohol guardar">
+      <summary>
+        <h2>3) Como hacer un check-in diario</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>Abre el FAB (<span class="k">+</span>) y pulsa <span class="k">Check-in</span>.</li>
+          <li>Rellena fecha y los campos que quieras (no hace falta rellenar todo).</li>
+          <li>Opcional: selecciona foto de progreso.</li>
+          <li>Pulsa <span class="k">Guardar</span>.</li>
+        </ol>
+        <p>La fecha es la clave. Si intentas crear otro check-in para un dia ya existente, la app te pedira editar la fila existente.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="entreno" data-keywords="entreno rutina clase rpe topset notas guardar">
+      <summary>
+        <h2>4) Como registrar un entreno</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>Abre el FAB (<span class="k">+</span>) y pulsa <span class="k">Entreno</span>.</li>
+          <li>Elige tipo de sesion: <span class="k">Clase</span> o <span class="k">Pesas</span>.</li>
+          <li>En <span class="k">Pesas</span>, registra carga por campos separados: <span class="k">peso</span>, <span class="k">reps</span> y <span class="k">RPE</span>.</li>
+          <li>Completa notas y guarda.</li>
+          <li>Pulsa <span class="k">Guardar</span>.</li>
+        </ol>
+        <p>En rutina puedes crear varias sesiones el mismo dia; cada sesion queda separada y editable.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="suplementos" data-keywords="suplementos melatonina whey creatina tomas por dia registro diario">
+      <summary>
+        <h2>4.1) Como usar suplementos diarios</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>Abre el registro diario con el icono del frasco en el header o tocando una fila en <span class="k">Suplementos</span>.</li>
+          <li>Verás una tabla histórica por fecha (objetivo, realizadas, adherencia y notas).</li>
+          <li>En el modal, ajusta la fecha y pulsa <span class="k">Añadir</span> para recargar los suplementos activos de esa fecha.</li>
+          <li>Toca cualquier fila para editar o borrar ese día concreto.</li>
+          <li>Desde ese mismo modal puedes abrir <span class="k">Catálogo de suplementos</span> (esquina superior derecha) para crear/editar tu lista base.</li>
+        </ol>
+        <p>La adherencia del día se muestra en modo legible: porcentaje base (hasta 100%) y, si aplica, tomas extra por encima del objetivo.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="editar" data-keywords="editar actualizar corregir fila click">
+      <summary>
+        <h2>5) Como editar un registro existente</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>Haz click sobre la fila en la tabla de dieta o rutina.</li>
+          <li>Se abre el modal con datos precargados.</li>
+          <li>Modifica lo necesario y vuelve a guardar.</li>
+          <li>Si quieres borrarlo, usa <span class="k">Eliminar</span> dentro del modal y confirma.</li>
+        </ol>
+        <p>En check-ins, al eliminar tambien se borra la foto asociada de esa fecha (si existe).</p>
+        <p>Cuando termina bien, veras un toast de confirmacion y la tabla refrescada.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="fotos" data-keywords="fotos subir reemplazar confirmar lightbox ver foto">
+      <summary>
+        <h2>6) Como usar fotos de progreso</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>En check-in, selecciona archivo en el input de foto.</li>
+          <li>Guarda el check-in.</li>
+          <li>Para ver la foto: pulsa <span class="k">Ver foto</span> en la tabla (se abre lightbox).</li>
+          <li>En el lightbox puedes navegar entre miniaturas y usar <span class="k">Comparar</span> para ver antes/despues con slider.</li>
+          <li>En la cabecera del lightbox veras metadatos utiles: fecha, peso, WHR y nombre del archivo.</li>
+          <li>Si vuelves a subir foto en la misma fecha, la app pide confirmacion antes de reemplazar.</li>
+        </ol>
+        <p class="muted">
+          Formatos permitidos: jpg, jpeg, png, webp. Tamano maximo: 10 MB.
+          La app intenta comprimir/redimensionar automaticamente al guardar (si el entorno tiene Pillow); si no se puede optimizar, conserva la foto original.
+        </p>
+      </div>
+    </details>
+
+    <details class="panel" id="kpis-rango" data-keywords="kpis rango desde hasta tendencia peso whr">
+      <summary>
+        <h2>7) KPIs por rango libre y tendencia</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>En <span class="k">Ventana</span>, elige <span class="k">7/15/30/60/90 días</span> para cálculo rápido.</li>
+          <li>Si eliges <span class="k">Período personalizado</span>, aparecerán <span class="k">Desde</span> y <span class="k">Hasta</span>.</li>
+          <li>Pulsa <span class="k">Aplicar cambios</span>.</li>
+          <li>La app recalcula los 4 KPIs para ese periodo y muestra una linea de tendencia corporal.</li>
+          <li>Cada KPI muestra estado clinico de contexto: <span class="k">Mejor</span>, <span class="k">Igual</span> o <span class="k">Peor</span>.</li>
+          <li>En WHR se muestra referencia dual visible: <span class="k">♀️ <= 0.85</span> y <span class="k">♂️ <= 0.90</span>.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="panel" id="graficas" data-keywords="grafica rendimiento informe pdf fotos">
+      <summary>
+        <h2>8) Graficas e informe rapido</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li>En <span class="k">Rendimiento del periodo</span> cambia la metrica para ver su curva temporal.</li>
+          <li>La curva respeta fechas reales: si faltan dias de registro, se veran huecos en la progresion temporal.</li>
+          <li>Pulsa <span class="k">Ver fotos</span> para abrir la galeria de progreso.</li>
+          <li>Pulsa <span class="k">Informe PDF</span> para abrir el dialogo de imprimir/guardar en PDF.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="panel" id="filtros" data-keywords="filtro buscar limite 14 30">
+      <summary>
+        <h2>9) Filtros y limite de filas</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li>Usa la caja de busqueda para filtrar por texto en cada tabla.</li>
+          <li>Usa <span class="k">Ver todo</span> para abrir el bloque completo de una vez (limite 30 y filtro limpio).</li>
+          <li>Usa el selector de ventana (<span class="k">7 / 15 / 30 / 60 / 90 dias</span>) para elegir cuántos días calendario analizar.</li>
+          <li>En móvil pequeño, las tablas se renderizan como <span class="k">tarjetas por fila</span> para evitar scroll horizontal infinito.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="panel" id="exportar" data-keywords="exportar csv diet workout suplementos">
+      <summary>
+        <h2>10) Como exportar tus datos</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li><span class="k">Exportar check-ins</span> descarga `check-ins.csv`.</li>
+          <li><span class="k">Exportar entrenos</span> descarga `workout.csv`.</li>
+          <li><span class="k">Exportar suplementos</span> descarga `supplements.csv`.</li>
+        </ul>
+        <p>La exportacion de rutina usa columnas estructuradas (sin columna legacy de resumen compactado).</p>
+        <p>Los CSV ya salen con formato robusto para no romperse cuando un texto incluye comas.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="importar" data-keywords="importar csv dieta preview previsualizar conflictos">
+      <summary>
+        <h2>11) Como importar dieta desde CSV</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>Entra en la vista <span class="k">Datos</span> y pulsa <span class="k">Importar check-ins</span>.</li>
+          <li>Descarga la plantilla oficial <span class="k">checkin_import_template.csv</span> desde el modal.</li>
+          <li>Selecciona un archivo <span class="k">.csv</span>.</li>
+          <li>Pulsa <span class="k">Previsualizar</span> para revisar filas validas, conflictos y errores.</li>
+          <li>Pulsa <span class="k">Importar filas validas</span> para guardar solo las filas nuevas.</li>
+        </ol>
+        <p>La importacion no sobrescribe fechas existentes por defecto. Las fechas ya presentes se marcan como conflicto y se omiten.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="importar-plan" data-keywords="crear dieta plan entreno csv ia plantillas importacion sesiones ejercicios">
+      <summary>
+        <h2>11.1) Crear dieta y plan de entreno (CSV + IA)</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>En la vista <span class="k">Planes</span>, haz click en <span class="k">Crear dieta y plan de entreno</span>.</li>
+          <li>Abre la guía paso a paso y descarga los 5 archivos oficiales (2 CSV + 3 MD).</li>
+          <li>Copia el prompt, súbelo a tu IA junto con esos archivos y genera tus 2 CSV finales.</li>
+          <li>Importa los resultados desde la misma guía:
+            <span class="k">CSV de dieta</span> y <span class="k">CSV de plan de entreno</span>.
+          </li>
+          <li>Si aparecen avisos o errores, revisa el detalle sugerido y corrige el CSV antes de reimportar.</li>
+          <li>La adherencia diaria se guarda aparte (puntuación 1 / 0.5 / 0) y no modifica tus registros de check-ins/entrenos reales.</li>
+        </ol>
+        <p class="muted">Disclaimer: Gym Tracker es una herramienta de organización personal y no sustituye la consulta con profesionales de nutrición, medicina o ciencias del deporte.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="backups" data-keywords="backup exportar restaurar zip recuperar">
+      <summary>
+        <h2>12) Backups locales (1-click)</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li><span class="k">Exportar backup</span>: descarga un ZIP con tu <span class="k">tracker.db</span> y carpeta <span class="k">uploads/</span>.</li>
+          <li><span class="k">Restaurar backup</span>: abre modal, selecciona ZIP y confirma restauracion.</li>
+        </ul>
+        <p class="warn">Restaurar reemplaza el estado actual (DB y fotos) por el contenido del backup.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="diagnostico" data-keywords="diagnostico checks curl puerto 5050">
+      <summary>
+        <h2>13) Diagnostico rapido si algo falla</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <p>Primero: pulsa <span class="k">Reportar bug</span> en el footer y copia el bloque técnico.</p>
+        <p>Si el footer marca <span class="k">Error de sincronizacion</span>, revisa estos comandos primero:</p>
+        <div class="code">curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:5050/</div>
+        <div class="code">curl -s http://127.0.0.1:5050/api/state?limit=1</div>
+        <div class="code">lsof -nP -iTCP:5050 -sTCP:LISTEN</div>
+      </div>
+    </details>
+
+    <footer class="app-footer app-footer-page">
+      <div class="sync-state mono ok">Centro de ayuda</div>
+      <a class="btn ghost" href="/" rel="noopener">Volver al tracker</a>
+      <a class="btn ghost" href="/changelog" rel="noopener">Changelog</a>
+      <button class="btn ghost" id="btnReportBug" type="button">Reportar bug</button>
+    </footer>
+  </main>
+
+  <script src="{{ url_for('static', filename='help.js') }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Changelog · Gym Tracker</title>
+  <script>
+    (function () {
+      try {
+        var mode = localStorage.getItem("theme");
+        if (mode !== "light" && mode !== "dark" && mode !== "system") mode = "system";
+        var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        var effective = mode === "system" ? (prefersLight ? "light" : "dark") : mode;
+        document.documentElement.setAttribute("data-theme", effective);
+        document.documentElement.setAttribute("data-theme-mode", mode);
+      } catch (_) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css', v=asset_v_css) }}"/>
+</head>
+<body class="page-changelog">
+  <div class="topbar">
+    <div class="wrap">
+      <div class="head">
+        <div class="title">
+          <div>
+            <h1>Changelog · Gym Tracker</h1>
+            <p class="sub">Historial de versiones funcionales de la app local.</p>
+          </div>
+        </div>
+
+        <div class="actions">
+          {% if auth_enabled %}
+          <button class="btn ghost" id="btnLogout" type="button">Cerrar sesión</button>
+          {% endif %}
+          <a class="btn ghost" href="/" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Volver
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="changelog-wrap">
+    <section class="changelog-intro card">
+      <div>
+        <h2>Estado actual</h2>
+        <p>
+          Gym Tracker permite registrar check-ins diarios, entrenos, subir/reemplazar foto de progreso
+          con confirmacion, gestionar suplementos diarios, importar/exportar CSV, crear/restaurar backups
+          y trabajar con una clave local opcional.
+        </p>
+      </div>
+      <span class="chip mono">local only</span>
+    </section>
+
+    <section class="release card" aria-labelledby="v0018rc5">
+      <div class="release-head">
+        <h2 id="v0018rc5">v0.0.1.8-rc5 (en preparación)</h2>
+        <span class="release-date mono">2026-02-18</span>
+      </div>
+      <p class="release-sub">Remozado Stitch - fase 1 hasta paso 9 cerrado (incluye home reordenada + componentización técnica de templates).</p>
+      <ul class="release-list">
+        <li>La home se divide por intención en vistas: <code>Inicio</code>, <code>Check-ins</code>, <code>Entrenos</code>, <code>Progreso</code>, <code>Planes</code> y <code>Datos</code>.</li>
+        <li>Header simplificado con foco en acciones diarias + botón hamburguesa real en móvil para mostrar/ocultar acciones top.</li>
+        <li>Navegación móvil inferior con iconos + labels, manteniendo el FAB para altas rápidas.</li>
+        <li>Navegación desktop ahora en una sola franja: logo a la izquierda, menú textual central y herramientas a la derecha.</li>
+        <li>En desktop, tema y cerrar sesión pasan a iconos compactos en la barra superior.</li>
+        <li>FAB también visible en desktop con acciones rápidas de <code>Check-in</code>, <code>Entreno</code> y <code>Suplementos</code>.</li>
+        <li>La app ahora abre siempre en <code>Inicio</code> al cargar, sin quedarse fijada en la última vista.</li>
+        <li><code>/stitch</code> pasa a estar fuera del control de versiones para evitar ruido en commits productivos.</li>
+        <li>Se unifica la home (ya no hay duplicidad de secciones): primero <code>KPIs</code> y bloque de tendencia, luego panel de análisis en sidebar.</li>
+        <li>KPIs + resumen se agrupan en una misma caja y la tarjeta de <code>Ventana de análisis</code> se iguala en altura en desktop.</li>
+        <li>El bloque <code>Resumen del período</code> ahora incluye el rango en el título y cambios en formato de lista ordenada por métrica.</li>
+        <li>Se añaden deltas de <code>Sueño</code> y <code>Pasos</code> al resumen cuando hay datos comparables, además de <code>Peso</code> y <code>Cintura/cadera</code>.</li>
+        <li>Contraste corregido en tema claro para la sección <code>Cambios en el período</code>.</li>
+        <li>Suplementos remozado a UX tipo tabla histórica: filas por fecha, click para editar en modal y borrado por día.</li>
+        <li>Catálogo de suplementos movido a modal dedicado para reducir ruido visual y mantener flujo de registro diario.</li>
+        <li>Suplementos: copy aclarado en catálogo (<code>Disponible en registro diario</code>) para evitar confusión de estado activo/inactivo.</li>
+        <li>Suplementos: en registro diario, el botón <code>Añadir</code> recarga los suplementos activos de la fecha elegida y el mensaje vacío ahora indica cómo resolverlo.</li>
+        <li>El botón del frasco en header deja de navegar y ahora abre directamente el modal de <code>Registro de suplementos</code> para alta rápida.</li>
+        <li>Vista <code>Suplementos</code> simplificada: se retiran acciones redundantes bajo título para dejar foco en búsqueda, filtro y tabla.</li>
+        <li>El acceso a <code>Catálogo de suplementos</code> se mueve al modal de <code>Registro de suplementos</code> para mantener el flujo en un solo lugar.</li>
+        <li>Vista <code>Datos</code> reorganizada por familias: <code>Importación</code>, <code>Exportación</code> y <code>Backups</code>.</li>
+        <li>Importación de check-ins: nuevo enlace de plantilla oficial <code>checkin_import_template.csv</code> dentro del modal.</li>
+        <li>Versionado de assets estáticos por query param (<code>?v=mtime</code>) para evitar cache vieja de CSS/JS tras cambios de UI.</li>
+        <li>Check-ins y entrenos dejan el switch 14/30 y pasan a selector de ventana: <code>7 / 15 / 30 / 60 / 90</code>.</li>
+        <li>Entrenos: se elimina el tipo <code>mixta</code>; ahora solo existen <code>clase</code> o <code>pesas</code> (si haces ambas el mismo día, se registran como dos sesiones).</li>
+        <li>Migración automática de datos legacy: cualquier sesión <code>mixta</code> existente se normaliza a <code>pesas</code>.</li>
+        <li>La <code>Ventana de análisis</code> en Inicio se simplifica a un solo dropdown: <code>7 / 15 / 30 / 60 / 90</code> o <code>Período personalizado</code> (que muestra <code>Desde/Hasta</code>).</li>
+        <li>La vista <code>Progreso</code> incorpora el mismo selector de período (<code>7/15/30/60/90</code> y <code>personalizado</code>) sincronizado con Inicio para recalcular la gráfica con la misma ventana activa.</li>
+        <li>La gráfica de rendimiento en <code>Progreso</code> se ajusta para aprovechar mejor el ancho completo de su contenedor.</li>
+        <li>Progreso: barra de acciones simplificada para foco diario (<code>Ver fotos</code> + <code>Informe PDF</code> visibles); los demás flujos quedan preservados en lógica.</li>
+        <li>Progreso: título + tooltip + texto de apoyo se ordenan en una sola fila y controles de métrica/ventana se compactan para reducir scroll visual.</li>
+        <li>Progreso: exportación <code>Informe PDF</code> reforzada para abrir ventana primero y evitar bloqueos silenciosos del navegador.</li>
+        <li>Las ventanas de <code>Check-ins</code>, <code>Entrenos</code> y <code>Suplementos</code> pasan a lógica de <strong>días calendario reales</strong> (ya no “últimos N registros”).</li>
+        <li>Home KPI: copy más humano (<code>Mejor:</code>, <code>Peor:</code>, <code>Igual:</code>) y metadatos separados en bloque legible con <code>Período comparado</code> (<code>Del/Al</code>) + disclaimer de cómputo por días calendario.</li>
+        <li>WHR en home: se elimina texto extra bajo la métrica; umbrales y contexto quedan en tooltip.</li>
+        <li>Formato numérico unificado en español: coma decimal y separadores de miles en KPIs, tablas y preview de importación.</li>
+        <li>Estado del footer en Inicio más humano: <code>Última sincronización: HH:MM:SS</code>; se ocultan accesos manual/changelog y <code>Reportar bug</code> pasa a icono compacto.</li>
+        <li>Ayuda contextual inmediata mediante iconos <code>(i)</code> con popover (desktop y móvil).</li>
+        <li>Tablas de <code>Check-ins</code> y <code>Entrenos</code> ahora usan modo tarjeta en móvil pequeño para evitar scroll horizontal continuo.</li>
+        <li>Pulido visual de modales (<code>Check-in</code>/<code>Entreno</code>) y centrado consistente en <code>lightbox</code>.</li>
+        <li>Refactor técnico: <code>templates/index.html</code> queda dividido en parciales Jinja (<code>templates/partials/index/*</code>) sin cambios de comportamiento.</li>
+        <li>Ajuste de E2E para usar el nuevo FAB como entrada principal de altas rápidas.</li>
+        <li>QA del paso: Playwright <code>8/8</code> en verde.</li>
+      </ul>
+    </section>
+
+    <section class="release card" aria-labelledby="v0017">
+      <div class="release-head">
+        <h2 id="v0017">v0.0.1.7 (estable)</h2>
+        <span class="release-date mono">2026-02-16</span>
+      </div>
+      <p class="release-sub">Empujon UX/ops: resumen mas navegable y soporte rapido de incidencias.</p>
+      <ul class="release-list">
+        <li>Nuevos CTA <code>Ver todo</code> en dieta y rutina: limpian filtro y llevan el limite a 30 en un toque.</li>
+        <li>Nuevo boton <code>Ver todas fotos</code> en rendimiento para abrir la galeria completa directamente.</li>
+        <li>Nuevo flujo <code>Reportar bug</code> en footer: modal con diagnostico tecnico, copiar al portapapeles y abrir email.</li>
+        <li>Manual reforzado con seccion de onboarding guiado y pasos de diagnostico centrados en el nuevo reporte.</li>
+        <li>Documentacion operativa ampliada para despliegue local: Docker opcional, perfilado CPU/RAM y guia Tailscale.</li>
+        <li>QA de cierre: backend <code>28/28</code> y Playwright <code>8/8</code>.</li>
+      </ul>
+    </section>
+
+    <section class="release card" aria-labelledby="v0016">
+      <div class="release-head">
+        <h2 id="v0016">v0.0.1.6 (estable)</h2>
+        <span class="release-date mono">2026-02-16</span>
+      </div>
+      <p class="release-sub">Llega el modulo "Hoy te toca": plan diario de dieta/rutina separado del registro real.</p>
+      <ul class="release-list">
+        <li>Nueva seccion en home: <code>Hoy te toca</code> con tarjetas <code>Dieta del dia</code> y <code>Ejercicios adecuados</code>.</li>
+        <li>Nuevo flujo de importacion CSV de plan desde GUI (modal dedicado): dieta, sesiones y ejercicios.</li>
+        <li>Nuevas plantillas descargables oficiales desde la app para estandarizar formato.</li>
+        <li>Adherencia diaria manual (1 / 0.5 / 0) separada del log real para comparar "plan" vs "hecho".</li>
+        <li>Quick actions desde plan: abrir check-in y entreno con la fecha del plan.</li>
+        <li>QA de cierre: backend <code>28/28</code> y Playwright <code>7/7</code>.</li>
+      </ul>
+    </section>
+
+    <section class="release card" aria-labelledby="v0015">
+      <div class="release-head">
+        <h2 id="v0015">v0.0.1.5 (estable)</h2>
+        <span class="release-date mono">2026-02-16</span>
+      </div>
+      <p class="release-sub">Compresión automática de fotos en subida/reemplazo con fallback seguro.</p>
+      <ul class="release-list">
+        <li>El guardado de fotos ahora intenta <code>redimensionar + comprimir</code> automáticamente para reducir peso en disco.</li>
+        <li>Nueva configuración opcional por entorno: <code>TRACKER_PHOTO_COMPRESSION_ENABLED</code>, <code>TRACKER_PHOTO_MAX_SIDE</code>, <code>TRACKER_PHOTO_QUALITY</code> y <code>TRACKER_PHOTO_PREFER_WEBP</code>.</li>
+        <li>Si no hay Pillow, la imagen no es decodificable o la compresión no mejora tamaño, se conserva el archivo original sin romper el flujo.</li>
+        <li>Cobertura QA ampliada para foto: pruebas unitarias de compresión/fallback y regresión completa en E2E.</li>
+        <li>QA de cierre: backend <code>26/26</code> y Playwright <code>7/7</code>.</li>
+      </ul>
+    </section>
+
+    <section class="release card" aria-labelledby="v0014">
+      <div class="release-head">
+        <h2 id="v0014">v0.0.1.4 (estable)</h2>
+        <span class="release-date mono">2026-02-16</span>
+      </div>
+      <p class="release-sub">Expansión de suplementos v1 con edición completa y registro diario.</p>
+      <ul class="release-list">
+        <li>Nuevo boton <code>Suplementos</code> en el header para abrir el modulo dedicado.</li>
+        <li>Catalogo editable de suplementos (CRUD): nombre, tomas por dia, activo Y/N y notas.</li>
+        <li>Registro diario por fecha: tomas realizadas por suplemento + observaciones opcionales.</li>
+        <li>Resumen de adherencia por dia en el modal (objetivo vs realizadas en tomas).</li>
+        <li>Nuevo export <code>/export/supplements.csv</code> con catalogo y logs diarios.</li>
+        <li>QA actualizado: backend <code>24/24</code> y Playwright <code>7/7</code>.</li>
+      </ul>
+    </section>
+
+    <section class="release card" aria-labelledby="v0013">
+      <div class="release-head">
+        <h2 id="v0013">v0.0.1.3 (estable)</h2>
+        <span class="release-date mono">2026-02-16</span>
+      </div>
+      <p class="release-sub">Pulido de rendimiento compartible + feedback operativo en la interfaz.</p>
+      <ul class="release-list">
+        <li>Seccion de rendimiento mejorada: grafica con area bajo curva, etiquetas de eje Y y puntos mas legibles.</li>
+        <li>KPIs con lectura clinica de contexto: <code>Mejor</code>, <code>Igual</code> o <code>Peor</code> con semaforo verde/amarillo/rojo.</li>
+        <li>Referencia WHR visible con ambos umbrales en KPI: <code>♀️ <= 0.85</code> y <code>♂️ <= 0.90</code>.</li>
+        <li>Informe v2: ademas del PNG, ahora hay flujo para <code>PDF</code> (imprimir/guardar) y boton <code>Copiar</code> resumen textual.</li>
+        <li>Informe compartible en 1 toque: nuevo boton <code>Compartir</code> (Web Share nativo) con fallback automatico a <code>copiar resumen + descargar PNG</code>.</li>
+        <li>Footer con estado operativo en vivo: <code>Sincronizando</code>, <code>Sincronizado hh:mm:ss</code> o <code>Error de sincronizacion</code>.</li>
+        <li>Lightbox con metadatos utiles por foto: fecha, peso, WHR y nombre de archivo.</li>
+        <li>QA de cierre (2026-02-16): backend <code>23/23</code>, Playwright <code>6/6</code>, stress <code>5000/5000</code> y ronda extrema <code>11997/12000</code> (~99.975%).</li>
+      </ul>
+    </section>
+
+    <section class="release card" aria-labelledby="v0012">
+      <div class="release-head">
+        <h2 id="v0012">v0.0.1.2 (estable)</h2>
+        <span class="release-date mono">2026-02-16</span>
+      </div>
+      <p class="release-sub">Barrido funcional + documental sobre la base estable v0.0.1.1.</p>
+      <ul class="release-list">
+        <li>Nueva seccion <code>Rendimiento del periodo</code> con graficas simples por metrica (peso, WHR, sueño, pasos).</li>
+        <li>Boton de informe rapido: descarga un PNG con resumen del periodo.</li>
+        <li>Lightbox evolutivo: galeria real con miniaturas dinamicas, contador y navegacion anterior/siguiente.</li>
+        <li>Comparador de fotos v1: slider antes/despues usando la foto actual vs la anterior.</li>
+        <li>CRUD completo en GUI: ya puedes <code>eliminar</code> check-ins y sesiones de entreno desde su modal de edicion.</li>
+        <li>CSV de rutina limpiado: se elimina columna legacy <code>topset_text</code>; se exportan solo campos estructurados.</li>
+        <li>Ajuste de copy: <code>Exportar check-ins</code> pasa a <code>Exportar registros</code> y <code>Exportar rutina</code> pasa a <code>Exportar entrenos</code>.</li>
+        <li>Grafica temporal ajustada para respetar huecos por fecha real cuando faltan dias de registro.</li>
+        <li>QA de esta version en verde: backend <code>23/23</code> y Playwright <code>6/6</code>.</li>
+      </ul>
+    </section>
+
+    <section class="release card" aria-labelledby="v0011">
+      <div class="release-head">
+        <h2 id="v0011">v0.0.1.1 (estable)</h2>
+        <span class="release-date mono">2026-02-16</span>
+      </div>
+      <p class="release-sub">Release estable con flujo diario completo y QA tecnico en verde.</p>
+      <ul class="release-list">
+        <li>KPIs por rango libre + modo base de <code>7 dias naturales</code> con cobertura de datos visible.</li>
+        <li>Tendencia corporal del periodo con lectura de <code>Delta peso</code> + <code>Delta WHR</code>.</li>
+        <li>Importacion de dieta por CSV con <code>preview</code> (validas/conflicto/invalidas) sin sobrescritura accidental.</li>
+        <li>Entreno flexible: varias sesiones el mismo dia y ejercicios dinamicos por sesion.</li>
+        <li>Backups 1-click desde GUI: export ZIP y restore con confirmacion.</li>
+        <li>Auth local opcional: <code>/login</code>, <code>/logout</code> y bloqueo de GUI/API cuando hay clave configurada.</li>
+        <li>Arranque robusto con auth: el healthcheck local ya reconoce estado <code>401 No autenticado</code> como app viva.</li>
+        <li>QA automatizado en verde: backend <code>21/21</code> y Playwright <code>6/6</code>.</li>
+      </ul>
+    </section>
+
+    <section class="release card" aria-labelledby="v0002">
+      <div class="release-head">
+        <h2 id="v0002">v0.0.0.2</h2>
+        <span class="release-date mono">2026-02-15</span>
+      </div>
+      <p class="release-sub">Version estable congelada tras cierre de QA tecnico y E2E.</p>
+      <ul class="release-list">
+        <li>Playwright E2E en verde (<code>2/2</code>): check-in/edicion/lightbox y entreno/filtros/limites.</li>
+        <li>Ruteo de fotos normalizado a <code>/uploads/...</code> para eliminar 404 en entornos de pruebas aislados.</li>
+        <li>Backend blindado para no persistir <code>photo_yn=Y</code> sin archivo real asociado.</li>
+        <li>Suite backend subida a <code>11/11</code> tests pasando con nueva cobertura de servicio de imagen.</li>
+      </ul>
+    </section>
+
+    <section class="release card" aria-labelledby="v0001">
+      <div class="release-head">
+        <h2 id="v0001">v0.0.0.1</h2>
+        <span class="release-date mono">2026-02-15</span>
+      </div>
+      <p class="release-sub">Primera version funcional consolidada para uso diario en local.</p>
+      <ul class="release-list">
+        <li>Flujo completo de check-in y entreno con edicion por fecha.</li>
+        <li>Fotos de progreso con preview, lightbox, confirmacion de reemplazo y borrado seguro del archivo previo.</li>
+        <li>Tema claro/oscuro por GUI con persistencia local.</li>
+        <li>Exportacion `diet.csv` y `workout.csv` con escape correcto de comas y texto libre.</li>
+        <li>Ayuda convertida en manual de uso y backlog consolidado como SSOT.</li>
+      </ul>
+    </section>
+
+    <footer class="app-footer app-footer-page">
+      <a class="btn ghost" href="/help" rel="noopener">Manual de uso</a>
+      <a class="btn ghost" href="/" rel="noopener">Volver al tracker</a>
+    </footer>
+  </main>
+
+  <script src="{{ url_for('static', filename='changelog.js') }}" defer></script>
+</body>
+</html>

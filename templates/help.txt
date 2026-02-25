@@ -1,0 +1,274 @@
+<!-- templates/help.html -->
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ayuda · Tracker local</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
+  <style>
+    /* Estilos mínimos solo para la ayuda (reutiliza styles.css) */
+    .help-wrap{max-width:980px;margin:0 auto;padding:22px 18px 50px;}
+    .help-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:10px;}
+    .help-top h1{margin:0;font-size:18px;letter-spacing:.2px}
+    .help-top p{margin:6px 0 0;color:var(--muted);font-size:13px;max-width:72ch}
+    .help-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .help-search{
+      display:flex;align-items:center;gap:8px;
+      padding:10px 12px;border-radius:14px;border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      min-width:min(420px, 92vw);
+    }
+    .help-search input{
+      width:100%;border:none;outline:none;background:transparent;
+      color:var(--text);font-size:13px;
+    }
+    .toc{
+      margin:14px 0 18px;
+      display:flex;gap:8px;flex-wrap:wrap;
+    }
+    .toc a{
+      text-decoration:none;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+    }
+    .toc a:hover{ transform: translateY(-1px); }
+    .panel{
+      background: linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      margin: 12px 0;
+    }
+    .panel summary{
+      cursor:pointer;
+      list-style:none;
+      padding:14px 14px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      user-select:none;
+    }
+    .panel summary::-webkit-details-marker{display:none;}
+    .panel h2{margin:0;font-size:13px;letter-spacing:.2px;color:var(--text);font-weight:900;text-transform:none;}
+    .caret{font-family:var(--mono);color:var(--muted);font-size:12px;}
+    .panel .body{
+      padding:0 14px 14px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+    .k{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:2px 6px;
+      border-radius:8px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      white-space:nowrap;
+    }
+    .code{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:10px 10px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      overflow:auto;
+      margin:10px 0;
+    }
+    @media (prefers-color-scheme: light){
+      .code{ background: rgba(12,16,32,.06); }
+    }
+    .muted{color:var(--muted)}
+    .ok{color:var(--good);font-weight:800}
+    .warn{color:var(--warn);font-weight:800}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="head">
+        <div class="title">
+          <div class="badge" aria-hidden="true"></div>
+          <div>
+            <h1>Ayuda · Tracker local</h1>
+            <p class="sub">Qué hace cada botón, flujo de guardado, fotos, exportaciones, edición/borrado.</p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn ghost" href="/" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Volver
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="help-wrap">
+    <div class="help-top">
+      <div>
+        <h1>Guía rápida</h1>
+        <p>
+          Esto es un tracker <span class="k">100% local</span> (Flask + SQLite). Guarda registros diarios de dieta/medidas y rutina.
+          Opcionalmente guarda <span class="k">fotos</span> en una carpeta del proyecto.
+        </p>
+      </div>
+      <div class="help-actions">
+        <div class="help-search">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input id="helpSearch" placeholder="Buscar en la ayuda… (botón, exportar, foto, borrar, editar)"/>
+        </div>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Índice">
+      <a href="#botones">Botones</a>
+      <a href="#guardar">Guardar</a>
+      <a href="#fotos">Fotos</a>
+      <a href="#exportar">Exportar</a>
+      <a href="#editar">Editar / borrar</a>
+      <a href="#archivos">Archivos</a>
+      <a href="#diagnostico">Diagnóstico</a>
+    </nav>
+
+    <details class="panel" open id="botones" data-keywords="botones check-in entreno exportar ayuda">
+      <summary>
+        <h2>1) Qué hace cada botón</h2>
+        <span class="caret">click para abrir/cerrar</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li><span class="k">Check-in</span>: abre el formulario diario (sueño, pasos, peso/medidas, creatina, foto opcional).</li>
+          <li><span class="k">Entreno</span>: abre el formulario de rutina (hecho Y/N, clase, RPE, topsets, notas).</li>
+          <li><span class="k">Exportar check-ins</span>: descarga <span class="k">check-ins.csv</span> con todo el histórico del log de check-ins.</li>
+          <li><span class="k">Exportar rutina</span>: descarga <span class="k">workout.csv</span> con todo el histórico del log de rutina.</li>
+          <li><span class="k">Ayuda</span>: abre esta página.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="panel" id="guardar" data-keywords="guardar submit guardado flujo validacion fecha api">
+      <summary>
+        <h2>2) Flujo de guardado (qué pasa al darle “Guardar”)</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ol>
+          <li>El navegador envía el formulario a la app (endpoint API).</li>
+          <li>La app hace <span class="k">UPSERT</span> por fecha: si ya existe ese día, lo actualiza; si no, lo crea.</li>
+          <li>Se refresca el panel principal (KPIs y tablas) y aparece un toast <span class="ok">OK</span>.</li>
+        </ol>
+        <div class="code">
+          Clave: el campo <span class="k">log_date</span> identifica el día. Misma fecha = actualiza (no duplica).
+        </div>
+      </div>
+    </details>
+
+    <details class="panel" id="fotos" data-keywords="foto upload imagenes carpeta static uploads preview">
+      <summary>
+        <h2>3) Fotos: dónde se guardan y cómo se vinculan</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <p>
+          Cuando seleccionas una imagen en el check-in, el navegador la sube con el formulario. La app la guarda en una carpeta del proyecto
+          (por ejemplo <span class="k">uploads/</span>) y registra el nombre/ruta asociada a la fecha.
+        </p>
+        <ul>
+          <li>La foto es <span class="k">opcional</span>.</li>
+          <li>Si subes una nueva foto para la misma fecha, sustituye la referencia (y opcionalmente puede borrar el archivo anterior).</li>
+        </ul>
+        <p class="warn">Nota: si solo marcas Y/N sin subir archivo, no hay imagen real; el sistema solo “dice” que hubo foto.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="exportar" data-keywords="exportar csv check-ins.csv workout.csv descargar">
+      <summary>
+        <h2>4) Exportar CSV (qué incluye)</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li><span class="k">/export/check-ins.csv</span>: log de check-ins/datos de medidas (y columnas auxiliares: creatina, foto, alcohol=0).</li>
+          <li><span class="k">/export/diet.csv</span>: alias legacy del export de check-ins.</li>
+          <li><span class="k">/export/workout.csv</span>: log de entreno (hecho, clase, RPE, topsets, notas).</li>
+        </ul>
+        <p>Los CSV sirven para abrir en Excel/Sheets o reimportar manualmente en otro sistema.</p>
+      </div>
+    </details>
+
+    <details class="panel" id="editar" data-keywords="editar borrar update delete corregir fecha">
+      <summary>
+        <h2>5) Actualizar y borrar registros</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <p><span class="k">Actualizar</span>: vuelve a abrir el formulario, pon la misma fecha y guarda. Eso sobrescribe.</p>
+        <p><span class="k">Borrar</span>: depende de si implementaste botones de borrado. Si existen, eliminan el registro de la DB.</p>
+        <div class="code">
+          Alternativa rápida (terminal):<br/>
+          sqlite3 tracker.db "delete from diet_log where log_date='YYYY-MM-DD';"<br/>
+          sqlite3 tracker.db "delete from workout_log where log_date='YYYY-MM-DD';"
+        </div>
+      </div>
+    </details>
+
+    <details class="panel" id="archivos" data-keywords="archivos estructura db tracker.db uploads static templates">
+      <summary>
+        <h2>6) Dónde está cada cosa (estructura del proyecto)</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li><span class="k">tracker.db</span>: base de datos SQLite (registros).</li>
+          <li><span class="k">templates/index.html</span>: pantalla principal.</li>
+          <li><span class="k">templates/help.html</span>: esta ayuda.</li>
+          <li><span class="k">static/styles.css</span>: estilos globales.</li>
+          <li><span class="k">static/app.js</span>: lógica principal (modales, guardar, refrescar, filtros).</li>
+          <li><span class="k">static/help.js</span>: (opcional) buscador/acordeones/deep-links aquí.</li>
+          <li><span class="k">uploads/</span>: (si se implementa) carpeta donde quedan fotos subidas.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="panel" id="diagnostico" data-keywords="diagnostico problemas puerto 5050 curl api state">
+      <summary>
+        <h2>7) Diagnóstico rápido</h2>
+        <span class="caret">detalle</span>
+      </summary>
+      <div class="body">
+        <ul>
+          <li>Comprobar servidor: <span class="k">curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:5050/</span> debe dar <span class="ok">200</span>.</li>
+          <li>Comprobar API: <span class="k">curl -s http://127.0.0.1:5050/api/state?limit=1</span> debe devolver JSON.</li>
+          <li>Puerto ocupado: <span class="k">lsof -nP -iTCP:5050 -sTCP:LISTEN</span>.</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="kpi">
+        <div>
+          <div class="label">TIP</div>
+          <div class="value" style="font-size:16px;">Atajo</div>
+          <div class="hint">
+            Puedes fijar esta pestaña del navegador. Si ejecutas <span class="k">tracker</span> y ya estaba corriendo, solo abrirá la URL.
+          </div>
+        </div>
+        <span class="chip mono">local only</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='help.js') }}" defer></script>
+</body>
+</html>

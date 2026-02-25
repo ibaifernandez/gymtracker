@@ -1,0 +1,574 @@
+  <dialog id="dietModal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Check-in</div>
+        <div class="modal-sub">Guarda tu día. Click en una fila para editar.</div>
+      </div>
+      <button class="x" aria-label="Cerrar" id="dietClose" type="button">✕</button>
+    </div>
+
+    <form id="dietForm" class="modal-body" method="post" enctype="multipart/form-data">
+      <div class="form-alert" id="dietFormAlert" hidden role="alert" aria-live="assertive"></div>
+      <div class="grid">
+        <div class="field">
+          <label>Fecha</label>
+          <input type="date" name="log_date" id="diet_date" required/>
+        </div>
+        <div class="field">
+          <label>Sueño (h)</label>
+          <input type="number" step="0.1" name="sleep_hours" placeholder="7.0"/>
+        </div>
+        <div class="field">
+          <label>Calidad (1–10)</label>
+          <input type="number" min="1" max="10" name="sleep_quality" placeholder="8"/>
+        </div>
+        <div class="field">
+          <label>Pasos</label>
+          <input type="number" name="steps" placeholder="9500"/>
+        </div>
+        <div class="field">
+          <label>Peso (kg)</label>
+          <input type="number" step="0.1" name="weight_kg" placeholder="72.4"/>
+        </div>
+        <div class="field">
+          <label>Cintura (cm)</label>
+          <input type="number" step="0.1" name="waist_cm" placeholder="78.2"/>
+        </div>
+        <div class="field">
+          <label>Cadera (cm)</label>
+          <input type="number" step="0.1" name="hip_cm" placeholder="98.0"/>
+        </div>
+        <div class="field">
+          <label>Alcohol (uds)</label>
+          <input type="number" min="0" name="alcohol_units" placeholder="0"/>
+        </div>
+
+        <div class="span-all">
+          <div class="photo-preview">
+            <div class="preview-row">
+              <div>
+                <div class="preview-title">Foto de progreso (opcional)</div>
+                <div class="preview-sub" id="photoMeta">Sin archivo</div>
+              </div>
+              <div class="preview-actions">
+                <div class="preview-existing" id="photoExistingWrap" hidden>
+                  <button class="btn ghost" id="photoExistingBtn" type="button">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M1.5 12s4.5-7.5 10.5-7.5S22.5 12 22.5 12s-4.5 7.5-10.5 7.5S1.5 12 1.5 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Ver foto actual
+                  </button>
+                </div>
+                <button class="btn ghost" id="photoClear" type="button">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  Quitar foto
+                </button>
+              </div>
+            </div>
+
+            <div class="preview-grid">
+              <img id="photoPreview" alt="preview"/>
+              <div class="file">
+                <input
+                  type="file"
+                  id="photoFile"
+                  name="photo"
+                  accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                />
+              </div>
+            </div>
+          </div>
+
+          <input type="hidden" name="photo_yn" id="photoYN" value=""/>
+          <input type="hidden" name="photo_replace_confirm" id="photoReplaceConfirm" value=""/>
+          <input type="hidden" name="entry_mode" id="dietEntryMode" value="create"/>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn ghost danger" type="button" id="dietDeleteBtn" hidden>Eliminar</button>
+        <button class="btn ghost" type="button" id="dietCancel">Cancelar</button>
+        <button class="btn primary" type="submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="workoutModal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Registrar Entreno</div>
+        <div class="modal-sub">Detalla tu sesion de hoy. Click en una fila para editar.</div>
+      </div>
+      <button class="x" aria-label="Cerrar" id="workClose" type="button">✕</button>
+    </div>
+
+    <form id="workForm" class="modal-body" method="post">
+      <div class="grid work-grid">
+        <div class="field">
+          <label>Fecha</label>
+          <input type="date" name="log_date" id="work_date" required/>
+        </div>
+        <div class="field">
+          <label>Tipo de entreno</label>
+          <select name="session_type" id="work_session_type">
+            <option value="clase">Clase</option>
+            <option value="pesas">Pesas</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>RPE (1-10)</label>
+          <input type="number" min="1" max="10" name="rpe_session" placeholder="7"/>
+        </div>
+
+        <div class="field span-all" id="workClassField">
+          <label id="workClassLabel">Clase / actividad</label>
+          <input type="text" name="class_done" placeholder="Cross-fit + core / yoga / pilates..."/>
+        </div>
+
+        <div class="span-all strength-block" id="workStrengthBlock">
+          <div class="strength-head">
+            <h3>Ejercicios de fuerza</h3>
+            <button class="btn ghost" type="button" id="workAddExerciseBtn">+ Añadir ejercicio</button>
+          </div>
+          <div class="exercise-list" id="workExerciseList"></div>
+          <p class="exercise-help">Puedes registrar varios ejercicios en una misma sesión.</p>
+        </div>
+
+        <div class="field span-all">
+          <div class="work-done-row">
+            <div class="work-done-label">
+              <span class="work-done-icon" aria-hidden="true">✓</span>
+              <span>¿Sesion completada?</span>
+            </div>
+            <div class="work-done-toggle" role="group" aria-label="Sesion completada">
+              <button class="done-btn no" type="button" data-work-done-value="N">NO</button>
+              <button class="done-btn yes" type="button" data-work-done-value="Y">SI</button>
+              <button class="done-btn clear" type="button" data-work-done-value="">LIMPIAR</button>
+            </div>
+          </div>
+          <select name="session_done_yn" id="work_done_select" class="sr-only-select">
+            <option value="">—</option>
+            <option value="Y">Y</option>
+            <option value="N">N</option>
+          </select>
+        </div>
+
+        <div class="field span-all">
+          <label>Notas y observaciones</label>
+          <textarea name="notes" rows="3" placeholder="Sensaciones, molestias, suplementacion..."></textarea>
+        </div>
+      </div>
+
+      <input type="hidden" name="session_id" id="workSessionId" value=""/>
+      <input type="hidden" name="exercises_json" id="workExercisesJson" value=""/>
+      <input type="hidden" name="entry_mode" id="workEntryMode" value="create"/>
+
+      <div class="modal-actions">
+        <button class="btn ghost danger" type="button" id="workDeleteBtn" hidden>Eliminar</button>
+        <button class="btn ghost" type="button" id="workCancel">Cancelar</button>
+        <button class="btn primary" type="submit">Guardar Entreno</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="suppDayModal" class="supp-modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Registro de suplementos</div>
+        <div class="modal-sub">Guarda lo que realmente tomaste en la fecha seleccionada.</div>
+      </div>
+      <div class="modal-head-actions">
+        <button class="btn ghost" id="suppCatalogBtn" type="button">Catálogo de suplementos</button>
+        <button class="x" aria-label="Cerrar" id="suppDayClose" type="button">✕</button>
+      </div>
+    </div>
+
+    <form id="suppDayForm" class="modal-body">
+      <div class="supp-day-controls">
+        <div class="field">
+          <label>Fecha</label>
+          <input type="date" id="suppDayDate" required/>
+        </div>
+        <button class="btn ghost" id="suppDayLoadBtn" type="button">Añadir</button>
+      </div>
+
+      <div class="table card supp-table-wrap">
+        <table id="suppDayTable">
+          <thead>
+            <tr>
+              <th>Suplemento</th>
+              <th>Objetivo</th>
+              <th>Tomas realizadas</th>
+              <th>Notas</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="supp-day-foot mono" id="suppDayTotals">Sin suplementos configurados.</div>
+
+      <div class="modal-actions">
+        <button class="btn ghost danger" type="button" id="suppDayDeleteBtn" hidden>Eliminar día</button>
+        <button class="btn ghost" type="button" id="suppDayCancel">Cancelar</button>
+        <button class="btn primary" type="submit" id="suppSaveDayBtn">Guardar tomas del día</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="suppCatalogModal" class="supp-modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Catálogo de suplementos</div>
+        <div class="modal-sub">Define suplementos activos y su objetivo de tomas por día.</div>
+      </div>
+      <button class="x" aria-label="Cerrar" id="suppCatalogClose" type="button">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <form id="suppCatalogForm" class="supp-form">
+        <input type="hidden" id="supplementId" name="supplement_id" value=""/>
+        <div class="grid supp-grid">
+          <div class="field">
+            <label>Suplemento</label>
+            <input type="text" id="supplementName" name="name" placeholder="Melatonina" required/>
+          </div>
+          <div class="field">
+            <label>Tomas por día</label>
+            <input type="number" id="supplementDosesPerDay" name="doses_per_day" min="1" max="12" step="1" placeholder="1" required/>
+          </div>
+          <div class="field">
+            <label>Disponible en registro diario</label>
+            <select id="supplementActiveYN" name="active_yn">
+              <option value="Y">Sí (mostrar en registro diario)</option>
+              <option value="N">No (ocultar por ahora)</option>
+            </select>
+            <div class="hint">Si está en "No", no aparecerá al cargar tomas del día.</div>
+          </div>
+          <div class="field span-all">
+            <label>Notas (opcional)</label>
+            <input type="text" id="supplementNotes" name="notes" placeholder="Antes de dormir / post-entreno..."/>
+          </div>
+        </div>
+
+        <div class="supp-form-actions">
+          <button class="btn ghost" id="suppCancelEditBtn" type="button" hidden>Cancelar edición</button>
+          <button class="btn primary" id="suppSaveBtn" type="submit">Guardar suplemento</button>
+        </div>
+        <div class="supp-form-alert mono" id="suppCatalogAlert" hidden></div>
+      </form>
+
+      <div class="table card supp-table-wrap">
+        <table id="suppCatalogTable">
+          <thead>
+            <tr>
+              <th>Suplemento</th>
+              <th>Tomas/día</th>
+              <th>Activo</th>
+              <th>Notas</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" type="button" id="suppCatalogDone">Cerrar</button>
+    </div>
+  </dialog>
+
+  <template id="workExerciseTemplate">
+    <div class="strength-card exercise-row" data-exercise-row>
+      <div class="field exercise-name-field">
+        <label>Ejercicio</label>
+        <input type="text" placeholder="Hip Thrust" data-ex-field="exercise_name"/>
+      </div>
+      <div class="field triplet-field">
+        <label>KG</label>
+        <input type="number" step="0.5" min="0" placeholder="120" data-ex-field="weight_kg"/>
+      </div>
+      <div class="field triplet-field">
+        <label>Reps</label>
+        <input type="number" min="0" placeholder="6" data-ex-field="reps"/>
+      </div>
+      <div class="field triplet-field">
+        <label>RPE</label>
+        <input type="number" step="0.5" min="1" max="10" placeholder="8" data-ex-field="rpe"/>
+      </div>
+      <button class="btn ghost ex-remove-btn" type="button" data-remove-exercise>Quitar</button>
+    </div>
+  </template>
+
+  <dialog id="importDietModal" class="import-modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Importar dieta (CSV)</div>
+        <div class="modal-sub">Previsualiza filas validas, conflictos y errores antes de aplicar.</div>
+      </div>
+      <button class="x" aria-label="Cerrar" id="importDietClose" type="button">✕</button>
+    </div>
+
+    <form id="importDietForm" class="modal-body">
+      <div class="import-links">
+        <a class="btn ghost" href="/export/template/checkin-import.csv" rel="noopener">Descargar plantilla check-ins</a>
+      </div>
+
+      <div class="field">
+        <label>Archivo CSV</label>
+        <input type="file" id="importDietFile" name="file" accept=".csv,text/csv"/>
+      </div>
+
+      <div class="import-actions">
+        <button class="btn ghost" id="importPreviewBtn" type="button">Previsualizar</button>
+        <button class="btn primary" id="importApplyBtn" type="button" disabled>Importar filas validas</button>
+      </div>
+
+      <div id="importDietSummary" class="import-summary mono" hidden></div>
+
+      <div id="importPreviewWrap" class="table card import-table" hidden>
+        <table id="importPreviewTable">
+          <thead>
+            <tr>
+              <th>Fila</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+              <th>Sueño</th>
+              <th>Pasos</th>
+              <th>Peso</th>
+              <th>WHR</th>
+              <th>Motivo</th>
+            </tr>
+          </thead>
+          <tbody id="importPreviewBody"></tbody>
+        </table>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="planImportModal" class="import-modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Crear dieta y plan de entreno</div>
+        <div class="modal-sub">Sigue este flujo guiado para generar e importar tus CSV con ayuda de IA.</div>
+      </div>
+      <button class="x" aria-label="Cerrar" id="planImportClose" type="button">✕</button>
+    </div>
+
+    <div class="modal-body plan-import-body">
+      <section class="plan-import-block">
+        <h4>Asistente guiado para crear tus planes con IA</h4>
+        <p class="plan-import-ai-note">
+          Si quieres generar los dos archivos que importar a Gym Tracker con ayuda de la IA de tu elección, accede a esta guía y síguela paso a paso.
+        </p>
+        <div class="import-links">
+          <button class="btn primary" id="planAiWorkflowOpenBtn" type="button">Abrir guía paso a paso</button>
+        </div>
+      </section>
+
+      <section class="plan-import-guide plan-import-legal">
+        <h4>Aviso legal y de responsabilidad</h4>
+        <p class="plan-disclaimer">
+          Gym Tracker solo te ayuda a organizar y visualizar planes de dieta y entreno generados por ti o por una IA. No ofrece diagnóstico, tratamiento, ni recomendaciones médicas, nutricionales o deportivas personalizadas.
+          Este flujo no sustituye la consulta con profesionales cualificados en nutrición, medicina o ciencias del deporte. Cualquier decisión sobre salud, alimentación o entrenamiento es responsabilidad exclusiva del usuario.
+        </p>
+      </section>
+
+      <div class="modal-actions">
+        <button class="btn ghost" id="planImportCancel" type="button">Cerrar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="planAiWorkflowModal" class="import-modal plan-ai-workflow-modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Guía IA · Crear dieta y plan de entreno</div>
+        <div class="modal-sub">Descarga los archivos oficiales, copia el prompt e importa los 2 CSV finales en esta misma guía.</div>
+      </div>
+      <button class="x" aria-label="Cerrar" id="planAiWorkflowClose" type="button">✕</button>
+    </div>
+
+    <div class="modal-body plan-ai-workflow-body">
+      <section class="plan-import-guide">
+        <h4>Paso 1 · Descarga aquí tus 5 archivos oficiales</h4>
+        <p class="plan-import-ai-note">
+          Descarga estos archivos y súbelos juntos en tu IA para generar tus planes en formato compatible con Gym Tracker.
+        </p>
+        <div class="import-links plan-import-assets">
+          <a class="btn ghost" href="/export/template/plan-diet.csv" rel="noopener">Plantilla dieta (CSV)</a>
+          <a class="btn ghost" href="/export/template/plan-workout.csv" rel="noopener">Plantilla entreno (CSV)</a>
+          <a class="btn ghost" href="/export/template/plan-csv-ai-instructions-diet.md" rel="noopener">Instrucciones IA dieta (MD)</a>
+          <a class="btn ghost" href="/export/template/plan-csv-ai-instructions-workout.md" rel="noopener">Instrucciones IA entreno (MD)</a>
+          <a class="btn ghost" href="/export/template/plan-csv-ai-system-prompt.md" rel="noopener">System prompt (MD)</a>
+        </div>
+      </section>
+
+      <section class="plan-import-block">
+        <h4>Paso 2 · Copia este prompt y pégalo en tu IA</h4>
+        <p class="plan-import-ai-note">
+          Adjunta los 5 archivos y usa este prompt. La respuesta debe devolverte ambos CSV finales en un único mensaje y sin formato Markdown.
+        </p>
+        <textarea id="planAiPromptText" class="plan-ai-prompt mono" rows="10" readonly></textarea>
+        <div class="modal-actions">
+          <button class="btn ghost" id="planAiPromptCopyBtn" type="button">Copiar prompt</button>
+        </div>
+      </section>
+
+      <section class="plan-import-block">
+        <h4>Paso 3 · Importa aquí tus archivos CSV finales</h4>
+        <p class="plan-import-ai-note">
+          Importa primero dieta y luego entreno. Si hay incidencias, aquí mismo verás errores, avisos y acciones sugeridas.
+        </p>
+
+        <div class="field">
+          <label for="planDietFile">Importa aquí tu archivo CSV de dieta</label>
+          <input type="file" id="planDietFile" accept=".csv,text/csv"/>
+        </div>
+        <button class="btn primary" id="planImportDietBtn" type="button">Importar CSV de dieta</button>
+
+        <div class="field">
+          <label for="planWorkoutFile">Importa aquí tu archivo CSV de plan de entreno</label>
+          <input type="file" id="planWorkoutFile" accept=".csv,text/csv"/>
+        </div>
+        <button class="btn primary" id="planImportWorkoutBtn" type="button">Importar CSV de plan de entreno</button>
+
+        <div class="import-summary mono" id="planImportSummary" hidden></div>
+        <section class="plan-import-feedback" id="planImportFeedback" hidden>
+          <div class="plan-import-human" id="planImportHuman"></div>
+          <div class="plan-import-groups" id="planImportGroups"></div>
+          <button class="btn ghost" id="planImportDownloadDetailBtn" type="button" hidden>Descargar detalle de incidencias</button>
+          <div class="table card plan-import-detail-wrap" id="planImportDetailWrap" hidden>
+            <table id="planImportDetailTable">
+              <thead>
+                <tr>
+                  <th>Línea</th>
+                  <th>Fecha</th>
+                  <th>Tipo sesión</th>
+                  <th>Tipo</th>
+                  <th>Motivo</th>
+                  <th>Acción sugerida</th>
+                </tr>
+              </thead>
+              <tbody id="planImportDetailBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <div class="modal-actions">
+        <button class="btn ghost" id="planAiWorkflowDoneBtn" type="button">Cerrar guía</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="photoLightbox" class="lightbox">
+    <div class="lightbox-shell">
+      <div class="lightbox-topbar">
+        <div class="lightbox-meta">
+          <div class="lightbox-kicker">Progress log</div>
+          <div class="lightbox-mainline">
+            <span id="lightboxCaption">Vista previa</span>
+            <span class="lightbox-sep">•</span>
+            <span id="lightboxMetaTag">foto</span>
+          </div>
+          <div class="lightbox-detail mono" id="lightboxMetaDetails">Fecha — · Peso — · WHR —</div>
+        </div>
+        <div class="lightbox-tools">
+          <button id="lightboxCompareToggle" class="lightbox-download" type="button">Comparar</button>
+          <a id="lightboxDownload" class="lightbox-download" href="#" download rel="noopener">Descargar</a>
+          <button class="x lightbox-x" aria-label="Cerrar" id="lightboxClose" type="button">✕</button>
+        </div>
+      </div>
+
+      <div class="lightbox-stage">
+        <button class="lightbox-nav" id="lightboxPrev" type="button" aria-label="Foto anterior" disabled>‹</button>
+        <div class="lightbox-frame">
+          <img id="lightboxImg" alt="Foto"/>
+        </div>
+        <button class="lightbox-nav" id="lightboxNext" type="button" aria-label="Foto siguiente" disabled>›</button>
+      </div>
+
+      <div class="lightbox-compare" id="lightboxCompareWrap" hidden>
+        <div class="lightbox-compare-head">
+          <span class="compare-title">Comparativa</span>
+          <div class="compare-controls">
+            <label for="lightboxCompareSelect">Comparar con</label>
+            <select id="lightboxCompareSelect" aria-label="Foto para comparar"></select>
+          </div>
+          <span id="lightboxCompareLabel" class="mono"></span>
+        </div>
+        <div class="compare-stage">
+          <figure class="compare-pane">
+            <figcaption id="compareBeforeLabel" class="mono">Antes</figcaption>
+            <img id="compareBeforeImg" alt="Foto anterior"/>
+          </figure>
+          <figure class="compare-pane">
+            <figcaption id="compareAfterLabel" class="mono">Después</figcaption>
+            <img id="compareAfterImg" alt="Foto actual"/>
+          </figure>
+        </div>
+      </div>
+
+      <div class="lightbox-strip" id="lightboxThumbs"></div>
+      <div class="lightbox-counter mono" id="lightboxCount">0 de 0</div>
+    </div>
+  </dialog>
+
+  <dialog id="replaceConfirmModal" class="confirm">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Reemplazar foto</div>
+        <div class="modal-sub" id="replaceConfirmText">Ya existe una foto para esa fecha.</div>
+      </div>
+      <button class="x" aria-label="Cerrar" id="replaceConfirmClose" type="button">✕</button>
+    </div>
+    <div class="confirm-body">
+      <img id="replaceConfirmImg" alt="Foto existente"/>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" type="button" id="replaceConfirmCancel">Cancelar</button>
+      <button class="btn primary" type="button" id="replaceConfirmOk">Reemplazar</button>
+    </div>
+  </dialog>
+
+  <dialog id="backupRestoreModal" class="confirm">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Restaurar backup</div>
+        <div class="modal-sub">Esto reemplaza DB + uploads actuales por el backup seleccionado.</div>
+      </div>
+      <button class="x" aria-label="Cerrar" id="backupRestoreClose" type="button">✕</button>
+    </div>
+
+    <form id="backupRestoreForm" class="modal-body" enctype="multipart/form-data">
+      <div class="field">
+        <label>Archivo ZIP de backup</label>
+        <input type="file" id="backupRestoreFile" name="backup_file" accept=".zip,application/zip" required/>
+      </div>
+      <label class="check-row">
+        <input type="checkbox" id="backupRestoreConfirm"/>
+        <span>Entiendo que se reemplazaran los datos actuales.</span>
+      </label>
+      <div class="modal-actions">
+        <button class="btn ghost" type="button" id="backupRestoreCancel">Cancelar</button>
+        <button class="btn primary" type="submit" id="backupRestoreSubmit">Restaurar ahora</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="reportBugModal" class="import-modal report-bug-modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">Reportar bug</div>
+        <div class="modal-sub">Copia este bloque y compártelo para diagnosticar rápido.</div>
+      </div>
+      <button class="x" aria-label="Cerrar" id="reportBugClose" type="button">✕</button>
+    </div>
+
+    <div class="modal-body report-bug-body">
+      <textarea id="reportBugText" rows="12" readonly></textarea>
+      <div class="modal-actions">
+        <button class="btn ghost" id="reportBugMailBtn" type="button">Abrir email</button>
+        <button class="btn ghost" id="reportBugCopyBtn" type="button">Copiar diagnóstico</button>
+        <button class="btn primary" id="reportBugDoneBtn" type="button">Cerrar</button>
+      </div>
+    </div>
+  </dialog>
