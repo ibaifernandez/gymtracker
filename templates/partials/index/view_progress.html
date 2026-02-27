@@ -1,71 +1,90 @@
-    <section class="app-view" data-view="progress">
-    <section class="performance card" aria-labelledby="perfTitle">
-      <div class="performance-head">
-        <div class="performance-title-row">
-          <h3 id="perfTitle">Rendimiento del periodo</h3>
-          <button class="info-dot" type="button" data-help-tip data-tip-title="Gráfica de rendimiento" data-tip-text="Muestra la evolución temporal de una métrica. Si faltan días, verás cobertura y huecos.">i</button>
-          <p id="perfSub">Serie temporal en el período seleccionado.</p>
-        </div>
-        <div class="performance-tools">
-          <button class="btn ghost" id="viewAllPhotosBtn" type="button">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="2" stroke="currentColor" stroke-width="2"/><path d="M21 15l-4-4-5 5-3-3-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Ver fotos
-          </button>
-          <button class="btn ghost" id="shareReportBtn" type="button" hidden aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="2"/><path d="M8.8 10.7l6.4-3.4M8.8 13.3l6.4 3.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Compartir
-          </button>
-          <button class="btn ghost" id="copyReportBtn" type="button" hidden aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Copiar
-          </button>
-          <button class="btn ghost" id="exportReportPdfBtn" type="button">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M15 3v3h3" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 14h8M8 18h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Informe PDF
-          </button>
-          <button class="btn ghost" id="exportReportBtn" type="button" hidden aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v3h16v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Informe PNG
-          </button>
-        </div>
-      </div>
-      <div class="performance-controls-row">
-        <div class="performance-metrics" id="perfMetricTabs">
-          <button class="chip active" data-chart-metric="weight_kg" type="button">Peso</button>
-          <button class="chip" data-chart-metric="whr" type="button">WHR</button>
-          <button class="chip" data-chart-metric="sleep_hours" type="button">Sueño</button>
-          <button class="chip" data-chart-metric="steps" type="button">Pasos</button>
-        </div>
-        <div class="field performance-mode-field">
-          <label class="sr-only" for="perfModeSelect">Ventana</label>
-          <select id="perfModeSelect" class="limit-select" aria-label="Ventana de análisis para progreso">
-            <option value="7">Últimos 7 días</option>
-            <option value="15" selected>Últimos 15 días</option>
-            <option value="30">Últimos 30 días</option>
-            <option value="60">Últimos 60 días</option>
-            <option value="90">Últimos 90 días</option>
-            <option value="custom">Período personalizado</option>
-          </select>
-        </div>
-      </div>
-      <div class="performance-range">
-        <div class="performance-range-fields" id="perfRangeFields" hidden>
-          <div class="field">
-            <label for="perfFrom">Desde</label>
-            <input type="date" id="perfFrom"/>
-          </div>
-          <div class="field">
-            <label for="perfTo">Hasta</label>
-            <input type="date" id="perfTo"/>
-          </div>
-        </div>
-        <button class="btn ghost" id="perfApplyBtn" type="button">Aplicar período</button>
-      </div>
-      <div class="performance-chart-wrap">
-        <svg id="perfChart" viewBox="0 0 1000 260" role="img" aria-label="Grafica temporal de rendimiento"></svg>
-        <div class="performance-empty" id="perfEmpty">Necesitamos al menos 2 puntos para dibujar la grafica.</div>
-      </div>
-      <div class="performance-foot" id="perfFoot">Sin datos suficientes para calcular variacion del periodo.</div>
-    </section>
+<section class="app-view" data-view="progress">
+    <!-- Header -->
+    <div class="mb-6 section-head">
+        <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-white tracking-tight flex items-center">
+                Progreso
+            </h2>
 
-    </section>
+            <div class="flex items-center gap-3 performance-tools">
+                <button class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-slate-300 text-xs font-bold hover:bg-white/10 transition-colors btn ghost" id="copyReportBtn">Copiar resumen</button>
+                <button class="px-4 py-2 bg-primary/10 border border-primary/20 rounded-lg text-primary text-xs font-bold hover:bg-primary/20 transition-colors btn primary" id="shareReportBtn">Compartir</button>
+                <!-- Dropdown for export (desktop only usually, but here unified) -->
+                <div class="relative group">
+                    <button class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-xs font-bold hover:bg-white/10 transition-colors flex items-center gap-2 btn ghost">
+                        Exportar <span class="material-symbols-outlined text-sm">expand_more</span>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-surface-dark border border-white/10 rounded-lg shadow-xl py-1 hidden group-hover:block z-20">
+                        <button class="w-full text-left px-4 py-2 text-xs text-slate-300 hover:bg-white/5 hover:text-white" id="exportReportBtn">Descargar PNG</button>
+                        <button class="w-full text-left px-4 py-2 text-xs text-slate-300 hover:bg-white/5 hover:text-white" id="exportReportPdfBtn">Imprimir PDF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart Card -->
+    <div class="bg-surface-dark border border-white/10 rounded-xl p-6 mb-8 relative overflow-hidden performance">
+        <!-- Radial Gradient Background -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[120px] -z-10"></div>
+
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-6 performance-head">
+            <div>
+                <h3 class="text-xl font-bold text-white mb-1">Tendencia gráfica</h3>
+                <p class="text-sm text-slate-400" id="perfSub">Visualiza tu evolución en el tiempo.</p>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex flex-col items-end gap-4 performance-controls-row">
+                <!-- Metrics -->
+                <div class="flex gap-2 performance-metrics" id="perfMetricTabs">
+                    <button class="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-bold text-slate-400 hover:text-white hover:bg-white/10 transition-all chip active" data-chart-metric="weight_kg">Peso</button>
+                    <button class="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-bold text-slate-400 hover:text-white hover:bg-white/10 transition-all chip" data-chart-metric="whr">WHR</button>
+                    <button class="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-bold text-slate-400 hover:text-white hover:bg-white/10 transition-all chip" data-chart-metric="sleep_hours">Sueño</button>
+                    <button class="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-bold text-slate-400 hover:text-white hover:bg-white/10 transition-all chip" data-chart-metric="steps">Pasos</button>
+                </div>
+
+                <!-- Range -->
+                <div class="flex items-center gap-3 performance-range">
+                    <select id="perfModeSelect" class="bg-black/30 border border-white/10 rounded-lg text-xs text-white px-3 py-2 focus:ring-primary focus:border-primary limit-select">
+                        <option value="7">7 días</option>
+                        <option value="15">15 días</option>
+                        <option value="30">30 días</option>
+                        <option value="60">60 días</option>
+                        <option value="90">90 días</option>
+                        <option value="custom">Personalizado</option>
+                    </select>
+
+                    <div id="perfRangeFields" class="flex items-center gap-2 performance-range-fields" hidden>
+                        <input type="date" id="perfFrom" class="bg-black/30 border border-white/10 rounded-lg text-xs text-white px-2 py-2 focus:ring-primary field"/>
+                        <span class="text-slate-500">-</span>
+                        <input type="date" id="perfTo" class="bg-black/30 border border-white/10 rounded-lg text-xs text-white px-2 py-2 focus:ring-primary field"/>
+                        <button id="perfApplyBtn" class="px-3 py-2 bg-primary/10 text-primary rounded-lg text-xs font-bold hover:bg-primary/20 btn" hidden>Ir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SVG Chart Container -->
+        <div class="w-full bg-black/20 border border-white/5 rounded-xl p-4 relative h-72 performance-chart-wrap">
+            <svg id="perfChart" class="w-full h-full" viewBox="0 0 1000 260" preserveAspectRatio="none">
+                <!-- JS Injects Graph Here -->
+            </svg>
+            <div id="perfEmpty" class="absolute inset-0 flex items-center justify-center text-slate-500 text-sm italic performance-empty" style="display:none;">
+                Datos insuficientes para graficar.
+            </div>
+        </div>
+
+        <div class="mt-4 text-center text-xs text-slate-500 font-mono performance-foot" id="perfFoot">
+            <!-- Footnote injected by JS -->
+        </div>
+    </div>
+
+    <!-- Gallery Teaser -->
+    <div class="flex justify-center mt-8">
+        <button class="px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm font-bold hover:bg-white/10 transition-all flex items-center gap-2 btn ghost" id="viewAllPhotosBtn">
+            <span class="material-symbols-outlined text-lg">photo_library</span>
+            Abrir galería de progreso
+        </button>
+    </div>
+</section>

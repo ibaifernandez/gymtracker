@@ -1,574 +1,634 @@
-  <dialog id="dietModal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Check-in</div>
-        <div class="modal-sub">Guarda tu día. Click en una fila para editar.</div>
-      </div>
-      <button class="x" aria-label="Cerrar" id="dietClose" type="button">✕</button>
+<!-- Main Modal Overlay Container -->
+<!-- This file replaces the old modals.html structure with the new Tailwind designs -->
+
+<!-- DIET / CHECK-IN MODAL -->
+<dialog id="dietModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-3xl text-white">
+    <!-- Header -->
+    <div class="flex items-start justify-between p-6 border-b border-white/5 bg-white/5">
+        <div class="flex flex-col gap-1">
+            <h3 class="text-2xl font-black tracking-tight text-white modal-title">Check-in</h3>
+            <p class="text-primary/70 text-sm font-medium modal-sub">Guarda tu día. Click en una fila para editar.</p>
+        </div>
+        <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white hover:bg-primary/20 transition-colors group x" id="dietClose" aria-label="Cerrar">
+            <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">close</span>
+        </button>
     </div>
 
-    <form id="dietForm" class="modal-body" method="post" enctype="multipart/form-data">
-      <div class="form-alert" id="dietFormAlert" hidden role="alert" aria-live="assertive"></div>
-      <div class="grid">
-        <div class="field">
-          <label>Fecha</label>
-          <input type="date" name="log_date" id="diet_date" required/>
-        </div>
-        <div class="field">
-          <label>Sueño (h)</label>
-          <input type="number" step="0.1" name="sleep_hours" placeholder="7.0"/>
-        </div>
-        <div class="field">
-          <label>Calidad (1–10)</label>
-          <input type="number" min="1" max="10" name="sleep_quality" placeholder="8"/>
-        </div>
-        <div class="field">
-          <label>Pasos</label>
-          <input type="number" name="steps" placeholder="9500"/>
-        </div>
-        <div class="field">
-          <label>Peso (kg)</label>
-          <input type="number" step="0.1" name="weight_kg" placeholder="72.4"/>
-        </div>
-        <div class="field">
-          <label>Cintura (cm)</label>
-          <input type="number" step="0.1" name="waist_cm" placeholder="78.2"/>
-        </div>
-        <div class="field">
-          <label>Cadera (cm)</label>
-          <input type="number" step="0.1" name="hip_cm" placeholder="98.0"/>
-        </div>
-        <div class="field">
-          <label>Alcohol (uds)</label>
-          <input type="number" min="0" name="alcohol_units" placeholder="0"/>
+    <!-- Form Body -->
+    <form id="dietForm" class="p-6 space-y-8 modal-body" method="post" enctype="multipart/form-data">
+        <div class="form-alert bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg text-sm font-bold" id="dietFormAlert" hidden role="alert"></div>
+
+        <!-- Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 grid">
+            <!-- Col 1 -->
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Fecha</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="date" name="log_date" id="diet_date" required/>
+            </div>
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Sueño (h)</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="number" step="0.1" name="sleep_hours" placeholder="7.0"/>
+            </div>
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Calidad (1-10)</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="number" min="1" max="10" name="sleep_quality" placeholder="8"/>
+            </div>
+
+            <!-- Col 2 -->
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Pasos</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="number" name="steps" placeholder="9500"/>
+            </div>
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Peso (kg)</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="number" step="0.1" name="weight_kg" placeholder="72.4"/>
+            </div>
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Cintura (cm)</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="number" step="0.1" name="waist_cm" placeholder="78.2"/>
+            </div>
+
+            <!-- Col 3 -->
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Cadera (cm)</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="number" step="0.1" name="hip_cm" placeholder="98.0"/>
+            </div>
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Alcohol (uds)</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="number" min="0" name="alcohol_units" placeholder="0"/>
+            </div>
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Creatina</label>
+                <select class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all appearance-none cursor-pointer bg-background-dark" name="creatine_yn">
+                    <option value="">—</option>
+                    <option value="Y">Sí (Y)</option>
+                    <option value="N">No (N)</option>
+                </select>
+            </div>
         </div>
 
-        <div class="span-all">
-          <div class="photo-preview">
-            <div class="preview-row">
-              <div>
-                <div class="preview-title">Foto de progreso (opcional)</div>
-                <div class="preview-sub" id="photoMeta">Sin archivo</div>
-              </div>
-              <div class="preview-actions">
-                <div class="preview-existing" id="photoExistingWrap" hidden>
-                  <button class="btn ghost" id="photoExistingBtn" type="button">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M1.5 12s4.5-7.5 10.5-7.5S22.5 12 22.5 12s-4.5 7.5-10.5 7.5S1.5 12 1.5 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Ver foto actual
-                  </button>
+        <!-- Photo Section -->
+        <div class="space-y-4 span-all photo-preview">
+            <h3 class="text-white text-base font-semibold preview-title">Foto de progreso (opcional)</h3>
+            <div class="flex flex-col md:flex-row gap-6 items-center preview-row">
+                <!-- Dropzone area / Image Preview -->
+                <div class="w-full md:w-1/2 h-40 border-2 border-dashed border-white/10 rounded-lg flex flex-col items-center justify-center gap-2 hover:border-primary/40 transition-colors cursor-pointer group relative overflow-hidden bg-white/5">
+                    <input type="file" id="photoFile" name="photo" accept=".jpg,.jpeg,.png,.webp" class="absolute inset-0 opacity-0 cursor-pointer z-10"/>
+                    <img id="photoPreview" class="absolute inset-0 w-full h-full object-contain hidden" alt="Preview"/>
+                    <div class="flex flex-col items-center justify-center pointer-events-none">
+                        <span class="material-symbols-outlined text-white/30 text-4xl group-hover:text-primary/60 transition-colors">add_a_photo</span>
+                        <p class="text-white/40 text-sm font-medium preview-sub" id="photoMeta">Sin archivo</p>
+                    </div>
                 </div>
-                <button class="btn ghost" id="photoClear" type="button">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                  Quitar foto
-                </button>
-              </div>
+
+                <!-- Actions -->
+                <div class="w-full md:w-1/2 flex flex-col gap-3 preview-actions">
+                    <div id="photoExistingWrap" class="hidden w-full preview-existing">
+                        <button class="flex items-center justify-center gap-2 w-full h-11 rounded-lg border border-white/10 text-white/80 hover:bg-white/5 transition-colors text-sm font-semibold btn ghost" id="photoExistingBtn" type="button">
+                            <span class="material-symbols-outlined text-lg">visibility</span>
+                            Ver foto actual
+                        </button>
+                    </div>
+                    <button class="flex items-center justify-center gap-2 w-full h-11 rounded-lg border border-white/10 text-red-400 hover:bg-red-500/10 transition-colors text-sm font-semibold btn ghost hidden" id="photoClear" type="button">
+                        <span class="material-symbols-outlined text-lg">delete</span>
+                        Quitar
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" name="photo_yn" id="photoYN" value=""/>
+            <input type="hidden" name="photo_replace_confirm" id="photoReplaceConfirm" value=""/>
+            <input type="hidden" name="entry_mode" id="dietEntryMode" value="create"/>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="mt-auto flex items-center justify-end gap-3 pt-6 border-t border-white/5 modal-actions">
+            <button class="h-10 px-6 rounded-lg text-red-400 hover:bg-red-500/10 transition-colors text-sm font-bold mr-auto hidden btn ghost danger" type="button" id="dietDeleteBtn">
+                ELIMINAR
+            </button>
+            <button class="h-10 px-6 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-bold tracking-wide btn ghost" type="button" id="dietCancel">
+                CANCELAR
+            </button>
+            <button class="h-10 px-8 rounded-lg bg-primary text-background-dark font-black tracking-wide hover:shadow-[0_0_20px_rgba(13,242,204,0.3)] hover:scale-[1.02] active:scale-95 transition-all btn primary" type="submit">
+                GUARDAR
+            </button>
+        </div>
+    </form>
+</dialog>
+
+<!-- WORKOUT MODAL -->
+<dialog id="workoutModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-3xl text-white">
+    <div class="flex items-start justify-between p-6 border-b border-white/5 bg-white/5">
+        <div class="flex flex-col gap-1">
+            <h3 class="text-2xl font-black tracking-tight text-white modal-title">Registrar Entreno</h3>
+            <p class="text-primary/70 text-sm font-medium modal-sub">Detalla tu sesión. Click en una fila para editar.</p>
+        </div>
+        <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white hover:bg-primary/20 transition-colors group x" id="workClose" aria-label="Cerrar">
+            <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">close</span>
+        </button>
+    </div>
+
+    <form id="workForm" class="p-6 space-y-8 modal-body" method="post">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 grid work-grid">
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Fecha</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="date" name="log_date" id="work_date" required/>
+            </div>
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Tipo</label>
+                <select class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all appearance-none cursor-pointer bg-background-dark" name="session_type" id="work_session_type">
+                    <option value="clase">Clase</option>
+                    <option value="pesas">Pesas</option>
+                </select>
+            </div>
+            <div class="flex flex-col gap-2 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">RPE (1-10)</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="number" min="1" max="10" name="rpe_session" placeholder="7"/>
             </div>
 
-            <div class="preview-grid">
-              <img id="photoPreview" alt="preview"/>
-              <div class="file">
-                <input
-                  type="file"
-                  id="photoFile"
-                  name="photo"
-                  accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
-                />
-              </div>
+            <div class="col-span-1 md:col-span-3 flex flex-col gap-2 field span-all" id="workClassField">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider" id="workClassLabel">Clase / actividad</label>
+                <input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="text" name="class_done" placeholder="Cross-fit, Yoga, Pilates..."/>
             </div>
-          </div>
 
-          <input type="hidden" name="photo_yn" id="photoYN" value=""/>
-          <input type="hidden" name="photo_replace_confirm" id="photoReplaceConfirm" value=""/>
-          <input type="hidden" name="entry_mode" id="dietEntryMode" value="create"/>
-        </div>
-      </div>
-
-      <div class="modal-actions">
-        <button class="btn ghost danger" type="button" id="dietDeleteBtn" hidden>Eliminar</button>
-        <button class="btn ghost" type="button" id="dietCancel">Cancelar</button>
-        <button class="btn primary" type="submit">Guardar</button>
-      </div>
-    </form>
-  </dialog>
-
-  <dialog id="workoutModal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Registrar Entreno</div>
-        <div class="modal-sub">Detalla tu sesion de hoy. Click en una fila para editar.</div>
-      </div>
-      <button class="x" aria-label="Cerrar" id="workClose" type="button">✕</button>
-    </div>
-
-    <form id="workForm" class="modal-body" method="post">
-      <div class="grid work-grid">
-        <div class="field">
-          <label>Fecha</label>
-          <input type="date" name="log_date" id="work_date" required/>
-        </div>
-        <div class="field">
-          <label>Tipo de entreno</label>
-          <select name="session_type" id="work_session_type">
-            <option value="clase">Clase</option>
-            <option value="pesas">Pesas</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>RPE (1-10)</label>
-          <input type="number" min="1" max="10" name="rpe_session" placeholder="7"/>
-        </div>
-
-        <div class="field span-all" id="workClassField">
-          <label id="workClassLabel">Clase / actividad</label>
-          <input type="text" name="class_done" placeholder="Cross-fit + core / yoga / pilates..."/>
-        </div>
-
-        <div class="span-all strength-block" id="workStrengthBlock">
-          <div class="strength-head">
-            <h3>Ejercicios de fuerza</h3>
-            <button class="btn ghost" type="button" id="workAddExerciseBtn">+ Añadir ejercicio</button>
-          </div>
-          <div class="exercise-list" id="workExerciseList"></div>
-          <p class="exercise-help">Puedes registrar varios ejercicios en una misma sesión.</p>
-        </div>
-
-        <div class="field span-all">
-          <div class="work-done-row">
-            <div class="work-done-label">
-              <span class="work-done-icon" aria-hidden="true">✓</span>
-              <span>¿Sesion completada?</span>
+            <!-- Strength Section -->
+            <div class="col-span-1 md:col-span-3 space-y-4 span-all strength-block" id="workStrengthBlock">
+                <div class="flex items-center justify-between strength-head">
+                    <h3 class="text-white text-sm font-bold uppercase tracking-widest">Ejercicios de fuerza</h3>
+                    <button class="text-primary hover:text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-colors btn ghost" type="button" id="workAddExerciseBtn">
+                        <span class="material-symbols-outlined text-base">add</span> Añadir
+                    </button>
+                </div>
+                <div class="space-y-3 exercise-list" id="workExerciseList">
+                    <!-- Exercise Rows Injected Here -->
+                </div>
+                <p class="text-white/40 text-xs exercise-help">Puedes registrar varios ejercicios.</p>
             </div>
-            <div class="work-done-toggle" role="group" aria-label="Sesion completada">
-              <button class="done-btn no" type="button" data-work-done-value="N">NO</button>
-              <button class="done-btn yes" type="button" data-work-done-value="Y">SI</button>
-              <button class="done-btn clear" type="button" data-work-done-value="">LIMPIAR</button>
+
+            <div class="col-span-1 md:col-span-3 flex flex-col gap-2 field span-all">
+                <div class="flex items-center justify-between bg-white/5 p-3 rounded-lg border border-white/10 work-done-row">
+                    <div class="flex items-center gap-3 work-done-label">
+                        <div class="bg-primary/20 p-1 rounded-full work-done-icon">
+                            <span class="material-symbols-outlined text-primary text-sm font-bold">check</span>
+                        </div>
+                        <span class="text-sm font-bold text-white">¿Sesión completada?</span>
+                    </div>
+                    <div class="flex gap-1 bg-black/20 p-1 rounded-lg work-done-toggle">
+                        <button type="button" class="px-3 py-1 text-xs font-bold rounded-md transition-all text-white/50 hover:text-white done-btn no" data-work-done-value="N">NO</button>
+                        <button type="button" class="px-3 py-1 text-xs font-bold rounded-md transition-all text-white/50 hover:text-white done-btn yes" data-work-done-value="Y">SI</button>
+                        <button type="button" class="px-3 py-1 text-xs font-bold rounded-md transition-all text-white/50 hover:text-white done-btn clear" data-work-done-value="">—</button>
+                    </div>
+                    <select name="session_done_yn" id="work_done_select" class="sr-only hidden">
+                        <option value="">—</option>
+                        <option value="Y">Y</option>
+                        <option value="N">N</option>
+                    </select>
+                </div>
             </div>
-          </div>
-          <select name="session_done_yn" id="work_done_select" class="sr-only-select">
-            <option value="">—</option>
-            <option value="Y">Y</option>
-            <option value="N">N</option>
-          </select>
+
+            <div class="col-span-1 md:col-span-3 flex flex-col gap-2 field span-all">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider">Notas</label>
+                <textarea class="w-full bg-white/5 border border-white/10 rounded-lg text-white px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all min-h-[100px]" name="notes" placeholder="Sensaciones, molestias..."></textarea>
+            </div>
         </div>
 
-        <div class="field span-all">
-          <label>Notas y observaciones</label>
-          <textarea name="notes" rows="3" placeholder="Sensaciones, molestias, suplementacion..."></textarea>
+        <input type="hidden" name="session_id" id="workSessionId" value=""/>
+        <input type="hidden" name="exercises_json" id="workExercisesJson" value=""/>
+        <input type="hidden" name="entry_mode" id="workEntryMode" value="create"/>
+
+        <div class="mt-auto flex items-center justify-end gap-3 pt-6 border-t border-white/5 modal-actions">
+            <button class="h-10 px-6 rounded-lg text-red-400 hover:bg-red-500/10 transition-colors text-sm font-bold mr-auto hidden btn ghost danger" type="button" id="workDeleteBtn">
+                ELIMINAR
+            </button>
+            <button class="h-10 px-6 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-bold tracking-wide btn ghost" type="button" id="workCancel">
+                CANCELAR
+            </button>
+            <button class="h-10 px-8 rounded-lg bg-primary text-background-dark font-black tracking-wide hover:shadow-[0_0_20px_rgba(13,242,204,0.3)] hover:scale-[1.02] active:scale-95 transition-all btn primary" type="submit">
+                GUARDAR
+            </button>
         </div>
-      </div>
-
-      <input type="hidden" name="session_id" id="workSessionId" value=""/>
-      <input type="hidden" name="exercises_json" id="workExercisesJson" value=""/>
-      <input type="hidden" name="entry_mode" id="workEntryMode" value="create"/>
-
-      <div class="modal-actions">
-        <button class="btn ghost danger" type="button" id="workDeleteBtn" hidden>Eliminar</button>
-        <button class="btn ghost" type="button" id="workCancel">Cancelar</button>
-        <button class="btn primary" type="submit">Guardar Entreno</button>
-      </div>
     </form>
-  </dialog>
+</dialog>
 
-  <dialog id="suppDayModal" class="supp-modal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Registro de suplementos</div>
-        <div class="modal-sub">Guarda lo que realmente tomaste en la fecha seleccionada.</div>
-      </div>
-      <div class="modal-head-actions">
-        <button class="btn ghost" id="suppCatalogBtn" type="button">Catálogo de suplementos</button>
-        <button class="x" aria-label="Cerrar" id="suppDayClose" type="button">✕</button>
-      </div>
+<!-- Exercise Template (Hidden) -->
+<template id="workExerciseTemplate">
+    <div class="grid grid-cols-12 gap-3 items-end bg-white/5 p-3 rounded-lg border border-white/5 exercise-row" data-exercise-row>
+        <div class="col-span-12 sm:col-span-4 flex flex-col gap-1 field exercise-name-field">
+            <label class="text-white/40 text-[10px] font-bold uppercase tracking-wider">Ejercicio</label>
+            <input type="text" class="w-full h-9 bg-black/20 border border-white/10 rounded text-white px-3 text-sm focus:border-primary outline-none" placeholder="Nombre" data-ex-field="exercise_name"/>
+        </div>
+        <div class="col-span-3 sm:col-span-2 flex flex-col gap-1 field triplet-field">
+            <label class="text-white/40 text-[10px] font-bold uppercase tracking-wider text-center">KG</label>
+            <input type="number" step="0.5" class="w-full h-9 bg-black/20 border border-white/10 rounded text-white px-1 text-center text-sm font-mono focus:border-primary outline-none" placeholder="-" data-ex-field="weight_kg"/>
+        </div>
+        <div class="col-span-3 sm:col-span-2 flex flex-col gap-1 field triplet-field">
+            <label class="text-white/40 text-[10px] font-bold uppercase tracking-wider text-center">Reps</label>
+            <input type="number" class="w-full h-9 bg-black/20 border border-white/10 rounded text-white px-1 text-center text-sm font-mono focus:border-primary outline-none" placeholder="-" data-ex-field="reps"/>
+        </div>
+        <div class="col-span-3 sm:col-span-2 flex flex-col gap-1 field triplet-field">
+            <label class="text-white/40 text-[10px] font-bold uppercase tracking-wider text-center">RPE</label>
+            <input type="number" step="0.5" max="10" class="w-full h-9 bg-black/20 border border-white/10 rounded text-white px-1 text-center text-sm font-mono focus:border-primary outline-none" placeholder="-" data-ex-field="rpe"/>
+        </div>
+        <div class="col-span-3 sm:col-span-2 flex items-end justify-end">
+            <button type="button" class="h-9 w-9 flex items-center justify-center text-white/30 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors ex-remove-btn" data-remove-exercise>
+                <span class="material-symbols-outlined text-lg">delete</span>
+            </button>
+        </div>
+    </div>
+</template>
+
+<!-- SUPPLEMENTS DAY MODAL (Adapted to Tailwind) -->
+<dialog id="suppDayModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-4xl text-white supp-modal">
+    <div class="flex items-start justify-between p-6 border-b border-white/5 bg-white/5 modal-head">
+        <div class="flex flex-col gap-1">
+            <h3 class="text-2xl font-black tracking-tight text-white modal-title">Suplementos</h3>
+            <p class="text-primary/70 text-sm font-medium modal-sub">Registro diario de tomas.</p>
+        </div>
+        <div class="flex items-center gap-3 modal-head-actions">
+            <button class="text-xs font-bold uppercase tracking-wider text-primary hover:text-white transition-colors btn ghost" id="suppCatalogBtn">Catálogo</button>
+            <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white hover:bg-primary/20 transition-colors group x" id="suppDayClose" aria-label="Cerrar">
+                <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">close</span>
+            </button>
+        </div>
     </div>
 
-    <form id="suppDayForm" class="modal-body">
-      <div class="supp-day-controls">
-        <div class="field">
-          <label>Fecha</label>
-          <input type="date" id="suppDayDate" required/>
+    <form id="suppDayForm" class="p-6 space-y-6 modal-body flex flex-col h-[80vh]">
+        <div class="flex items-end gap-4 supp-day-controls">
+            <div class="flex-1 field">
+                <label class="text-white/60 text-xs font-bold uppercase tracking-wider mb-2 block">Fecha</label>
+                <input type="date" id="suppDayDate" class="w-full h-10 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" required/>
+            </div>
+            <button class="h-10 px-4 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-bold hover:bg-white/10 transition-colors btn ghost" id="suppDayLoadBtn" type="button">Cargar día</button>
         </div>
-        <button class="btn ghost" id="suppDayLoadBtn" type="button">Añadir</button>
-      </div>
 
-      <div class="table card supp-table-wrap">
-        <table id="suppDayTable">
-          <thead>
-            <tr>
-              <th>Suplemento</th>
-              <th>Objetivo</th>
-              <th>Tomas realizadas</th>
-              <th>Notas</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="supp-day-foot mono" id="suppDayTotals">Sin suplementos configurados.</div>
+        <div class="flex-1 overflow-hidden border border-white/5 rounded-xl bg-white/5 flex flex-col table card supp-table-wrap">
+            <div class="overflow-auto custom-scrollbar flex-1">
+                <table class="w-full text-left border-collapse" id="suppDayTable">
+                    <thead class="sticky top-0 bg-background-dark z-10">
+                        <tr class="border-b border-white/10">
+                            <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase">Suplemento</th>
+                            <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase text-center">Objetivo</th>
+                            <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase text-center w-24">Tomas</th>
+                            <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase">Notas</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="text-xs text-slate-500 font-mono supp-day-foot" id="suppDayTotals">Cargando...</div>
 
-      <div class="modal-actions">
-        <button class="btn ghost danger" type="button" id="suppDayDeleteBtn" hidden>Eliminar día</button>
-        <button class="btn ghost" type="button" id="suppDayCancel">Cancelar</button>
-        <button class="btn primary" type="submit" id="suppSaveDayBtn">Guardar tomas del día</button>
-      </div>
+        <div class="mt-auto flex items-center justify-end gap-3 pt-4 border-t border-white/5 modal-actions">
+            <button class="h-10 px-6 rounded-lg text-red-400 hover:bg-red-500/10 transition-colors text-sm font-bold mr-auto hidden btn ghost danger" type="button" id="suppDayDeleteBtn">
+                ELIMINAR DÍA
+            </button>
+            <button class="h-10 px-6 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-bold tracking-wide btn ghost" type="button" id="suppDayCancel">
+                CANCELAR
+            </button>
+            <button class="h-10 px-8 rounded-lg bg-primary text-background-dark font-black tracking-wide hover:shadow-[0_0_20px_rgba(13,242,204,0.3)] hover:scale-[1.02] active:scale-95 transition-all btn primary" type="submit">
+                GUARDAR
+            </button>
+        </div>
     </form>
-  </dialog>
+</dialog>
 
-  <dialog id="suppCatalogModal" class="supp-modal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Catálogo de suplementos</div>
-        <div class="modal-sub">Define suplementos activos y su objetivo de tomas por día.</div>
-      </div>
-      <button class="x" aria-label="Cerrar" id="suppCatalogClose" type="button">✕</button>
-    </div>
-
-    <div class="modal-body">
-      <form id="suppCatalogForm" class="supp-form">
-        <input type="hidden" id="supplementId" name="supplement_id" value=""/>
-        <div class="grid supp-grid">
-          <div class="field">
-            <label>Suplemento</label>
-            <input type="text" id="supplementName" name="name" placeholder="Melatonina" required/>
-          </div>
-          <div class="field">
-            <label>Tomas por día</label>
-            <input type="number" id="supplementDosesPerDay" name="doses_per_day" min="1" max="12" step="1" placeholder="1" required/>
-          </div>
-          <div class="field">
-            <label>Disponible en registro diario</label>
-            <select id="supplementActiveYN" name="active_yn">
-              <option value="Y">Sí (mostrar en registro diario)</option>
-              <option value="N">No (ocultar por ahora)</option>
-            </select>
-            <div class="hint">Si está en "No", no aparecerá al cargar tomas del día.</div>
-          </div>
-          <div class="field span-all">
-            <label>Notas (opcional)</label>
-            <input type="text" id="supplementNotes" name="notes" placeholder="Antes de dormir / post-entreno..."/>
-          </div>
+<!-- SUPPLEMENT CATALOG MODAL -->
+<dialog id="suppCatalogModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-4xl text-white supp-modal">
+    <div class="flex items-start justify-between p-6 border-b border-white/5 bg-white/5 modal-head">
+        <div class="flex flex-col gap-1">
+            <h3 class="text-2xl font-black tracking-tight text-white modal-title">Catálogo</h3>
+            <p class="text-primary/70 text-sm font-medium modal-sub">Gestiona tus suplementos activos.</p>
         </div>
-
-        <div class="supp-form-actions">
-          <button class="btn ghost" id="suppCancelEditBtn" type="button" hidden>Cancelar edición</button>
-          <button class="btn primary" id="suppSaveBtn" type="submit">Guardar suplemento</button>
-        </div>
-        <div class="supp-form-alert mono" id="suppCatalogAlert" hidden></div>
-      </form>
-
-      <div class="table card supp-table-wrap">
-        <table id="suppCatalogTable">
-          <thead>
-            <tr>
-              <th>Suplemento</th>
-              <th>Tomas/día</th>
-              <th>Activo</th>
-              <th>Notas</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn ghost" type="button" id="suppCatalogDone">Cerrar</button>
-    </div>
-  </dialog>
-
-  <template id="workExerciseTemplate">
-    <div class="strength-card exercise-row" data-exercise-row>
-      <div class="field exercise-name-field">
-        <label>Ejercicio</label>
-        <input type="text" placeholder="Hip Thrust" data-ex-field="exercise_name"/>
-      </div>
-      <div class="field triplet-field">
-        <label>KG</label>
-        <input type="number" step="0.5" min="0" placeholder="120" data-ex-field="weight_kg"/>
-      </div>
-      <div class="field triplet-field">
-        <label>Reps</label>
-        <input type="number" min="0" placeholder="6" data-ex-field="reps"/>
-      </div>
-      <div class="field triplet-field">
-        <label>RPE</label>
-        <input type="number" step="0.5" min="1" max="10" placeholder="8" data-ex-field="rpe"/>
-      </div>
-      <button class="btn ghost ex-remove-btn" type="button" data-remove-exercise>Quitar</button>
-    </div>
-  </template>
-
-  <dialog id="importDietModal" class="import-modal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Importar dieta (CSV)</div>
-        <div class="modal-sub">Previsualiza filas validas, conflictos y errores antes de aplicar.</div>
-      </div>
-      <button class="x" aria-label="Cerrar" id="importDietClose" type="button">✕</button>
+        <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white hover:bg-primary/20 transition-colors group x" id="suppCatalogClose" aria-label="Cerrar">
+            <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">close</span>
+        </button>
     </div>
 
-    <form id="importDietForm" class="modal-body">
-      <div class="import-links">
-        <a class="btn ghost" href="/export/template/checkin-import.csv" rel="noopener">Descargar plantilla check-ins</a>
-      </div>
+    <div class="p-6 space-y-6 modal-body">
+        <form id="suppCatalogForm" class="bg-white/5 p-4 rounded-xl border border-white/5 space-y-4 supp-form">
+            <input type="hidden" id="supplementId" name="supplement_id" value=""/>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 supp-grid">
+                <div class="field">
+                    <label class="text-white/60 text-xs font-bold uppercase tracking-wider block mb-2">Nombre</label>
+                    <input type="text" id="supplementName" name="name" class="w-full h-10 bg-black/20 border border-white/10 rounded text-white px-3 text-sm focus:border-primary outline-none" placeholder="Creatina" required/>
+                </div>
+                <div class="field">
+                    <label class="text-white/60 text-xs font-bold uppercase tracking-wider block mb-2">Tomas/día</label>
+                    <input type="number" id="supplementDosesPerDay" name="doses_per_day" class="w-full h-10 bg-black/20 border border-white/10 rounded text-white px-3 text-sm focus:border-primary outline-none" min="1" max="12" value="1" required/>
+                </div>
+                <div class="field">
+                    <label class="text-white/60 text-xs font-bold uppercase tracking-wider block mb-2">Estado</label>
+                    <select id="supplementActiveYN" name="active_yn" class="w-full h-10 bg-black/20 border border-white/10 rounded text-white px-3 text-sm focus:border-primary outline-none appearance-none">
+                        <option value="Y">Activo</option>
+                        <option value="N">Inactivo</option>
+                    </select>
+                </div>
+                <div class="md:col-span-3 field span-all">
+                    <label class="text-white/60 text-xs font-bold uppercase tracking-wider block mb-2">Notas</label>
+                    <input type="text" id="supplementNotes" name="notes" class="w-full h-10 bg-black/20 border border-white/10 rounded text-white px-3 text-sm focus:border-primary outline-none" placeholder="Opcional..."/>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3 supp-form-actions">
+                <button type="button" class="text-sm font-bold text-slate-400 hover:text-white transition-colors btn ghost" id="suppCancelEditBtn" hidden>Cancelar</button>
+                <button type="submit" class="h-9 px-4 bg-primary/10 border border-primary/20 text-primary rounded font-bold text-sm hover:bg-primary/20 transition-colors btn primary" id="suppSaveBtn">Añadir</button>
+            </div>
+            <div class="text-red-400 text-xs font-bold mt-2 hidden supp-form-alert" id="suppCatalogAlert"></div>
+        </form>
 
-      <div class="field">
-        <label>Archivo CSV</label>
-        <input type="file" id="importDietFile" name="file" accept=".csv,text/csv"/>
-      </div>
-
-      <div class="import-actions">
-        <button class="btn ghost" id="importPreviewBtn" type="button">Previsualizar</button>
-        <button class="btn primary" id="importApplyBtn" type="button" disabled>Importar filas validas</button>
-      </div>
-
-      <div id="importDietSummary" class="import-summary mono" hidden></div>
-
-      <div id="importPreviewWrap" class="table card import-table" hidden>
-        <table id="importPreviewTable">
-          <thead>
-            <tr>
-              <th>Fila</th>
-              <th>Estado</th>
-              <th>Fecha</th>
-              <th>Sueño</th>
-              <th>Pasos</th>
-              <th>Peso</th>
-              <th>WHR</th>
-              <th>Motivo</th>
-            </tr>
-          </thead>
-          <tbody id="importPreviewBody"></tbody>
-        </table>
-      </div>
-    </form>
-  </dialog>
-
-  <dialog id="planImportModal" class="import-modal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Crear dieta y plan de entreno</div>
-        <div class="modal-sub">Sigue este flujo guiado para generar e importar tus CSV con ayuda de IA.</div>
-      </div>
-      <button class="x" aria-label="Cerrar" id="planImportClose" type="button">✕</button>
-    </div>
-
-    <div class="modal-body plan-import-body">
-      <section class="plan-import-block">
-        <h4>Asistente guiado para crear tus planes con IA</h4>
-        <p class="plan-import-ai-note">
-          Si quieres generar los dos archivos que importar a Gym Tracker con ayuda de la IA de tu elección, accede a esta guía y síguela paso a paso.
-        </p>
-        <div class="import-links">
-          <button class="btn primary" id="planAiWorkflowOpenBtn" type="button">Abrir guía paso a paso</button>
-        </div>
-      </section>
-
-      <section class="plan-import-guide plan-import-legal">
-        <h4>Aviso legal y de responsabilidad</h4>
-        <p class="plan-disclaimer">
-          Gym Tracker solo te ayuda a organizar y visualizar planes de dieta y entreno generados por ti o por una IA. No ofrece diagnóstico, tratamiento, ni recomendaciones médicas, nutricionales o deportivas personalizadas.
-          Este flujo no sustituye la consulta con profesionales cualificados en nutrición, medicina o ciencias del deporte. Cualquier decisión sobre salud, alimentación o entrenamiento es responsabilidad exclusiva del usuario.
-        </p>
-      </section>
-
-      <div class="modal-actions">
-        <button class="btn ghost" id="planImportCancel" type="button">Cerrar</button>
-      </div>
-    </div>
-  </dialog>
-
-  <dialog id="planAiWorkflowModal" class="import-modal plan-ai-workflow-modal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Guía IA · Crear dieta y plan de entreno</div>
-        <div class="modal-sub">Descarga los archivos oficiales, copia el prompt e importa los 2 CSV finales en esta misma guía.</div>
-      </div>
-      <button class="x" aria-label="Cerrar" id="planAiWorkflowClose" type="button">✕</button>
-    </div>
-
-    <div class="modal-body plan-ai-workflow-body">
-      <section class="plan-import-guide">
-        <h4>Paso 1 · Descarga aquí tus 5 archivos oficiales</h4>
-        <p class="plan-import-ai-note">
-          Descarga estos archivos y súbelos juntos en tu IA para generar tus planes en formato compatible con Gym Tracker.
-        </p>
-        <div class="import-links plan-import-assets">
-          <a class="btn ghost" href="/export/template/plan-diet.csv" rel="noopener">Plantilla dieta (CSV)</a>
-          <a class="btn ghost" href="/export/template/plan-workout.csv" rel="noopener">Plantilla entreno (CSV)</a>
-          <a class="btn ghost" href="/export/template/plan-csv-ai-instructions-diet.md" rel="noopener">Instrucciones IA dieta (MD)</a>
-          <a class="btn ghost" href="/export/template/plan-csv-ai-instructions-workout.md" rel="noopener">Instrucciones IA entreno (MD)</a>
-          <a class="btn ghost" href="/export/template/plan-csv-ai-system-prompt.md" rel="noopener">System prompt (MD)</a>
-        </div>
-      </section>
-
-      <section class="plan-import-block">
-        <h4>Paso 2 · Copia este prompt y pégalo en tu IA</h4>
-        <p class="plan-import-ai-note">
-          Adjunta los 5 archivos y usa este prompt. La respuesta debe devolverte ambos CSV finales en un único mensaje y sin formato Markdown.
-        </p>
-        <textarea id="planAiPromptText" class="plan-ai-prompt mono" rows="10" readonly></textarea>
-        <div class="modal-actions">
-          <button class="btn ghost" id="planAiPromptCopyBtn" type="button">Copiar prompt</button>
-        </div>
-      </section>
-
-      <section class="plan-import-block">
-        <h4>Paso 3 · Importa aquí tus archivos CSV finales</h4>
-        <p class="plan-import-ai-note">
-          Importa primero dieta y luego entreno. Si hay incidencias, aquí mismo verás errores, avisos y acciones sugeridas.
-        </p>
-
-        <div class="field">
-          <label for="planDietFile">Importa aquí tu archivo CSV de dieta</label>
-          <input type="file" id="planDietFile" accept=".csv,text/csv"/>
-        </div>
-        <button class="btn primary" id="planImportDietBtn" type="button">Importar CSV de dieta</button>
-
-        <div class="field">
-          <label for="planWorkoutFile">Importa aquí tu archivo CSV de plan de entreno</label>
-          <input type="file" id="planWorkoutFile" accept=".csv,text/csv"/>
-        </div>
-        <button class="btn primary" id="planImportWorkoutBtn" type="button">Importar CSV de plan de entreno</button>
-
-        <div class="import-summary mono" id="planImportSummary" hidden></div>
-        <section class="plan-import-feedback" id="planImportFeedback" hidden>
-          <div class="plan-import-human" id="planImportHuman"></div>
-          <div class="plan-import-groups" id="planImportGroups"></div>
-          <button class="btn ghost" id="planImportDownloadDetailBtn" type="button" hidden>Descargar detalle de incidencias</button>
-          <div class="table card plan-import-detail-wrap" id="planImportDetailWrap" hidden>
-            <table id="planImportDetailTable">
-              <thead>
-                <tr>
-                  <th>Línea</th>
-                  <th>Fecha</th>
-                  <th>Tipo sesión</th>
-                  <th>Tipo</th>
-                  <th>Motivo</th>
-                  <th>Acción sugerida</th>
-                </tr>
-              </thead>
-              <tbody id="planImportDetailBody"></tbody>
+        <div class="border border-white/5 rounded-xl overflow-hidden bg-white/5 table card supp-table-wrap">
+            <table class="w-full text-left" id="suppCatalogTable">
+                <thead class="bg-white/5 border-b border-white/10">
+                    <tr>
+                        <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase">Nombre</th>
+                        <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase text-center">Dosis</th>
+                        <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase text-center">Estado</th>
+                        <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase">Notas</th>
+                        <th class="px-4 py-3 text-xs font-bold text-slate-500 uppercase text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5"></tbody>
             </table>
-          </div>
-        </section>
-      </section>
-
-      <div class="modal-actions">
-        <button class="btn ghost" id="planAiWorkflowDoneBtn" type="button">Cerrar guía</button>
-      </div>
-    </div>
-  </dialog>
-
-  <dialog id="photoLightbox" class="lightbox">
-    <div class="lightbox-shell">
-      <div class="lightbox-topbar">
-        <div class="lightbox-meta">
-          <div class="lightbox-kicker">Progress log</div>
-          <div class="lightbox-mainline">
-            <span id="lightboxCaption">Vista previa</span>
-            <span class="lightbox-sep">•</span>
-            <span id="lightboxMetaTag">foto</span>
-          </div>
-          <div class="lightbox-detail mono" id="lightboxMetaDetails">Fecha — · Peso — · WHR —</div>
         </div>
-        <div class="lightbox-tools">
-          <button id="lightboxCompareToggle" class="lightbox-download" type="button">Comparar</button>
-          <a id="lightboxDownload" class="lightbox-download" href="#" download rel="noopener">Descargar</a>
-          <button class="x lightbox-x" aria-label="Cerrar" id="lightboxClose" type="button">✕</button>
+    </div>
+    <div class="p-6 border-t border-white/5 flex justify-end modal-actions">
+        <button class="h-10 px-6 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-bold btn ghost" type="button" id="suppCatalogDone">Cerrar</button>
+    </div>
+</dialog>
+
+<!-- IMPORT / EXPORT MODALS -->
+<dialog id="importDietModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-3xl text-white import-modal">
+    <div class="flex items-start justify-between p-6 border-b border-white/5 bg-white/5 modal-head">
+        <div class="flex flex-col gap-1">
+            <h3 class="text-2xl font-black tracking-tight text-white modal-title">Importar CSV</h3>
+            <p class="text-primary/70 text-sm font-medium modal-sub">Carga masiva de check-ins.</p>
         </div>
-      </div>
-
-      <div class="lightbox-stage">
-        <button class="lightbox-nav" id="lightboxPrev" type="button" aria-label="Foto anterior" disabled>‹</button>
-        <div class="lightbox-frame">
-          <img id="lightboxImg" alt="Foto"/>
+        <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white hover:bg-primary/20 transition-colors group x" id="importDietClose">
+            <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">close</span>
+        </button>
+    </div>
+    <form id="importDietForm" class="p-6 space-y-6 modal-body">
+        <div class="flex gap-4 import-links">
+            <a href="/export/template/checkin-import.csv" class="text-sm font-bold text-primary hover:underline btn ghost">Descargar plantilla</a>
         </div>
-        <button class="lightbox-nav" id="lightboxNext" type="button" aria-label="Foto siguiente" disabled>›</button>
-      </div>
-
-      <div class="lightbox-compare" id="lightboxCompareWrap" hidden>
-        <div class="lightbox-compare-head">
-          <span class="compare-title">Comparativa</span>
-          <div class="compare-controls">
-            <label for="lightboxCompareSelect">Comparar con</label>
-            <select id="lightboxCompareSelect" aria-label="Foto para comparar"></select>
-          </div>
-          <span id="lightboxCompareLabel" class="mono"></span>
+        <div class="field">
+            <label class="text-white/60 text-xs font-bold uppercase tracking-wider block mb-2">Archivo CSV</label>
+            <input type="file" id="importDietFile" accept=".csv,text/csv" class="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-sm text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-background-dark hover:file:bg-primary/90"/>
         </div>
-        <div class="compare-stage">
-          <figure class="compare-pane">
-            <figcaption id="compareBeforeLabel" class="mono">Antes</figcaption>
-            <img id="compareBeforeImg" alt="Foto anterior"/>
-          </figure>
-          <figure class="compare-pane">
-            <figcaption id="compareAfterLabel" class="mono">Después</figcaption>
-            <img id="compareAfterImg" alt="Foto actual"/>
-          </figure>
+        <div class="flex justify-end gap-3 import-actions">
+            <button type="button" class="h-10 px-6 rounded-lg bg-white/5 text-white text-sm font-bold hover:bg-white/10 transition-colors btn ghost" id="importPreviewBtn">Previsualizar</button>
+            <button type="button" class="h-10 px-6 rounded-lg bg-primary text-background-dark text-sm font-bold hover:bg-primary/90 transition-colors disabled:opacity-50 btn primary" id="importApplyBtn" disabled>Importar</button>
         </div>
-      </div>
-
-      <div class="lightbox-strip" id="lightboxThumbs"></div>
-      <div class="lightbox-counter mono" id="lightboxCount">0 de 0</div>
-    </div>
-  </dialog>
-
-  <dialog id="replaceConfirmModal" class="confirm">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Reemplazar foto</div>
-        <div class="modal-sub" id="replaceConfirmText">Ya existe una foto para esa fecha.</div>
-      </div>
-      <button class="x" aria-label="Cerrar" id="replaceConfirmClose" type="button">✕</button>
-    </div>
-    <div class="confirm-body">
-      <img id="replaceConfirmImg" alt="Foto existente"/>
-    </div>
-    <div class="modal-actions">
-      <button class="btn ghost" type="button" id="replaceConfirmCancel">Cancelar</button>
-      <button class="btn primary" type="button" id="replaceConfirmOk">Reemplazar</button>
-    </div>
-  </dialog>
-
-  <dialog id="backupRestoreModal" class="confirm">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Restaurar backup</div>
-        <div class="modal-sub">Esto reemplaza DB + uploads actuales por el backup seleccionado.</div>
-      </div>
-      <button class="x" aria-label="Cerrar" id="backupRestoreClose" type="button">✕</button>
-    </div>
-
-    <form id="backupRestoreForm" class="modal-body" enctype="multipart/form-data">
-      <div class="field">
-        <label>Archivo ZIP de backup</label>
-        <input type="file" id="backupRestoreFile" name="backup_file" accept=".zip,application/zip" required/>
-      </div>
-      <label class="check-row">
-        <input type="checkbox" id="backupRestoreConfirm"/>
-        <span>Entiendo que se reemplazaran los datos actuales.</span>
-      </label>
-      <div class="modal-actions">
-        <button class="btn ghost" type="button" id="backupRestoreCancel">Cancelar</button>
-        <button class="btn primary" type="submit" id="backupRestoreSubmit">Restaurar ahora</button>
-      </div>
+        <div id="importDietSummary" class="text-xs font-mono p-3 bg-black/20 rounded border border-white/10 text-slate-300 import-summary" hidden></div>
+        <div id="importPreviewWrap" class="border border-white/10 rounded-lg overflow-hidden max-h-64 overflow-y-auto custom-scrollbar bg-white/5 table card import-table" hidden>
+            <table class="w-full text-left text-xs" id="importPreviewTable">
+                <thead class="bg-black/40 text-slate-400">
+                    <tr>
+                        <th class="px-3 py-2">Fila</th>
+                        <th class="px-3 py-2">Estado</th>
+                        <th class="px-3 py-2">Fecha</th>
+                        <th class="px-3 py-2">Datos</th>
+                        <th class="px-3 py-2">Motivo</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5 text-slate-300" id="importPreviewBody"></tbody>
+            </table>
+        </div>
     </form>
-  </dialog>
+</dialog>
 
-  <dialog id="reportBugModal" class="import-modal report-bug-modal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title">Reportar bug</div>
-        <div class="modal-sub">Copia este bloque y compártelo para diagnosticar rápido.</div>
-      </div>
-      <button class="x" aria-label="Cerrar" id="reportBugClose" type="button">✕</button>
+<!-- PLAN IMPORT MODAL -->
+<dialog id="planImportModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-4xl text-white import-modal">
+    <div class="flex items-start justify-between p-6 border-b border-white/5 bg-white/5 modal-head">
+        <div class="flex flex-col gap-1">
+            <h3 class="text-2xl font-black tracking-tight text-white modal-title">Crear Planes</h3>
+            <p class="text-primary/70 text-sm font-medium modal-sub">Importa tu dieta y rutina desde CSV o usa IA.</p>
+        </div>
+        <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white hover:bg-primary/20 transition-colors group x" id="planImportClose">
+            <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">close</span>
+        </button>
     </div>
+    <div class="p-6 space-y-6 modal-body plan-import-body">
+        <section class="bg-white/5 border border-white/10 rounded-xl p-5 plan-import-block">
+            <h4 class="text-lg font-bold text-white mb-2">Asistente IA</h4>
+            <p class="text-sm text-slate-400 mb-4 plan-import-ai-note">Genera los archivos CSV necesarios usando inteligencia artificial con nuestra guía paso a paso.</p>
+            <button class="h-10 px-6 rounded-lg bg-primary text-background-dark text-sm font-bold hover:bg-primary/90 transition-colors btn primary" id="planAiWorkflowOpenBtn">Abrir guía IA</button>
+        </section>
 
-    <div class="modal-body report-bug-body">
-      <textarea id="reportBugText" rows="12" readonly></textarea>
-      <div class="modal-actions">
-        <button class="btn ghost" id="reportBugMailBtn" type="button">Abrir email</button>
-        <button class="btn ghost" id="reportBugCopyBtn" type="button">Copiar diagnóstico</button>
-        <button class="btn primary" id="reportBugDoneBtn" type="button">Cerrar</button>
-      </div>
+        <section class="bg-red-500/5 border border-red-500/20 rounded-xl p-5 plan-import-guide plan-import-legal">
+            <h4 class="text-red-400 font-bold text-sm mb-2 uppercase tracking-wide">Aviso Importante</h4>
+            <p class="text-xs text-red-300/80 leading-relaxed plan-disclaimer">
+                Gym Tracker es una herramienta de visualización. No ofrece asesoramiento médico ni deportivo. El usuario es responsable de verificar cualquier plan generado por IA o importado manualmente.
+            </p>
+        </section>
+        <div class="flex justify-end pt-4 modal-actions">
+            <button class="h-10 px-6 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-bold btn ghost" id="planImportCancel">Cerrar</button>
+        </div>
     </div>
-  </dialog>
+</dialog>
+
+<!-- AI WORKFLOW MODAL -->
+<dialog id="planAiWorkflowModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-5xl text-white import-modal plan-ai-workflow-modal">
+    <div class="flex items-start justify-between p-6 border-b border-white/5 bg-white/5 modal-head">
+        <div class="flex flex-col gap-1">
+            <h3 class="text-2xl font-black tracking-tight text-white modal-title">Guía IA</h3>
+            <p class="text-primary/70 text-sm font-medium modal-sub">Generación de planes paso a paso.</p>
+        </div>
+        <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white hover:bg-primary/20 transition-colors group x" id="planAiWorkflowClose">
+            <span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">close</span>
+        </button>
+    </div>
+    <div class="p-6 space-y-8 modal-body plan-ai-workflow-body overflow-y-auto max-h-[80vh] custom-scrollbar">
+        <!-- Step 1 -->
+        <section class="space-y-4 plan-import-guide">
+            <div class="flex items-center gap-3">
+                <div class="h-8 w-8 rounded-full bg-primary text-background-dark flex items-center justify-center font-black text-sm">1</div>
+                <h4 class="text-lg font-bold text-white">Descarga los recursos</h4>
+            </div>
+            <p class="text-sm text-slate-400 ml-11 plan-import-ai-note">Archivos base para entrenar a tu IA favorita (ChatGPT, Claude, etc).</p>
+            <div class="ml-11 flex flex-wrap gap-3 import-links plan-import-assets">
+                <a href="/export/template/plan-diet.csv" class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-colors btn ghost">Plantilla Dieta</a>
+                <a href="/export/template/plan-workout.csv" class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-colors btn ghost">Plantilla Entreno</a>
+                <a href="/export/template/plan-csv-ai-system-prompt.md" class="px-3 py-2 bg-white/5 rounded border border-white/10 text-xs font-bold text-slate-300 hover:text-white hover:bg-white/10 transition-colors btn ghost">System Prompt</a>
+            </div>
+        </section>
+
+        <!-- Step 2 -->
+        <section class="space-y-4 plan-import-block">
+            <div class="flex items-center gap-3">
+                <div class="h-8 w-8 rounded-full bg-primary text-background-dark flex items-center justify-center font-black text-sm">2</div>
+                <h4 class="text-lg font-bold text-white">Prompt para la IA</h4>
+            </div>
+            <div class="ml-11">
+                <textarea id="planAiPromptText" class="w-full bg-black/30 border border-white/10 rounded-lg p-4 font-mono text-xs text-slate-300 leading-relaxed h-48 focus:border-primary outline-none plan-ai-prompt" readonly></textarea>
+                <button class="mt-2 text-primary text-xs font-bold hover:underline modal-actions btn ghost" id="planAiPromptCopyBtn">Copiar prompt</button>
+            </div>
+        </section>
+
+        <!-- Step 3 -->
+        <section class="space-y-4 plan-import-block">
+            <div class="flex items-center gap-3">
+                <div class="h-8 w-8 rounded-full bg-primary text-background-dark flex items-center justify-center font-black text-sm">3</div>
+                <h4 class="text-lg font-bold text-white">Importar resultados</h4>
+            </div>
+            <div class="ml-11 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Dieta (CSV)</label>
+                    <input type="file" id="planDietFile" accept=".csv" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-white/10 file:text-white hover:file:bg-white/20"/>
+                    <button class="w-full h-10 rounded-lg bg-primary/10 border border-primary/20 text-primary text-xs font-bold hover:bg-primary/20 transition-colors btn primary" id="planImportDietBtn">Cargar Dieta</button>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Entreno (CSV)</label>
+                    <input type="file" id="planWorkoutFile" accept=".csv" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-white/10 file:text-white hover:file:bg-white/20"/>
+                    <button class="w-full h-10 rounded-lg bg-primary/10 border border-primary/20 text-primary text-xs font-bold hover:bg-primary/20 transition-colors btn primary" id="planImportWorkoutBtn">Cargar Entreno</button>
+                </div>
+            </div>
+            <!-- Feedback Area -->
+            <div class="ml-11 mt-4">
+                <div id="planImportSummary" class="text-xs font-bold mb-2 import-summary" hidden></div>
+                <section id="planImportFeedback" class="bg-black/20 rounded-lg p-4 border border-white/5 plan-import-feedback" hidden>
+                    <div id="planImportHuman" class="text-sm text-slate-300 mb-4 plan-import-human"></div>
+                    <div id="planImportGroups" class="space-y-2 plan-import-groups"></div>
+                    <button id="planImportDownloadDetailBtn" class="mt-4 text-xs font-bold text-slate-400 hover:text-white btn ghost" hidden>Descargar log detallado</button>
+                    <div id="planImportDetailWrap" class="mt-4 max-h-48 overflow-y-auto custom-scrollbar table card plan-import-detail-wrap" hidden>
+                        <table class="w-full text-left text-xs" id="planImportDetailTable">
+                            <tbody id="planImportDetailBody" class="text-slate-400"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </div>
+    <div class="p-6 border-t border-white/5 flex justify-end modal-actions">
+        <button class="h-10 px-6 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-bold btn ghost" id="planAiWorkflowDoneBtn">Finalizar</button>
+    </div>
+</dialog>
+
+<!-- LIGHTBOX -->
+<dialog id="photoLightbox" class="bg-black/90 backdrop-blur-2xl w-screen h-screen max-w-none max-h-none border-none p-0 text-white lightbox">
+    <div class="w-full h-full flex flex-col lightbox-shell">
+        <!-- Topbar -->
+        <div class="flex items-center justify-between p-4 z-50 bg-black/40 lightbox-topbar">
+            <div class="flex flex-col gap-1 lightbox-meta">
+                <div class="text-[10px] font-black uppercase tracking-widest text-primary lightbox-kicker">Progress Log</div>
+                <div class="flex items-center gap-3 lightbox-mainline">
+                    <span class="text-lg font-bold text-white" id="lightboxCaption">Vista previa</span>
+                    <span class="text-white/20 lightbox-sep">•</span>
+                    <span class="text-xs font-bold px-2 py-0.5 bg-white/10 rounded uppercase" id="lightboxMetaTag">FOTO</span>
+                </div>
+                <div class="text-xs font-mono text-slate-400 lightbox-detail" id="lightboxMetaDetails"></div>
+            </div>
+            <div class="flex items-center gap-4 lightbox-tools">
+                <button id="lightboxCompareToggle" class="text-sm font-bold text-slate-300 hover:text-white transition-colors lightbox-download">Comparar</button>
+                <a id="lightboxDownload" href="#" class="text-sm font-bold text-slate-300 hover:text-white transition-colors lightbox-download">Descargar</a>
+                <button class="h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors x lightbox-x" id="lightboxClose">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Stage -->
+        <div class="flex-1 flex items-center justify-center relative lightbox-stage">
+            <button class="absolute left-4 z-10 h-12 w-12 flex items-center justify-center rounded-full bg-black/50 hover:bg-white/10 transition-colors text-white disabled:opacity-30 lightbox-nav" id="lightboxPrev">
+                <span class="material-symbols-outlined text-3xl">chevron_left</span>
+            </button>
+
+            <div class="relative w-full h-full flex items-center justify-center p-4 lightbox-frame">
+                <img id="lightboxImg" class="max-w-full max-h-[80vh] object-contain shadow-2xl rounded-lg" src="" alt="Full view"/>
+
+                <!-- Comparison Overlay -->
+                <div id="lightboxCompareWrap" class="absolute inset-0 bg-black/95 z-20 flex flex-col p-6 lightbox-compare" hidden>
+                    <div class="flex items-center justify-between mb-4 lightbox-compare-head">
+                        <h3 class="text-xl font-bold text-white compare-title">Comparativa</h3>
+                        <div class="flex items-center gap-4 compare-controls">
+                            <label class="text-sm text-slate-400">Contra:</label>
+                            <select id="lightboxCompareSelect" class="bg-white/10 border-none rounded-lg text-sm text-white px-4 py-2 outline-none focus:ring-1 focus:ring-primary"></select>
+                        </div>
+                        <span id="lightboxCompareLabel" class="font-mono text-primary text-sm"></span>
+                    </div>
+                    <div class="flex-1 grid grid-cols-2 gap-4 compare-stage">
+                        <figure class="flex flex-col h-full bg-white/5 rounded-xl overflow-hidden border border-white/5 compare-pane">
+                            <figcaption class="p-3 text-center text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-white/5" id="compareBeforeLabel">Antes</figcaption>
+                            <div class="flex-1 flex items-center justify-center p-4 bg-black/40">
+                                <img id="compareBeforeImg" class="max-w-full max-h-full object-contain"/>
+                            </div>
+                        </figure>
+                        <figure class="flex flex-col h-full bg-white/5 rounded-xl overflow-hidden border border-white/5 compare-pane">
+                            <figcaption class="p-3 text-center text-xs font-bold uppercase tracking-wider text-primary border-b border-white/5" id="compareAfterLabel">Después</figcaption>
+                            <div class="flex-1 flex items-center justify-center p-4 bg-black/40">
+                                <img id="compareAfterImg" class="max-w-full max-h-full object-contain"/>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <button class="absolute right-4 z-10 h-12 w-12 flex items-center justify-center rounded-full bg-black/50 hover:bg-white/10 transition-colors text-white disabled:opacity-30 lightbox-nav" id="lightboxNext">
+                <span class="material-symbols-outlined text-3xl">chevron_right</span>
+            </button>
+        </div>
+
+        <!-- Filmstrip -->
+        <div class="h-24 bg-black/60 backdrop-blur-md flex items-center justify-center gap-2 p-2 overflow-x-auto no-scrollbar lightbox-strip" id="lightboxThumbs"></div>
+        <div class="absolute bottom-28 left-1/2 -translate-x-1/2 px-3 py-1 bg-black/60 rounded-full text-xs font-mono text-slate-400 lightbox-counter" id="lightboxCount"></div>
+    </div>
+</dialog>
+
+<!-- Confirmation Modal -->
+<dialog id="replaceConfirmModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-md text-white confirm">
+    <div class="p-6 border-b border-white/5 bg-white/5 modal-head">
+        <h3 class="text-xl font-bold text-white modal-title">Confirmar</h3>
+        <p class="text-slate-400 text-sm mt-1 modal-sub" id="replaceConfirmText">¿Estás seguro?</p>
+    </div>
+    <div class="p-6 flex justify-center confirm-body">
+        <img id="replaceConfirmImg" class="max-h-48 rounded-lg border border-white/10 shadow-lg object-contain hidden" alt="Confirm preview"/>
+    </div>
+    <div class="p-6 flex justify-end gap-3 modal-actions">
+        <button class="h-10 px-6 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-bold btn ghost" id="replaceConfirmCancel">Cancelar</button>
+        <button class="h-10 px-6 rounded-lg bg-primary text-background-dark font-bold hover:bg-primary/90 transition-colors btn primary" id="replaceConfirmOk">Confirmar</button>
+    </div>
+</dialog>
+
+<!-- Backup Modal -->
+<dialog id="backupRestoreModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-lg text-white confirm">
+    <div class="flex items-start justify-between p-6 border-b border-white/5 bg-white/5 modal-head">
+        <h3 class="text-xl font-bold text-white modal-title">Restaurar Backup</h3>
+        <button class="text-slate-400 hover:text-white x" id="backupRestoreClose">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+    <form id="backupRestoreForm" class="p-6 space-y-6 modal-body">
+        <p class="text-sm text-red-300 bg-red-500/10 p-3 rounded border border-red-500/20 modal-sub">
+            ⚠️ Acción destructiva: Esto reemplazará toda tu base de datos y archivos por los del backup.
+        </p>
+        <div class="field">
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Archivo ZIP</label>
+            <input type="file" id="backupRestoreFile" accept=".zip,application/zip" class="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-white/10 file:text-white hover:file:bg-white/20" required/>
+        </div>
+        <div class="flex items-center gap-3 check-row">
+            <input type="checkbox" id="backupRestoreConfirm" class="w-5 h-5 rounded border-white/10 bg-white/5 text-primary focus:ring-primary"/>
+            <label for="backupRestoreConfirm" class="text-sm text-slate-300 select-none">Entiendo que perderé los datos actuales</label>
+        </div>
+        <div class="flex justify-end gap-3 modal-actions">
+            <button type="button" class="h-10 px-6 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-bold btn ghost" id="backupRestoreCancel">Cancelar</button>
+            <button type="submit" class="h-10 px-6 rounded-lg bg-red-500 text-white font-bold hover:bg-red-600 transition-colors btn primary" id="backupRestoreSubmit">Restaurar</button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Bug Report Modal -->
+<dialog id="reportBugModal" class="bg-glass-dark backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-0 overflow-hidden w-full max-w-2xl text-white import-modal report-bug-modal">
+    <div class="flex items-start justify-between p-6 border-b border-white/5 bg-white/5 modal-head">
+        <h3 class="text-xl font-bold text-white modal-title">Reportar Bug</h3>
+        <button class="text-slate-400 hover:text-white x" id="reportBugClose">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+    <div class="p-6 space-y-4 modal-body report-bug-body">
+        <p class="text-sm text-slate-400 modal-sub">Copia esta información técnica para facilitar el diagnóstico.</p>
+        <textarea id="reportBugText" class="w-full h-64 bg-black/30 border border-white/10 rounded-lg p-4 font-mono text-xs text-slate-300 leading-relaxed focus:border-primary outline-none custom-scrollbar" readonly></textarea>
+        <div class="flex justify-end gap-3 modal-actions">
+            <button class="h-10 px-4 rounded-lg bg-white/5 text-white text-sm font-bold hover:bg-white/10 transition-colors btn ghost" id="reportBugMailBtn">Email</button>
+            <button class="h-10 px-4 rounded-lg bg-white/5 text-white text-sm font-bold hover:bg-white/10 transition-colors btn ghost" id="reportBugCopyBtn">Copiar</button>
+            <button class="h-10 px-6 rounded-lg bg-primary text-background-dark font-bold hover:bg-primary/90 transition-colors btn primary" id="reportBugDoneBtn">Listo</button>
+        </div>
+    </div>
+</dialog>

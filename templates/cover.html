@@ -1,171 +1,239 @@
-<!doctype html>
-<html lang="en">
+<html class="dark" lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Gym Tracker Landing</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='cover.css', v=asset_v_cover_css) }}"/>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Gym Tracker - Local First</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-morphism {
+            background: rgba(16, 34, 31, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(13, 242, 204, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(13, 242, 204, 0.4);
+        }
+        .primary-glow {
+            box-shadow: 0 0 15px rgba(13, 242, 204, 0.3);
+        }
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background-color: #0df2cc;
+            margin-left: 4px;
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
 </head>
-<body class="page-cover-light">
-  <div class="landing-shell">
-    <header class="landing-header">
-      <a class="landing-brand" href="/portada" aria-label="GymTracker landing">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4 10h2v4H4V10Zm14 0h2v4h-2V10ZM7 8h2v8H7V8Zm8 0h2v8h-2V8Zm-5 3h4v2h-4v-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <strong>GymTracker</strong>
-      </a>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+    <div class="relative min-h-screen w-full flex flex-col overflow-x-hidden">
+        <header class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+            <nav class="max-w-[1440px] mx-auto flex items-center justify-between glass-morphism rounded-xl px-8 py-3">
+                <div class="flex items-center gap-3">
+                    <div class="size-8 bg-primary rounded flex items-center justify-center primary-glow">
+                        <span class="material-symbols-outlined text-background-dark font-bold">exercise</span>
+                    </div>
+                    <h2 class="text-xl font-black tracking-tighter text-slate-100">GymTracker</h2>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a class="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="/help">Manual</a>
+                    <a href="/login" class="px-5 py-2 text-sm font-bold border border-primary/20 rounded-lg hover:bg-primary/10 transition-all text-primary">
+                        Login local
+                    </a>
+                    <div class="h-8 w-8 rounded-full border border-primary/30 bg-primary/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary text-sm">person</span>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
-      <nav class="cover-actions" aria-label="Landing actions">
-        <a class="header-link" href="/help">Docs</a>
-        <a id="coverLoginBtn" class="login-local-btn" href="/login?next=/">Local Login</a>
-        <span class="header-avatar" aria-hidden="true"></span>
-      </nav>
-    </header>
+        <main class="flex-1 pt-32 pb-20 px-6 max-w-[1440px] mx-auto w-full">
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
+                <div class="flex flex-col gap-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        </span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-primary">Local-First Engine Active</span>
+                    </div>
+                    <h1 class="text-6xl xl:text-7xl font-black leading-[1.1] tracking-tight text-white text-glow">
+                        Mi salud, mi base de datos.<br/>
+                        <span class="text-primary">Cero nube obligatoria.</span>
+                    </h1>
+                    <p class="text-xl text-slate-400 max-w-xl leading-relaxed">
+                        Tracking fitness premium con 100% de soberanía de datos. Tu información biométrica se mantiene encriptada en tu dispositivo, exactamente donde pertenece.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mt-4">
+                        <a href="/login" class="px-8 py-4 bg-primary text-background-dark font-black rounded-xl primary-glow hover:scale-105 transition-transform flex items-center justify-center">
+                            EMPEZAR AHORA
+                        </a>
+                        <a href="/help" class="px-8 py-4 bg-slate-800/50 text-white font-bold rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors flex items-center justify-center">
+                            VER DEMO
+                        </a>
+                    </div>
+                </div>
 
-    <main class="cover-layout">
-      <section class="hero-block">
-        <p class="hero-kicker">GymTracker: Absolute Data Sovereignty</p>
-        <h1>
-          My health, my database.
-          <span>Zero forced cloud.</span>
-        </h1>
-        <p class="hero-sub">
-          Local-first fitness tracking with absolute data sovereignty.
-          Keep full ownership while running deterministic SQLite speed on your own machine.
-        </p>
-        <div class="hero-actions">
-          <a id="coverEnterBtn" class="hero-btn hero-btn-primary" href="/">git clone &amp;&amp; run local</a>
-          <a class="hero-btn hero-btn-secondary" href="#architecture">View Architecture</a>
-        </div>
-      </section>
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                    <div class="relative glass-morphism rounded-2xl overflow-hidden p-1 shadow-2xl">
+                        <div class="bg-background-dark/80 rounded-xl aspect-[4/3] relative flex items-center justify-center overflow-hidden">
+                            <div class="w-full h-full p-8 flex flex-col justify-between z-10">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Métricas de Rendimiento</p>
+                                        <h3 class="text-2xl font-bold text-white">Progresión de Fuerza</h3>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <div class="size-2 rounded-full bg-red-500/50"></div>
+                                        <div class="size-2 rounded-full bg-yellow-500/50"></div>
+                                        <div class="size-2 rounded-full bg-green-500/50"></div>
+                                    </div>
+                                </div>
+                                <div class="flex-1 flex items-end gap-2 py-8">
+                                    <div class="flex-1 bg-primary/20 h-[40%] rounded-t-sm relative group/bar transition-all hover:bg-primary/40"></div>
+                                    <div class="flex-1 bg-primary/20 h-[60%] rounded-t-sm relative transition-all hover:bg-primary/40"></div>
+                                    <div class="flex-1 bg-primary/20 h-[55%] rounded-t-sm relative transition-all hover:bg-primary/40"></div>
+                                    <div class="flex-1 bg-primary/20 h-[85%] rounded-t-sm relative transition-all hover:bg-primary/40"></div>
+                                    <div class="flex-1 bg-primary/20 h-[70%] rounded-t-sm relative transition-all hover:bg-primary/40"></div>
+                                    <div class="flex-1 bg-primary/20 h-[95%] rounded-t-sm relative transition-all hover:bg-primary/40"></div>
+                                </div>
+                                <div class="flex justify-between text-[10px] font-mono text-slate-500">
+                                    <span>SEM_01</span>
+                                    <span>SEM_02</span>
+                                    <span>SEM_03</span>
+                                    <span>SEM_04</span>
+                                    <span>SEM_05</span>
+                                    <span>SEM_06</span>
+                                </div>
+                            </div>
+                            <!-- Background Grid -->
+                            <div class="absolute inset-0 pointer-events-none border border-primary/10 rounded-xl opacity-30" style="background-image: linear-gradient(rgba(13, 242, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(13, 242, 204, 0.1) 1px, transparent 1px); background-size: 40px 40px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-      <section id="architecture" class="command-section">
-        <div class="command-head">
-          <h2 class="command-title">
-            <span class="command-dot" aria-hidden="true"></span>
-            Data Sovereignty Command Center
-          </h2>
-          <span class="system-pill">System Active</span>
-        </div>
+            <section class="mt-32">
+                <div class="glass-morphism rounded-2xl overflow-hidden shadow-2xl border-primary/20">
+                    <div class="bg-slate-900/80 px-6 py-3 border-b border-primary/20 flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <span class="material-symbols-outlined text-primary text-lg">terminal</span>
+                            <span class="text-xs font-mono font-bold text-slate-300 uppercase tracking-widest">Centro de Mando de Soberanía de Datos</span>
+                        </div>
+                        <div class="text-[10px] font-mono text-primary/60">SYS_STATUS: OPTIMAL</div>
+                    </div>
+                    <div class="p-8 bg-black/40 font-mono text-lg space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="flex flex-col gap-2 p-6 rounded-xl border border-primary/10 bg-primary/5 hover:border-primary/30 transition-all">
+                                <p class="text-xs text-slate-500 font-bold tracking-tighter">TRÁFICO_SALIENTE</p>
+                                <p class="text-3xl font-black text-white">0.00 <span class="text-primary/50 text-sm">KB/s</span></p>
+                                <div class="w-full h-1 bg-slate-800 mt-2 rounded-full overflow-hidden">
+                                    <div class="w-0 h-full bg-primary"></div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2 p-6 rounded-xl border border-primary/10 bg-primary/5 hover:border-primary/30 transition-all">
+                                <p class="text-xs text-slate-500 font-bold tracking-tighter">PROPIEDAD_DATOS</p>
+                                <p class="text-3xl font-black text-primary">100%_LOCAL</p>
+                                <div class="w-full h-1 bg-slate-800 mt-2 rounded-full overflow-hidden">
+                                    <div class="w-full h-full bg-primary primary-glow"></div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2 p-6 rounded-xl border border-primary/10 bg-primary/5 hover:border-primary/30 transition-all">
+                                <p class="text-xs text-slate-500 font-bold tracking-tighter">LATENCIA_SQLITE</p>
+                                <p class="text-3xl font-black text-white">1.24 <span class="text-primary/50 text-sm">ms</span></p>
+                                <div class="w-full h-1 bg-slate-800 mt-2 rounded-full overflow-hidden">
+                                    <div class="w-[12%] h-full bg-primary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-4 text-primary/80 text-sm md:text-base">
+                            <span class="text-slate-600">admin@gymtracker:~$</span> sync --status-all
+                            <br/>
+                            <span class="text-slate-500 mt-2 block">[OK] Instancia SQLite local saludable</span>
+                            <span class="text-slate-500 block">[OK] Claves de encriptación verificadas</span>
+                            <span class="text-slate-500 block">[OK] Cero conexiones externas detectadas</span>
+                            <span class="text-primary">Listo para entrada</span><span class="terminal-cursor"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <div class="command-grid">
-          <article class="command-card">
-            <header>
-              <p class="label">REQUESTS_EXTERNAL</p>
-              <span class="card-icon"></span>
-            </header>
-            <div class="metric-row">
-              <strong>0</strong>
-              <span>PING_ERR</span>
+            <section class="mt-40 grid grid-cols-1 md:grid-cols-3 gap-12 pb-20">
+                <div class="flex flex-col gap-4">
+                    <div class="size-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary">security</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Privacidad Grado Militar</h3>
+                    <p class="text-slate-400 leading-relaxed">Almacenamiento encriptado de extremo a extremo que nunca toca la nube. Tus récords personales son solo para tus ojos.</p>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <div class="size-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary">database</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Arquitectura SQLite</h3>
+                    <p class="text-slate-400 leading-relaxed">Construido sobre el motor de base de datos más fiable del mundo. Rápido, portátil y con acceso permanente a los datos.</p>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <div class="size-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary">offline_bolt</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Acceso 100% Offline</h3>
+                    <p class="text-slate-400 leading-relaxed">Registra tus entrenamientos en sótanos o lugares remotos sin necesidad de señal.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="mt-auto border-t border-slate-800/50 py-12 px-6 bg-background-dark/50">
+            <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="size-6 bg-primary/20 rounded flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary text-xs font-bold">exercise</span>
+                    </div>
+                    <span class="text-sm font-bold tracking-tight text-slate-300">GymTracker © 2024</span>
+                </div>
+                <div class="flex gap-8 text-xs font-bold text-slate-500 uppercase tracking-widest">
+                    <a class="hover:text-primary transition-colors" href="/help">Documentación</a>
+                    <a class="hover:text-primary transition-colors" href="#">Privacidad</a>
+                    <a class="hover:text-primary transition-colors" href="#">Licencia</a>
+                    <a class="hover:text-primary transition-colors" href="https://github.com/ibaifernandez/gymtracker">Github</a>
+                </div>
             </div>
-            <div class="metric-bar"><span></span></div>
-          </article>
-
-          <article class="command-card">
-            <header>
-              <p class="label">STORAGE_ENGINE</p>
-              <span class="card-icon"></span>
-            </header>
-            <div class="metric-row">
-              <strong class="metric-word">LOCAL_HOST</strong>
-            </div>
-            <div class="chip-row">
-              <span class="chip-ok">ENCRYPTED_AES256</span>
-            </div>
-          </article>
-
-          <article class="command-card">
-            <header>
-              <p class="label">SQLITE_LATENCY</p>
-              <span class="card-icon"></span>
-            </header>
-            <div class="metric-row">
-              <strong>1.24</strong>
-              <span>ms</span>
-            </div>
-            <p class="delta">-0.02ms vs avg</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="viz-section">
-        <div class="viz-card">
-          <div class="viz-top">
-            <div>
-              <p class="viz-kicker">Performance Visualization</p>
-              <h3>Vibrant Teal Gradients</h3>
-              <p class="viz-live">
-                <span class="dot"></span>
-                Real-time
-                <strong>+0.00% DRIFT</strong>
-              </p>
-            </div>
-            <div class="viz-tabs">
-              <button type="button">Day</button>
-              <button type="button" class="active">Week</button>
-              <button type="button">Month</button>
-            </div>
-          </div>
-
-          <div class="chart-wrap">
-            <div class="chart-grid" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <svg viewBox="0 0 1000 400" preserveAspectRatio="none" role="img" aria-label="Weekly performance chart">
-              <defs>
-                <linearGradient id="coverChartGradient" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stop-color="#0df2cc" stop-opacity="0.34"/>
-                  <stop offset="100%" stop-color="#0df2cc" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path d="M0 300 C 100 280, 150 350, 200 320 C 250 290, 300 150, 400 180 C 500 210, 550 50, 650 80 C 750 110, 850 250, 1000 220 L 1000 400 L 0 400 Z" fill="url(#coverChartGradient)"/>
-              <path d="M0 300 C 100 280, 150 350, 200 320 C 250 290, 300 150, 400 180 C 500 210, 550 50, 650 80 C 750 110, 850 250, 1000 220" fill="none" stroke="#0df2cc" stroke-width="4" stroke-linecap="round"/>
-              <circle cx="400" cy="180" r="6" fill="#0df2cc" stroke="white" stroke-width="2"/>
-              <circle cx="650" cy="80" r="6" fill="#0df2cc" stroke="white" stroke-width="2"/>
-            </svg>
-
-            <div class="peak-card">
-              <span class="peak-ico" aria-hidden="true"></span>
-              <div>
-                <p>PEAK VELOCITY</p>
-                <strong>142.5 kg</strong>
-              </div>
-            </div>
-          </div>
-
-          <div class="chart-days">
-            <span>MON</span>
-            <span>TUE</span>
-            <span>WED</span>
-            <span>THU</span>
-            <span>FRI</span>
-            <span>SAT</span>
-            <span>SUN</span>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="landing-footer">
-      <div class="foot-brand">
-        <span class="foot-dot"></span>
-        <strong>GymTracker</strong>
-      </div>
-      <nav class="foot-links" aria-label="Footer links">
-        <a href="/help">Privacy</a>
-        <a href="/help">Local SDK</a>
-        <a href="/help">Open Source</a>
-        <a href="/changelog">Changelog</a>
-      </nav>
-      <p class="foot-build">v1.0.0.0 STABLE // BUILD_LOCAL_ONLY</p>
-    </footer>
-  </div>
+        </footer>
+    </div>
 </body>
 </html>

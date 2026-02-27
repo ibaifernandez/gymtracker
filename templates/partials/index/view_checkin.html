@@ -1,45 +1,61 @@
-    <section class="app-view" data-view="checkin">
-    <div class="section">
-      <div class="section-head">
-        <div class="section-title-row">
-          <h2><span class="section-title-main">Check-ins (últimos <span id="dietLimitLabel">15</span>)</span><button class="info-dot" type="button" data-help-tip data-tip-title="Tabla de check-ins" data-tip-text="Filtra, toca una fila para editar o elimina desde el modal.">i</button></h2>
-          <p class="section-count mono" id="dietCountMeta">0 check-ins cargados.</p>
+<section class="app-view" data-view="checkin">
+    <!-- Header -->
+    <div class="mb-6 section-head">
+        <div class="flex items-center gap-2 mb-6">
+            <h2 class="text-2xl font-bold text-white tracking-tight flex items-center">
+                Dieta
+                <span class="text-slate-500 text-sm font-medium ml-2 tracking-normal section-count" id="dietCountMeta">
+                    Cargando...
+                </span>
+            </h2>
         </div>
-        <div class="section-actions">
-          <div class="search">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <input id="dietSearch" placeholder="Filtrar por fecha / sueño / pasos / peso…"/>
-          </div>
-          <select id="dietLimitSelect" class="limit-select" aria-label="Ventana de check-ins">
-            <option value="7">Últimos 7 días</option>
-            <option value="15" selected>Últimos 15 días</option>
-            <option value="30">Últimos 30 días</option>
-            <option value="60">Últimos 60 días</option>
-            <option value="90">Últimos 90 días</option>
-          </select>
-          <button class="btn ghost section-quick" id="btnImportDiet" type="button">Importar check-ins CSV</button>
-        </div>
-      </div>
 
-      <div class="table card">
-        <table id="dietTable">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Sueño</th>
-              <th>Calidad</th>
-              <th>Pasos</th>
-              <th>Peso</th>
-              <th>Cintura</th>
-              <th>Cadera</th>
-              <th>WHR</th>
-              <th>Foto</th>
-              <th>Alcohol</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+        <!-- Action Row -->
+        <div class="flex flex-col md:flex-row items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5 backdrop-blur-sm section-actions">
+            <!-- View All / Limit Select Shim -->
+            <div class="w-full md:w-auto min-w-[200px] tools">
+                <select class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 text-sm focus:ring-primary focus:border-primary limit-select" id="dietLimitSelect">
+                    <option value="7">Últimos 7</option>
+                    <option value="15">Últimos 15</option>
+                    <option value="30">Últimos 30</option>
+                    <option value="60">Últimos 60</option>
+                    <option value="90">Últimos 90</option>
+                </select>
+            </div>
+
+            <!-- Search -->
+            <div class="relative w-full search">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">search</span>
+                <input type="text" id="dietSearch" class="w-full bg-background-dark/50 border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-slate-600 transition-all text-white" placeholder="Filtrar por fecha / Y / N / valores…"/>
+            </div>
+        </div>
     </div>
 
-    </section>
+    <!-- Data Table -->
+    <div class="bg-white/5 border border-white/5 rounded-xl overflow-hidden shadow-2xl table card">
+        <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left border-collapse min-w-[1000px]" id="dietTable">
+                <thead>
+                    <tr class="bg-white/5 border-b border-white/10">
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Sueño</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Calidad</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Pasos</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Peso</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Cintura</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Cadera</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">WHR</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-center">Foto</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Alcohol</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    <!-- Rows injected by app.js -->
+                    <tr>
+                        <td colspan="10" class="px-4 py-8 text-center text-slate-500 italic">Cargando registros...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
