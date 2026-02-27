@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manual de uso · Gym Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#101212",
+                        "surface-dark": "#1e1e1e",
+                        "border-dark": "#2d2d2d"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #101212;
+        }
+        .glass {
+            background: rgba(45, 45, 45, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-display">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 w-full border-b border-border-dark bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-400 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+<span>Volver</span>
+</button>
+<div class="h-4 w-px bg-border-dark"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary fill-1">exercise</span>
+<h2 class="text-white text-sm font-bold tracking-tight uppercase">Manual de uso <span class="text-slate-500 font-normal ml-1">· Gym Tracker</span></h2>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-emerald-500 border border-white/10" data-alt="User profile avatar circle gradient"></div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full px-4 py-12">
+<!-- Main Header & Search -->
+<div class="max-w-3xl mb-12">
+<h1 class="text-4xl font-extrabold text-white mb-4 tracking-tight">Cómo usar la plataforma</h1>
+<p class="text-slate-400 text-lg leading-relaxed mb-8">
+                Esta página explica cómo completar cada tarea durante tu journey dentro del tracker: registrar un check-in, apuntar un entreno, consultar tu evolución y exportar tus datos.
+            </p>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-500 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="w-full bg-surface-dark border border-border-dark rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Buscar: guardar, editar, foto, exportar, filtros..." type="text"/>
+</div>
+</div>
+<!-- Layout Container -->
+<div class="flex flex-col lg:flex-row gap-12">
+<!-- Sidebar Navigation -->
+<aside class="w-full lg:w-64 flex-shrink-0">
+<nav class="sticky top-28 space-y-1">
+<p class="text-xs font-bold text-slate-500 uppercase tracking-widest px-3 mb-4">Contenido</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-medium group transition-all" href="#">
+<span class="material-symbols-outlined text-xl">speed</span>
+<span class="text-sm">Inicio rápido</span>
+<div class="ml-auto w-1 h-4 bg-primary rounded-full"></div>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined text-xl">rocket_launch</span>
+<span class="text-sm">Onboarding guiado</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined text-xl">lock_open</span>
+<span class="text-sm">Acceso</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined text-xl">calendar_today</span>
+<span class="text-sm">Plan diario</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined text-xl">fitness_center</span>
+<span class="text-sm">Registro de entreno</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined text-xl">trending_up</span>
+<span class="text-sm">Evolución</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all group" href="#">
+<span class="material-symbols-outlined text-xl">download</span>
+<span class="text-sm">Exportar datos</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 space-y-6">
+<!-- Expanded Panel: Inicio Rápido -->
+<section class="glass rounded-xl overflow-hidden border border-primary/20">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 text-primary font-bold text-sm">1</span>
+<h2 class="text-xl font-bold text-white tracking-tight">Inicio rápido (primeros 60 segundos)</h2>
+</div>
+<div class="space-y-6 ml-11">
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-dark flex items-center justify-center border border-border-dark text-primary">
+<span class="material-symbols-outlined">smartphone</span>
+</div>
+<div>
+<h3 class="text-white font-semibold mb-1">Abre la app</h3>
+<p class="text-slate-400 text-sm leading-relaxed">Descarga la aplicación y accede con tus credenciales. La pantalla principal te mostrará un resumen de tu estado actual.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-dark flex items-center justify-center border border-border-dark text-primary">
+<span class="material-symbols-outlined">fact_check</span>
+</div>
+<div>
+<h3 class="text-white font-semibold mb-1">Rellena tu primer check-in diario</h3>
+<p class="text-slate-400 text-sm leading-relaxed">Completa los datos de peso, horas de sueño y nivel de fatiga. Esto nos ayuda a ajustar tu volumen de entrenamiento diario.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-dark flex items-center justify-center border border-border-dark text-primary">
+<span class="material-symbols-outlined">target</span>
+</div>
+<div>
+<h3 class="text-white font-semibold mb-1">Define tu objetivo semanal</h3>
+<p class="text-slate-400 text-sm leading-relaxed">Establece cuántos días quieres entrenar y cuál es tu prioridad (fuerza, hipertrofia o resistencia) para esta semana.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-primary/5 border border-primary/10 rounded-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">info</span>
+<p class="text-sm text-slate-300 italic">Sigue estos pasos para comenzar tu seguimiento de forma inmediata y efectiva. Recuerda que la constancia es la clave del progreso.</p>
+</div>
+</div>
+</section>
+<!-- Collapsed Panels -->
+<div class="space-y-3">
+<details class="group bg-surface-dark border border-border-dark rounded-xl overflow-hidden transition-all">
+<summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+<div class="flex items-center gap-3">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 text-slate-400 font-bold text-sm group-open:bg-primary/20 group-open:text-primary transition-colors">2</span>
+<span class="text-lg font-bold text-slate-200 group-open:text-white transition-colors">Acceso y Perfil</span>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-5 pb-5 ml-11 text-slate-400 text-sm leading-relaxed border-t border-border-dark pt-4">
+                            Aprende a gestionar tu información personal, cambiar tu contraseña y configurar tus preferencias de notificación para recibir recordatorios de entreno.
+                        </div>
+</details>
+<details class="group bg-surface-dark border border-border-dark rounded-xl overflow-hidden transition-all">
+<summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+<div class="flex items-center gap-3">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 text-slate-400 font-bold text-sm group-open:bg-primary/20 group-open:text-primary transition-colors">3</span>
+<span class="text-lg font-bold text-slate-200 group-open:text-white transition-colors">Gestión de Entrenamientos</span>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-5 pb-5 ml-11 text-slate-400 text-sm leading-relaxed border-t border-border-dark pt-4">
+                            Guía paso a paso sobre cómo añadir nuevos ejercicios, registrar series, repeticiones y RPE para mantener un historial preciso de tu progresión.
+                        </div>
+</details>
+<details class="group bg-surface-dark border border-border-dark rounded-xl overflow-hidden transition-all">
+<summary class="flex items-center justify-between p-5 cursor-pointer list-none">
+<div class="flex items-center gap-3">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 text-slate-400 font-bold text-sm group-open:bg-primary/20 group-open:text-primary transition-colors">4</span>
+<span class="text-lg font-bold text-slate-200 group-open:text-white transition-colors">Análisis de Datos</span>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-5 pb-5 ml-11 text-slate-400 text-sm leading-relaxed border-t border-border-dark pt-4">
+                            Entiende las gráficas de evolución, el volumen total de entrenamiento y cómo interpretar las métricas de fatiga acumulada durante el mes.
+                        </div>
+</details>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-20 border-t border-border-dark bg-background-dark/50 py-12">
+<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-6">
+<a class="text-sm font-medium text-slate-500 hover:text-white transition-colors" href="#">Changelog</a>
+<a class="text-sm font-medium text-slate-500 hover:text-white transition-colors" href="#">Términos y condiciones</a>
+<a class="text-sm font-medium text-slate-500 hover:text-white transition-colors" href="#">Privacidad</a>
+</div>
+<button class="flex items-center gap-2 text-sm font-bold text-primary hover:text-primary/80 transition-colors uppercase tracking-widest">
+<span>Volver arriba</span>
+<span class="material-symbols-outlined text-lg">arrow_upward</span>
+</button>
+</div>
+<div class="max-w-7xl mx-auto px-4 mt-8 text-center md:text-left">
+<p class="text-xs text-slate-600 font-medium">© 2024 Gym Tracker Platform. Todos los derechos reservados.</p>
+</div>
+</footer>
+</body></html>

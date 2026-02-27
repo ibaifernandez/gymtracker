@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GymTracker Landing Light Desktop</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                        "charcoal": "#1a1a1a",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.75rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap px-10 py-5 max-w-[1440px] mx-auto w-full">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 bg-primary rounded-lg text-charcoal">
+<span class="material-symbols-outlined font-bold">exercise</span>
+</div>
+<h2 class="text-charcoal dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">GymTracker</h2>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-charcoal/70 dark:text-slate-300 text-sm font-semibold hover:text-charcoal transition-colors" href="#">Manual</a>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-11 px-6 bg-white dark:bg-slate-800 text-charcoal dark:text-slate-100 text-sm font-bold shadow-sm hover:shadow-md transition-all border border-slate-200 dark:border-slate-700">
+<span>Login local</span>
+</button>
+<div class="bg-slate-200 dark:bg-slate-700 rounded-full size-10 overflow-hidden flex items-center justify-center border border-slate-200">
+<span class="material-symbols-outlined text-slate-500">person</span>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<section class="flex flex-col items-center justify-center py-24 px-4 text-center max-w-[1440px] mx-auto w-full">
+<div class="max-w-4xl space-y-8">
+<h1 class="text-charcoal dark:text-slate-100 text-6xl md:text-7xl font-black leading-[1.1] tracking-tight">
+                            Mi salud, mi base de datos. <span class="text-primary">Cero nube</span> obligatoria.
+                        </h1>
+<p class="text-charcoal/60 dark:text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+                            Premium local-first fitness tracking with absolute data sovereignty. Experience the speed of SQLite combined with a state-of-the-art UI.
+                        </p>
+<div class="flex items-center justify-center gap-4 pt-4">
+<button class="bg-primary text-charcoal px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+                                Get Started Free
+                            </button>
+<button class="bg-white dark:bg-slate-800 text-charcoal dark:text-slate-100 px-8 py-4 rounded-xl font-bold text-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-colors">
+                                View Architecture
+                            </button>
+</div>
+</div>
+</section>
+<!-- Technical Section: Command Center -->
+<section class="max-w-[1200px] mx-auto px-6 py-12">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-charcoal dark:text-slate-100 text-2xl font-bold tracking-tight flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">terminal</span>
+                            Data Sovereignty Command Center
+                        </h2>
+<div class="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full">
+<span class="size-2 bg-primary rounded-full animate-pulse"></span>
+<span class="text-xs font-bold text-primary uppercase tracking-widest">System Active</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Metric Card 1 -->
+<div class="glass p-8 rounded-xl flex flex-col gap-4 shadow-sm border-slate-200/50">
+<div class="flex justify-between items-start">
+<p class="text-charcoal/40 text-xs font-mono font-bold tracking-tighter uppercase">REQUESTS_EXTERNAL</p>
+<span class="material-symbols-outlined text-slate-300 text-xl">public_off</span>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-charcoal text-5xl font-mono font-bold tracking-tighter">0</p>
+<p class="text-slate-400 text-sm font-mono tracking-tighter">PING_ERR</p>
+</div>
+<div class="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-full"></div>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="glass p-8 rounded-xl flex flex-col gap-4 shadow-sm border-slate-200/50">
+<div class="flex justify-between items-start">
+<p class="text-charcoal/40 text-xs font-mono font-bold tracking-tighter uppercase">STORAGE_ENGINE</p>
+<span class="material-symbols-outlined text-slate-300 text-xl">database</span>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-charcoal text-4xl font-mono font-bold tracking-tighter">LOCAL_HOST</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="text-[10px] px-2 py-0.5 bg-green-100 text-green-700 rounded font-mono font-bold">ENCRYPTED_AES256</span>
+</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="glass p-8 rounded-xl flex flex-col gap-4 shadow-sm border-slate-200/50">
+<div class="flex justify-between items-start">
+<p class="text-charcoal/40 text-xs font-mono font-bold tracking-tighter uppercase">SQLITE_LATENCY</p>
+<span class="material-symbols-outlined text-slate-300 text-xl">speed</span>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-charcoal text-5xl font-mono font-bold tracking-tighter">1.24</p>
+<p class="text-slate-400 text-sm font-mono tracking-tighter">ms</p>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-sm">trending_down</span>
+<p class="text-primary text-xs font-bold">-0.02ms vs avg</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Visualization Section -->
+<section class="max-w-[1200px] mx-auto px-6 py-12 pb-24">
+<div class="bg-white dark:bg-slate-900/50 p-10 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden relative">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="space-y-2">
+<h3 class="text-slate-400 text-sm font-bold uppercase tracking-widest">Performance Visualization</h3>
+<p class="text-charcoal dark:text-slate-100 text-4xl font-black tracking-tight">Vibrant Teal Gradients</p>
+<div class="flex items-center gap-3 pt-2">
+<span class="flex items-center gap-1 text-slate-500 font-medium">
+<span class="size-2 bg-primary rounded-full"></span>
+                                        Real-time
+                                    </span>
+<span class="text-green-600 font-bold bg-green-50 px-2 py-0.5 rounded text-sm">+0.00% DRIFT</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">Day</button>
+<button class="px-4 py-2 bg-charcoal text-white dark:bg-primary dark:text-charcoal rounded-lg text-xs font-bold uppercase tracking-wider">Week</button>
+<button class="px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">Month</button>
+</div>
+</div>
+<!-- Chart Area -->
+<div class="relative h-[400px] w-full mt-8">
+<!-- Gridlines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
+<div class="border-t border-slate-300 w-full"></div>
+<div class="border-t border-slate-300 w-full"></div>
+<div class="border-t border-slate-300 w-full"></div>
+<div class="border-t border-slate-300 w-full"></div>
+<div class="border-t border-slate-300 w-full"></div>
+</div>
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 400">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0df2cc" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#0df2cc" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Area -->
+<path d="M0 300 C 100 280, 150 350, 200 320 C 250 290, 300 150, 400 180 C 500 210, 550 50, 650 80 C 750 110, 850 250, 1000 220 L 1000 400 L 0 400 Z" fill="url(#chartGradient)"></path>
+<!-- Line -->
+<path d="M0 300 C 100 280, 150 350, 200 320 C 250 290, 300 150, 400 180 C 500 210, 550 50, 650 80 C 750 110, 850 250, 1000 220" fill="none" stroke="#0df2cc" stroke-linecap="round" stroke-width="4"></path>
+<!-- Decorative Data Points -->
+<circle cx="400" cy="180" fill="#0df2cc" r="6" stroke="white" stroke-width="2"></circle>
+<circle cx="650" cy="80" fill="#0df2cc" r="6" stroke="white" stroke-width="2"></circle>
+</svg>
+<div class="flex justify-between mt-6 text-slate-400 font-bold text-sm tracking-widest px-4">
+<span>MON</span>
+<span>TUE</span>
+<span>WED</span>
+<span>THU</span>
+<span>FRI</span>
+<span>SAT</span>
+<span>SUN</span>
+</div>
+</div>
+<!-- Floating Badge -->
+<div class="absolute top-1/2 left-2/3 glass p-4 rounded-xl shadow-xl border-white/50 border flex items-center gap-4">
+<div class="size-10 bg-primary/20 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<p class="text-[10px] text-slate-400 font-bold uppercase">Peak Velocity</p>
+<p class="text-charcoal font-black text-xl">142.5 kg</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 py-12 px-10 max-w-[1440px] mx-auto w-full">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3 opacity-50">
+<div class="size-6 bg-charcoal rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xs">exercise</span>
+</div>
+<p class="font-bold text-charcoal">GymTracker</p>
+</div>
+<div class="flex gap-8 text-slate-400 text-sm font-medium">
+<a class="hover:text-charcoal transition-colors" href="#">Privacy</a>
+<a class="hover:text-charcoal transition-colors" href="#">Local SDK</a>
+<a class="hover:text-charcoal transition-colors" href="#">Open Source</a>
+<a class="hover:text-charcoal transition-colors" href="#">Changelog</a>
+</div>
+<p class="text-slate-400 text-xs font-mono">v4.0.2-STABLE // BUILD_LOCAL_ONLY</p>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

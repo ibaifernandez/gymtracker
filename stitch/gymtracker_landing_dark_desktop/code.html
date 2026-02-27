@@ -1,0 +1,244 @@
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-morphism {
+            background: rgba(16, 34, 31, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(13, 242, 204, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(13, 242, 204, 0.4);
+        }
+        .primary-glow {
+            box-shadow: 0 0 15px rgba(13, 242, 204, 0.3);
+        }
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background-color: #0df2cc;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+<div class="relative min-h-screen w-full flex flex-col overflow-x-hidden">
+<header class="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+<nav class="max-w-[1440px] mx-auto flex items-center justify-between glass-morphism rounded-xl px-8 py-3">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded flex items-center justify-center primary-glow">
+<span class="material-symbols-outlined text-background-dark font-bold">exercise</span>
+</div>
+<h2 class="text-xl font-black tracking-tighter text-slate-100">GymTracker</h2>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="#">Manual</a>
+<button class="px-5 py-2 text-sm font-bold border border-primary/20 rounded-lg hover:bg-primary/10 transition-all text-primary">
+                        Login local
+                    </button>
+<div class="h-8 w-8 rounded-full border border-primary/30 bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">person</span>
+</div>
+</div>
+</nav>
+</header>
+<main class="flex-1 pt-32 pb-20 px-6 max-w-[1440px] mx-auto w-full">
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
+<div class="flex flex-col gap-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary">Local-First Engine Active</span>
+</div>
+<h1 class="text-6xl xl:text-7xl font-black leading-[1.1] tracking-tight text-white text-glow">
+                        Mi salud, mi base de datos.<br/>
+<span class="text-primary">Cero nube obligatoria.</span>
+</h1>
+<p class="text-xl text-slate-400 max-w-xl leading-relaxed">
+                        Premium fitness tracking with 100% data sovereignty. Your biometric data stays encrypted on your device, exactly where it belongs.
+                    </p>
+<div class="flex flex-wrap gap-4 mt-4">
+<button class="px-8 py-4 bg-primary text-background-dark font-black rounded-xl primary-glow hover:scale-105 transition-transform">
+                            GET STARTED NOW
+                        </button>
+<button class="px-8 py-4 bg-slate-800/50 text-white font-bold rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors">
+                            VIEW LIVE DEMO
+                        </button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full opacity-20 group-hover:opacity-30 transition-opacity"></div>
+<div class="relative glass-morphism rounded-2xl overflow-hidden p-1 shadow-2xl">
+<div class="bg-background-dark/80 rounded-xl aspect-[4/3] relative flex items-center justify-center">
+<div class="w-full h-full p-8 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Performance Metrics</p>
+<h3 class="text-2xl font-bold text-white">Strength Progression</h3>
+</div>
+<div class="flex gap-2">
+<div class="size-2 rounded-full bg-red-500/50"></div>
+<div class="size-2 rounded-full bg-yellow-500/50"></div>
+<div class="size-2 rounded-full bg-green-500/50"></div>
+</div>
+</div>
+<div class="flex-1 flex items-end gap-2 py-8">
+<div class="flex-1 bg-primary/20 h-[40%] rounded-t-sm relative group/bar">
+<div class="absolute inset-0 bg-primary opacity-50 blur-sm"></div>
+<div class="absolute inset-0 bg-primary rounded-t-sm"></div>
+</div>
+<div class="flex-1 bg-primary/20 h-[60%] rounded-t-sm relative">
+<div class="absolute inset-0 bg-primary opacity-50 blur-sm"></div>
+<div class="absolute inset-0 bg-primary rounded-t-sm"></div>
+</div>
+<div class="flex-1 bg-primary/20 h-[55%] rounded-t-sm relative">
+<div class="absolute inset-0 bg-primary opacity-50 blur-sm"></div>
+<div class="absolute inset-0 bg-primary rounded-t-sm"></div>
+</div>
+<div class="flex-1 bg-primary/20 h-[85%] rounded-t-sm relative">
+<div class="absolute inset-0 bg-primary opacity-50 blur-md"></div>
+<div class="absolute inset-0 bg-primary rounded-t-sm"></div>
+</div>
+<div class="flex-1 bg-primary/20 h-[70%] rounded-t-sm relative">
+<div class="absolute inset-0 bg-primary opacity-50 blur-sm"></div>
+<div class="absolute inset-0 bg-primary rounded-t-sm"></div>
+</div>
+<div class="flex-1 bg-primary/20 h-[95%] rounded-t-sm relative">
+<div class="absolute inset-0 bg-primary opacity-60 blur-lg"></div>
+<div class="absolute inset-0 bg-primary rounded-t-sm"></div>
+</div>
+</div>
+<div class="flex justify-between text-[10px] font-mono text-slate-500">
+<span>WK_01</span>
+<span>WK_02</span>
+<span>WK_03</span>
+<span>WK_04</span>
+<span>WK_05</span>
+<span>WK_06</span>
+</div>
+</div>
+<div class="absolute inset-0 pointer-events-none border border-primary/10 rounded-xl" style="background-image: linear-gradient(rgba(13, 242, 204, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(13, 242, 204, 0.05) 1px, transparent 1px); background-size: 40px 40px;"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-32">
+<div class="glass-morphism rounded-2xl overflow-hidden shadow-2xl border-primary/20">
+<div class="bg-slate-900/80 px-6 py-3 border-b border-primary/20 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-lg">terminal</span>
+<span class="text-xs font-mono font-bold text-slate-300 uppercase tracking-widest">Data Sovereignty Command Center</span>
+</div>
+<div class="text-[10px] font-mono text-primary/60">SYS_STATUS: OPTIMAL</div>
+</div>
+<div class="p-8 bg-black/40 font-mono text-lg space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="flex flex-col gap-2 p-6 rounded-xl border border-primary/10 bg-primary/5 hover:border-primary/30 transition-all">
+<p class="text-xs text-slate-500 font-bold tracking-tighter">NETWORK_OUTBOUND</p>
+<p class="text-3xl font-black text-white">0.00 <span class="text-primary/50 text-sm">KB/s</span></p>
+<div class="w-full h-1 bg-slate-800 mt-2 rounded-full overflow-hidden">
+<div class="w-0 h-full bg-primary"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 p-6 rounded-xl border border-primary/10 bg-primary/5 hover:border-primary/30 transition-all">
+<p class="text-xs text-slate-500 font-bold tracking-tighter">DATA_OWNERSHIP</p>
+<p class="text-3xl font-black text-primary">100%_LOCAL</p>
+<div class="w-full h-1 bg-slate-800 mt-2 rounded-full overflow-hidden">
+<div class="w-full h-full bg-primary primary-glow"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 p-6 rounded-xl border border-primary/10 bg-primary/5 hover:border-primary/30 transition-all">
+<p class="text-xs text-slate-500 font-bold tracking-tighter">SQLITE_LATENCY</p>
+<p class="text-3xl font-black text-white">1.24 <span class="text-primary/50 text-sm">ms</span></p>
+<div class="w-full h-1 bg-slate-800 mt-2 rounded-full overflow-hidden">
+<div class="w-[12%] h-full bg-primary"></div>
+</div>
+</div>
+</div>
+<div class="pt-4 text-primary/80">
+<span class="text-slate-600">admin@gymtracker:~$</span> sync --status-all
+                            <br/>
+<span class="text-slate-500 mt-2 block">[OK] Local SQLite instance healthy</span>
+<span class="text-slate-500 block">[OK] Encryption keys verified</span>
+<span class="text-slate-500 block">[OK] Zero external pings detected</span>
+<span class="text-primary">Ready for input</span><span class="terminal-cursor"></span>
+</div>
+</div>
+</div>
+</section>
+<section class="mt-40 grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-4">
+<div class="size-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<h3 class="text-xl font-bold text-white">Military Grade Privacy</h3>
+<p class="text-slate-400 leading-relaxed">End-to-end encrypted storage that never touches the cloud. Your personal bests are for your eyes only.</p>
+</div>
+<div class="flex flex-col gap-4">
+<div class="size-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">database</span>
+</div>
+<h3 class="text-xl font-bold text-white">SQLite Architecture</h3>
+<p class="text-slate-400 leading-relaxed">Built on the most reliable database engine in the world. Fast, portable, and permanent data access.</p>
+</div>
+<div class="flex flex-col gap-4">
+<div class="size-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">offline_bolt</span>
+</div>
+<h3 class="text-xl font-bold text-white">100% Offline Access</h3>
+<p class="text-slate-400 leading-relaxed">Track your workouts in basement gyms or remote locations without ever needing a signal.</p>
+</div>
+</section>
+</main>
+<footer class="mt-20 border-t border-slate-800/50 py-12 px-6">
+<div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="size-6 bg-primary/20 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xs font-bold">exercise</span>
+</div>
+<span class="text-sm font-bold tracking-tight text-slate-300">GymTracker © 2024</span>
+</div>
+<div class="flex gap-8 text-xs font-bold text-slate-500 uppercase tracking-widest">
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">License</a>
+<a class="hover:text-primary transition-colors" href="#">Github</a>
+</div>
+</div>
+</footer>
+</div>
+
+```</body></html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-modal {
+            background: rgba(16, 34, 31, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(13, 242, 204, 0.1);
+        }
+        .bg-blur-overlay {
+            background-image: radial-gradient(circle at 50% 50%, #1a3a35 0%, #10221f 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center font-display antialiased p-4">
+<!-- Blurred Dashboard Background Simulation -->
+<div class="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
+<div class="absolute top-10 left-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl"></div>
+<div class="absolute bottom-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="grid grid-cols-4 gap-6 p-10 w-full h-full">
+<div class="bg-white/5 border border-white/10 h-32 rounded-lg"></div>
+<div class="bg-white/5 border border-white/10 h-32 rounded-lg"></div>
+<div class="bg-white/5 border border-white/10 h-32 rounded-lg"></div>
+<div class="bg-white/5 border border-white/10 h-32 rounded-lg"></div>
+<div class="col-span-2 bg-white/5 border border-white/10 h-64 rounded-lg"></div>
+<div class="col-span-2 bg-white/5 border border-white/10 h-64 rounded-lg"></div>
+</div>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-10 flex items-center justify-center p-4">
+<!-- Main Modal Container -->
+<div class="glass-modal w-full max-w-3xl rounded-lg shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
+<!-- Header Section -->
+<div class="flex items-start justify-between p-6 border-b border-white/5">
+<div class="flex flex-col gap-1">
+<h1 class="text-white text-3xl font-black tracking-tight">Check-in</h1>
+<p class="text-primary/70 text-sm font-medium">Guarda tu día. Click en una fila para editar.</p>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-white hover:bg-primary/20 transition-colors group">
+<span class="material-symbols-outlined text-xl group-hover:text-primary transition-colors">close</span>
+</button>
+</div>
+<!-- Form Body -->
+<div class="p-6 space-y-8">
+<!-- Form Grid (3 columns) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Row 1 -->
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-xs font-bold uppercase tracking-wider">Fecha</label>
+<div class="relative">
+<input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" type="date" value="2026-02-17"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-xs font-bold uppercase tracking-wider">Sueño (h)</label>
+<input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="7.0" step="0.1" type="number"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-xs font-bold uppercase tracking-wider">Calidad (1-10)</label>
+<input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" max="10" min="1" placeholder="8" type="number"/>
+</div>
+<!-- Row 2 -->
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-xs font-bold uppercase tracking-wider">Pasos</label>
+<input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="9500" type="number"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-xs font-bold uppercase tracking-wider">Peso (kg)</label>
+<input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="72.4" step="0.1" type="number"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-xs font-bold uppercase tracking-wider">Cintura (cm)</label>
+<input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="78.2" step="0.1" type="number"/>
+</div>
+<!-- Row 3 -->
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-xs font-bold uppercase tracking-wider">Cadera (cm)</label>
+<input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="98.0" step="0.1" type="number"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-xs font-bold uppercase tracking-wider">Creatina</label>
+<select class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all appearance-none cursor-pointer">
+<option class="bg-background-dark" value="-">—</option>
+<option class="bg-background-dark" value="y">Sí (Y)</option>
+<option class="bg-background-dark" value="n">No (N)</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-white/80 text-xs font-bold uppercase tracking-wider">Alcohol (uds)</label>
+<input class="w-full h-12 bg-white/5 border border-white/10 rounded-lg text-white px-4 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="0" type="number"/>
+</div>
+</div>
+<!-- Photo Section -->
+<div class="space-y-4">
+<h3 class="text-white text-base font-semibold">Foto de progreso (opcional)</h3>
+<div class="flex flex-col md:flex-row gap-6 items-center">
+<!-- Dropzone area -->
+<div class="w-full md:w-1/2 h-40 border-2 border-dashed border-white/10 rounded-lg flex flex-col items-center justify-center gap-2 hover:border-primary/40 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-white/30 text-4xl group-hover:text-primary/60 transition-colors">add_a_photo</span>
+<p class="text-white/40 text-sm font-medium">Sin archivo</p>
+</div>
+<!-- Ghost buttons side -->
+<div class="w-full md:w-1/2 flex flex-col gap-3">
+<button class="flex items-center justify-center gap-2 w-full h-11 rounded-lg border border-white/10 text-white/80 hover:bg-white/5 transition-colors text-sm font-semibold">
+<span class="material-symbols-outlined text-lg">visibility</span>
+                                Ver foto actual
+                            </button>
+<button class="flex items-center justify-center gap-2 w-full h-11 rounded-lg border border-white/10 text-red-400 hover:bg-red-500/10 transition-colors text-sm font-semibold">
+<span class="material-symbols-outlined text-lg">delete</span>
+                                Quitar
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Section -->
+<div class="mt-auto flex items-center justify-end gap-3 p-6 border-t border-white/5 bg-white/[0.02]">
+<button class="h-12 px-8 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition-all text-sm font-bold tracking-wide">
+                    CANCELAR
+                </button>
+<button class="h-12 px-10 rounded-lg bg-primary text-background-dark font-black tracking-wide hover:shadow-[0_0_20px_rgba(13,242,204,0.3)] hover:scale-[1.02] active:scale-95 transition-all">
+                    GUARDAR
+                </button>
+</div>
+</div>
+</div>
+</body></html>

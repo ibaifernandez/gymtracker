@@ -73,6 +73,7 @@ Mapa rápido de carpetas y archivos relevantes para operar y extender Gym Tracke
 - `docs/PLAN_CSV_AI_INSTRUCTIONS_DIET.md`: instrucciones IA para CSV de dieta.
 - `docs/PLAN_CSV_AI_INSTRUCTIONS_WORKOUT.md`: instrucciones IA para CSV de entreno planificado.
 - `docs/PLAN_CSV_AI_SYSTEM_PROMPT.md`: prompt de sistema para el flujo IA (dieta + entreno).
+- `docs/QA_MANUAL_PORTADA_V1_0_0_1.md`: checklist QA específico de la portada visual `/portada`.
 
 ## Runtime local (no versionado)
 

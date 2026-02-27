@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                        "surface-dark": "#1b2725",
+                        "border-dark": "#283936",
+                        "muted-teal": "#9cbab5",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<title>Importar Plan CSV - Gym Tracker</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white min-h-screen flex items-center justify-center p-4">
+<!-- Modal Overlay Backdrop -->
+<div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+<!-- Modal Container -->
+<div class="relative w-full max-w-[640px] bg-[#111817] border border-border-dark rounded-xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+<!-- Header -->
+<header class="flex items-start justify-between p-6 border-b border-border-dark">
+<div class="flex flex-col gap-1">
+<h2 class="text-2xl font-bold tracking-tight text-white">Importar plan diario (CSV)</h2>
+<p class="text-muted-teal text-sm font-normal">Carga tus archivos de dieta y rutina para activar <span class="text-primary font-medium">"Hoy te toca"</span>.</p>
+</div>
+<button class="text-muted-teal hover:text-white transition-colors p-1">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+</header>
+<!-- Scrollable Content Section -->
+<div class="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+<!-- Glassmorphic Disclaimer Card -->
+<div class="relative overflow-hidden rounded-lg border border-white/10 bg-white/5 backdrop-blur-md p-4 flex gap-4 items-center">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">warning</span>
+</div>
+<div class="flex flex-col">
+<p class="text-xs uppercase tracking-wider font-bold text-primary/80 mb-0.5">Aviso importante</p>
+<p class="text-sm text-white leading-relaxed">
+                            Uso bajo responsabilidad del usuario. La app no prescribe entrenamiento ni nutrición.
+                        </p>
+</div>
+<!-- Decorative background glow -->
+<div class="absolute -right-10 -top-10 w-24 h-24 bg-primary/10 rounded-full blur-2xl"></div>
+</div>
+<!-- Stacked Import Sections -->
+<div class="space-y-10">
+<!-- 1. Dieta del día -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">restaurant</span>
+                                Dieta del día
+                            </h3>
+<a class="text-xs font-medium text-primary hover:underline flex items-center gap-1 transition-all" href="#">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Descargar plantilla dieta
+                            </a>
+</div>
+<div class="flex flex-col gap-3">
+<label class="group relative flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-border-dark rounded-lg cursor-pointer bg-surface-dark/50 hover:bg-surface-dark transition-all hover:border-primary/50">
+<div class="flex flex-col items-center justify-center pt-5 pb-6">
+<span class="material-symbols-outlined text-muted-teal group-hover:text-primary transition-colors mb-2">upload_file</span>
+<p class="text-xs text-muted-teal"><span class="font-semibold">Haz clic para subir</span> o arrastra tu CSV</p>
+</div>
+<input accept=".csv" class="hidden" type="file"/>
+</label>
+<button class="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-[#10221f] font-bold rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+                                Importar dieta plan
+                            </button>
+</div>
+</section>
+<!-- 2. Rutina del día: sesiones -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+                                Rutina del día: sesiones
+                            </h3>
+<a class="text-xs font-medium text-primary hover:underline flex items-center gap-1 transition-all" href="#">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Descargar plantilla sesiones
+                            </a>
+</div>
+<div class="flex flex-col gap-3">
+<label class="group relative flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-border-dark rounded-lg cursor-pointer bg-surface-dark/50 hover:bg-surface-dark transition-all hover:border-primary/50">
+<div class="flex flex-col items-center justify-center pt-5 pb-6">
+<span class="material-symbols-outlined text-muted-teal group-hover:text-primary transition-colors mb-2">upload_file</span>
+<p class="text-xs text-muted-teal"><span class="font-semibold">Haz clic para subir</span> o arrastra tu CSV</p>
+</div>
+<input accept=".csv" class="hidden" type="file"/>
+</label>
+<button class="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-[#10221f] font-bold rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+                                Importar sesiones
+                            </button>
+</div>
+</section>
+<!-- 3. Rutina del día: ejercicios -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">fitness_center</span>
+                                Rutina del día: ejercicios
+                            </h3>
+<a class="text-xs font-medium text-primary hover:underline flex items-center gap-1 transition-all" href="#">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Descargar plantilla ejercicios
+                            </a>
+</div>
+<div class="flex flex-col gap-3">
+<label class="group relative flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-border-dark rounded-lg cursor-pointer bg-surface-dark/50 hover:bg-surface-dark transition-all hover:border-primary/50">
+<div class="flex flex-col items-center justify-center pt-5 pb-6">
+<span class="material-symbols-outlined text-muted-teal group-hover:text-primary transition-colors mb-2">upload_file</span>
+<p class="text-xs text-muted-teal"><span class="font-semibold">Haz clic para subir</span> o arrastra tu CSV</p>
+</div>
+<input accept=".csv" class="hidden" type="file"/>
+</label>
+<button class="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-[#10221f] font-bold rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+                                Importar ejercicios
+                            </button>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer Actions -->
+<footer class="p-6 bg-surface-dark/30 border-t border-border-dark flex justify-end gap-3">
+<button class="px-6 py-2.5 text-sm font-semibold text-muted-teal hover:text-white transition-colors border border-border-dark rounded-lg hover:bg-border-dark/50">
+                    Cancelar
+                </button>
+<button class="px-6 py-2.5 text-sm font-semibold bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all">
+                    Finalizar todo
+                </button>
+</footer>
+</div>
+</div>
+<!-- Hidden Main Content (to simulate a page background) -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none opacity-20">
+<div class="absolute top-20 left-40 w-96 h-96 bg-primary/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-20 right-40 w-96 h-96 bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="max-w-4xl mx-auto mt-20 p-8 space-y-8">
+<div class="h-8 w-48 bg-border-dark rounded-full"></div>
+<div class="grid grid-cols-3 gap-6">
+<div class="h-40 bg-surface-dark rounded-xl border border-border-dark"></div>
+<div class="h-40 bg-surface-dark rounded-xl border border-border-dark"></div>
+<div class="h-40 bg-surface-dark rounded-xl border border-border-dark"></div>
+</div>
+<div class="h-64 bg-surface-dark rounded-xl border border-border-dark"></div>
+</div>
+</div>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #283936;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #3a524e;
+        }
+    </style>
+</body></html>

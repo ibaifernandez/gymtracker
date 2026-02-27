@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gym Tracker - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0a0f0e",
+                        "surface-dark": "#16201e",
+                        "glass-dark": "rgba(22, 32, 30, 0.75)",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["Roboto Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0f0e;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .primary-glow {
+            box-shadow: 0 0 15px rgba(13, 242, 204, 0.2);
+        }
+        .tab-active {
+            border-bottom: 3px solid #0df2cc;
+            color: white;
+        }
+    </style>
+</head>
+<body class="text-slate-200 min-h-screen bg-background-light dark:bg-background-dark">
+<!-- Topbar -->
+<header class="sticky top-0 z-50 glass-effect bg-glass-dark border-b border-white/10 px-6 py-3">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary text-2xl">fitness_center</span>
+</div>
+<div>
+<h1 class="text-white font-bold text-xl leading-tight tracking-tight">Gym Tracker</h1>
+<p class="text-slate-400 text-xs font-medium">Registro simple para atletas</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Suplementos</a>
+<button class="flex items-center gap-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">dark_mode</span>
+                        Tema
+                    </button>
+<a class="hover:text-red-400 transition-colors" href="#">Cerrar sesión</a>
+</nav>
+<div class="flex items-center gap-3 border-l border-white/10 pl-6">
+<button class="bg-primary text-background-dark px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 primary-glow hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-lg">add</span>
+                        Check-in
+                    </button>
+<button class="bg-surface-dark border border-white/10 text-white px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-lg">exercise</span>
+                        Entreno
+                    </button>
+<div class="size-9 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center overflow-hidden ml-2">
+<img class="w-full h-full object-cover" data-alt="User profile avatar male" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABzW-ZDuXtwwqCjfjmCKILVRr5ZJEjN5p6yMY71aniM9TQjzx2ALOjm-nX14L9PSqQluhAMQYd6yyekBu9nC6NAdn6j8o4QriHGwDtPSVXdWN_JLZ2t1Wd0mnoRhF2qJfL_ULTDA_P0iVnVcSOL18vB-FCnbCj_cncidySMawgfGxEEi7MYLGVl922HPw7RnHEU8VGWLOCEDp3QAlfJ1Mi2HT-Rm2KSM-GQ6jz2jgaze1Pkb_PczPurHXIXDkp7BQdFvz2Q66GikQY"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+<!-- Tab Navigation -->
+<div class="bg-surface-dark/50 border border-white/5 rounded-xl p-1 flex items-center gap-2 overflow-x-auto no-scrollbar">
+<a class="px-6 py-3 text-sm font-bold transition-all text-primary border-b-2 border-primary bg-primary/5 rounded-t-lg" href="#">Inicio</a>
+<a class="px-6 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all" href="#">Check-ins</a>
+<a class="px-6 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all" href="#">Entrenos</a>
+<a class="px-6 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all" href="#">Progreso</a>
+<a class="px-6 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all" href="#">Planes</a>
+<a class="px-6 py-3 text-sm font-medium text-slate-400 hover:text-white transition-all" href="#">Datos</a>
+</div>
+<!-- Analysis Window Card -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 bg-surface-dark border border-white/10 rounded-xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] -z-10"></div>
+<div class="flex flex-col gap-6">
+<div class="flex flex-wrap items-end gap-6">
+<div class="flex-1 min-w-[200px]">
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Desde</label>
+<input class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 focus:ring-primary focus:border-primary" type="date" value="2026-02-10"/>
+</div>
+<div class="flex-1 min-w-[200px]">
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Hasta</label>
+<input class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 focus:ring-primary focus:border-primary" type="date" value="2026-02-17"/>
+</div>
+<div class="flex gap-2">
+<button class="bg-primary/10 text-primary border border-primary/20 px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/20 transition-all">
+                                Aplicar rango
+                            </button>
+<button class="bg-white/5 text-slate-300 px-4 py-2.5 rounded-lg font-medium text-sm hover:bg-white/10 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">history</span>
+                                Volver a última semana
+                            </button>
+</div>
+</div>
+<div class="flex items-center gap-2 font-mono text-xs text-primary/70 bg-primary/5 self-start px-3 py-1 rounded border border-primary/10">
+<span class="material-symbols-outlined text-xs">info</span>
+                        Ventana: 10 feb – 17 feb 2026 · 5 registros encontrados
+                    </div>
+</div>
+</div>
+<!-- Trend Summary Card -->
+<div class="bg-surface-dark border border-white/10 rounded-xl p-6 flex flex-col justify-between">
+<div>
+<h3 class="text-white font-bold mb-2">Resumen Semanal</h3>
+<p class="text-slate-400 text-sm leading-relaxed italic">"Tendencia positiva: sueño mejorando y peso estable bajo el déficit actual. Continúa así."</p>
+</div>
+<div class="mt-4 pt-4 border-t border-white/5">
+<div class="flex items-center justify-between text-xs text-slate-500 mb-2">
+<span>Consistencia</span>
+<span>92%</span>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%] primary-glow"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- KPI Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- SUEÑO -->
+<div class="bg-surface-dark border border-white/10 rounded-xl p-5 hover:border-primary/30 transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-blue-500/10 p-2 rounded-lg text-blue-400">
+<span class="material-symbols-outlined">bedtime</span>
+</div>
+<span class="text-xs font-bold text-primary flex items-center gap-1 bg-primary/10 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[10px]">arrow_upward</span>
+                        +0.3h
+                    </span>
+</div>
+<p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Sueño</p>
+<h4 class="text-white text-3xl font-bold">7.2h</h4>
+</div>
+<!-- PASOS -->
+<div class="bg-surface-dark border border-white/10 rounded-xl p-5 hover:border-primary/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-orange-500/10 p-2 rounded-lg text-orange-400">
+<span class="material-symbols-outlined">footprint</span>
+</div>
+<span class="text-xs font-bold text-primary flex items-center gap-1 bg-primary/10 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[10px]">arrow_upward</span>
+                        +820
+                    </span>
+</div>
+<p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Pasos</p>
+<h4 class="text-white text-3xl font-bold">9,450</h4>
+</div>
+<!-- PESO -->
+<div class="bg-surface-dark border border-white/10 rounded-xl p-5 hover:border-primary/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined">scale</span>
+</div>
+<span class="text-xs font-bold text-primary flex items-center gap-1 bg-primary/10 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[10px]">arrow_downward</span>
+                        -0.4 kg
+                    </span>
+</div>
+<p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Peso</p>
+<h4 class="text-white text-3xl font-bold">74.6 <span class="text-sm font-medium text-slate-500">kg</span></h4>
+</div>
+<!-- WHR -->
+<div class="bg-surface-dark border border-white/10 rounded-xl p-5 hover:border-primary/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-purple-500/10 p-2 rounded-lg text-purple-400">
+<span class="material-symbols-outlined">straighten</span>
+</div>
+<span class="text-xs font-bold text-slate-400 flex items-center gap-1 bg-white/5 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[10px]">horizontal_rule</span>
+                        sin cambio
+                    </span>
+</div>
+<p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">WHR (Cadera/Cintura)</p>
+<h4 class="text-white text-3xl font-bold">0.87</h4>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="bg-surface-dark border border-white/10 rounded-xl p-8">
+<h3 class="text-white text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">bolt</span>
+                ¿Qué quieres hacer ahora?
+            </h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<button class="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-white/5 bg-white/5 hover:bg-primary/5 hover:border-primary/30 transition-all group">
+<span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-primary">fact_check</span>
+<span class="text-sm font-bold">Nuevo check-in</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-white/5 bg-white/5 hover:bg-primary/5 hover:border-primary/30 transition-all group">
+<span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-primary">fitness_center</span>
+<span class="text-sm font-bold">Nuevo entreno</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-white/5 bg-white/5 hover:bg-primary/5 hover:border-primary/30 transition-all group">
+<span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-primary">calendar_today</span>
+<span class="text-sm font-bold">Ver plan de hoy</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-white/5 bg-white/5 hover:bg-primary/5 hover:border-primary/30 transition-all group">
+<span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-primary">monitoring</span>
+<span class="text-sm font-bold">Ver progreso</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="max-w-7xl mx-auto px-6 py-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-3 text-slate-500 text-sm">
+<span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+            Sincronización completa: Hace 2 minutos
+        </div>
+<div class="flex items-center gap-8 text-sm font-medium text-slate-400">
+<a class="hover:text-white transition-colors" href="#">Manual de uso</a>
+<a class="hover:text-white transition-colors" href="#">Changelog</a>
+<p class="text-slate-600">v2.4.0-stable</p>
+</div>
+</footer>
+</body></html>

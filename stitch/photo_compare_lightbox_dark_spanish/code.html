@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Photo Compare Lightbox Dark Spanish</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0a0f0e",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .comparison-slider-handle {
+            box-shadow: 0 0 15px rgba(13, 242, 204, 0.5);
+        }
+        .thumbnail-active {
+            box-shadow: 0 0 10px rgba(13, 242, 204, 0.3);
+        }
+        .cinematic-vignette {
+            background: radial-gradient(circle, transparent 20%, rgba(10, 15, 14, 0.8) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white overflow-hidden">
+<!-- Full Screen Lightbox Overlay -->
+<div class="fixed inset-0 z-50 flex flex-col bg-background-dark/95 backdrop-blur-xl">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between px-8 py-4 border-b border-white/10">
+<div class="flex flex-col">
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">Progress Log</span>
+<span class="text-white/20 text-xs">|</span>
+<h1 class="text-lg font-semibold text-white">17 feb 2026 • foto</h1>
+</div>
+<p class="text-white/50 text-xs mt-1 font-medium">
+                    Fecha 17/02/2026 · <span class="text-white/70">Peso 74.2 kg</span> · <span class="text-white/70">WHR 0.80</span>
+</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-5 py-2 rounded-lg bg-primary text-background-dark font-bold text-sm transition-all hover:brightness-110">
+<span class="material-symbols-outlined text-[20px]">compare</span>
+                        Comparar
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 text-white/80 font-semibold text-sm hover:bg-white/10 transition-all">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Descargar
+                    </button>
+</div>
+<div class="w-px h-6 bg-white/10"></div>
+<button class="flex items-center justify-center size-10 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</header>
+<!-- Main Stage: Comparison View -->
+<main class="relative flex-1 flex items-center justify-center overflow-hidden px-12 group">
+<!-- Navigation Arrows -->
+<button class="absolute left-8 z-30 size-12 flex items-center justify-center rounded-full bg-white/5 text-white/50 hover:bg-white/10 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-3xl">chevron_left</span>
+</button>
+<button class="absolute right-8 z-30 size-12 flex items-center justify-center rounded-full bg-white/5 text-white/50 hover:bg-white/10 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-3xl">chevron_right</span>
+</button>
+<!-- Comparison Container -->
+<div class="relative w-full max-w-5xl aspect-[4/3] rounded-xl overflow-hidden shadow-2xl bg-black/40 border border-white/5">
+<!-- Background Cinematic Effect -->
+<div class="absolute inset-0 cinematic-vignette pointer-events-none z-10"></div>
+<!-- Left Image (Before) -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center" data-alt="Foto de fitness cuerpo completo antes" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxwh5oyDYLqiGGevTdcrOdJ7ip-33HGsk4-zQ_IYSK93SgU5TjPDVgj441cHrH3XK5BV7WX_EPByJ3cWTdGCOfTA5uESn_h4AWrhZ2PHpWfTX9uGNp_pEAPZUGCOkWjtZo4LMLVf2hQn2AgiZ945ItPGVi-y9V0sbxgdOEDU5LOeYFXAqpUhKwYcGQZmBIQtx5FxO_CAimZQ7k8hn15tXjsNe0kutqc0HiNPU6GqIvUh4NkeHAR8mUvkYEvjyMx6D13kO6SgCsrzeh')">
+<div class="absolute bottom-6 left-6 z-20 px-3 py-1.5 rounded bg-black/60 backdrop-blur-md border border-white/10">
+<span class="text-[10px] font-bold uppercase tracking-wider text-white/60 block leading-none mb-1">Anterior</span>
+<span class="text-sm font-medium text-white">13 Feb 2026</span>
+</div>
+</div>
+<!-- Right Image (After / Slider Reveal) -->
+<div class="absolute inset-0 h-full bg-cover bg-center border-l-2 border-primary z-10" data-alt="Foto de fitness cuerpo completo actual" style="width: 50%; left: 50%; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZH83vspSwjjGPxOdfFH2k94xMhZppNCO-jFvI9H7hpFkmJ4U9EeULiHS7tQZonxImKhAmrsip6lBak0kWr0AWoTgChlqUiAquXvkhILyw1AcCNXDrEkfUHcHYKKmyGRsJ6pKCZ1KR-A9lkshVsdNJ9dDzFa36XKlcZ0xlykcpvbZmnmS9-yugF_t99ZVo3EjLQb2fV_vx-gzMTFCR-nsv4NSgF1BnlpV1Alu_gbiEXNMbRxguN9Fepc8dGsC46EMMo0DdMnA-aUsj')">
+<!-- Adjustment to make the background image align with the one below for proper comparison -->
+<div class="absolute inset-0 w-[200%] h-full bg-cover bg-center -left-full" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCmiWh6im31vpyI8SqEyCp86SiOc83Qolhg1OQoMW-T37zolm8uIw7Z3g37Vccsk01MF9FDSN_uhLeTLD67qQ-aY0Zv0E0dEKYk_7j1V1CgE5In4BcOqkDc5Pb1DjrUH2OxPBt5K2VIk7y4jYioDK0OA07208sTsYUqfk0BAjcgenYPuzsnUlpPjgk4hiltNkqeIKP-BK2scmMzYoNz99xBItGASidtel-_eITb9iWWf2frGpGylipcGBJPad-6t5UphjWSwlp9p5dP')"></div>
+<div class="absolute bottom-6 right-6 z-20 px-3 py-1.5 rounded bg-black/60 backdrop-blur-md border border-primary/30 text-right">
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary block leading-none mb-1">Actual</span>
+<span class="text-sm font-medium text-white">17 Feb 2026</span>
+</div>
+</div>
+<!-- Slider Handle -->
+<div class="absolute inset-y-0 left-1/2 -ml-px w-0.5 bg-primary z-20 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-10 rounded-full bg-primary flex items-center justify-center comparison-slider-handle pointer-events-auto cursor-ew-resize hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-background-dark font-bold">unfold_more</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Section: Thumbnails -->
+<footer class="px-8 py-6 bg-black/20 border-t border-white/10">
+<div class="max-w-4xl mx-auto flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-white/40 tracking-widest uppercase">Historial de progreso</span>
+<span class="text-xs font-semibold text-primary px-2 py-0.5 rounded-full bg-primary/10">3 de 6</span>
+</div>
+<div class="flex justify-center gap-3">
+<!-- Thumbnail 1 -->
+<div class="relative size-20 rounded-lg overflow-hidden border-2 border-transparent opacity-40 hover:opacity-80 transition-all cursor-pointer">
+<div class="w-full h-full bg-cover bg-center" data-alt="Miniatura de foto de progreso 1" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAr3FK5lDaz3BuY1Y23bMUwHQOGzEN3cVzdRYM9T9wvl10F_-KxWJtv21DR86Cc2Ja-nr9z_kaOQ-dCUWW2Xq7JkyNJ376Kc8kopnhL17FeEIABRnUIQomm4pbPti62DF1VnrqczkaYcnVdxTLmQ7wN4xfezb0CvFrV0c4xo6HKBuuqMa9nJYQ_vr-gbVK-xxoN3tzilJxomgXBZe-hVkHszR8zlDKa_EJggiI1ejhdlrB-3Rmpv5_I1bCSzudffj2jqmQpz6Nyr881')"></div>
+</div>
+<!-- Thumbnail 2 -->
+<div class="relative size-20 rounded-lg overflow-hidden border-2 border-transparent opacity-40 hover:opacity-80 transition-all cursor-pointer">
+<div class="w-full h-full bg-cover bg-center" data-alt="Miniatura de foto de progreso 2" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDeIWrdRfTKQX7oSSAb7aL5-DsMXRRX7qmCXXKIEHB1rD90vOdQSKQ-DvlB2TChvnv0q7FTVCB7N7P2K2Oc4wqmGDOFaryrqdzuh7EMD3DbEokeU3XzLNMAhQF6SxMiS2gb0mp_XGhx0GkMjNJ5LZuzQZWn-gJl_McM8nX5zI3z_ct6MB-McSfbOrNtRbxaVahW3Y1pLa8J8by0nmDVr0vRUSP7f4sURv8bJ70bgPtLsgIYOdxX9ZRkSRH2q13yvImRPY6Gn9zgCvH7')"></div>
+</div>
+<!-- Thumbnail 3 (Active) -->
+<div class="relative size-20 rounded-lg overflow-hidden border-2 border-primary thumbnail-active ring-4 ring-primary/10 transition-all cursor-pointer">
+<div class="w-full h-full bg-cover bg-center" data-alt="Miniatura de foto de progreso actual seleccionada" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDhyeFUPfRTvLU_yWFsoDFKxcTzUs2I_qoLGq4YbzR2zsq8a0SErZm3m_sm5_tUXAT0l12C59Pp7x8P0Wh7NKQKWG7G6ylbYqjJN26ko0kNcwE5d6RLRAMqyfdvi3eZbOL_Zvneisoum6ezBRzQZY3Qe7O3zlFnuXlFuZ9762B_812fc7MFqF5dtsZToduSfbpT2QV5eX_zVIJo9n9yRzq95hjNqKS0gCybS_g0Q_7F8B-9BFW6F7yZ5egvZm1QUbMUgPkFCqZ_anNL')"></div>
+<div class="absolute inset-0 bg-primary/10"></div>
+</div>
+<!-- Thumbnail 4 -->
+<div class="relative size-20 rounded-lg overflow-hidden border-2 border-transparent opacity-40 hover:opacity-80 transition-all cursor-pointer">
+<div class="w-full h-full bg-cover bg-center" data-alt="Miniatura de foto de progreso 4" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBAxXvl9Es_vEqiwq-W3ewmCa5-0lgGPo4mhQb0oIV8VbVPzKr4VXqULPDX_jb7WJeH5Qc3FdGJqY6Mu-qQeJq_qO-ZTYTNNw0YdEPzNseeRtblUJIYb_7sZMaW9Hsy-gvcHfYhs57F-Ma9OWW5A1EpuPOlGgyDG-qwuBGVBIzWiEV5aLPO6PO3u5VUnpvNgsdxe074AX3wkEeU4UuyTuhyf263_kI9gejIy6LxjeBU-DOt3S8q2emcsTmjKNyMYDKGeKHcE5YhjX8r')"></div>
+</div>
+<!-- Thumbnail 5 -->
+<div class="relative size-20 rounded-lg overflow-hidden border-2 border-transparent opacity-40 hover:opacity-80 transition-all cursor-pointer">
+<div class="w-full h-full bg-cover bg-center" data-alt="Miniatura de foto de progreso 5" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZoO0wBefQM0wB2yX2OyX4Qyno04T3KrO0vjHRxCHU4qOf-TjpXw566Sh9ajhcf62zN4rfJeccwCrdXG1F_P7H7BAOZhAySQe_VRBSS5lG5r1JTG1hbfBT3jWucvHx-mMkUG7Ig1fsKhO8nnwi6Mfspi9r4EfuCL2X52vszXnZGlNBllCl10-7QdOsYaR_XDyQqirXEIHp-DMgY3Fo4NcQ_h3-b1eyO6ja45zGB_nk16YhVTmYiSlxC4wG7j2AQFEFe2SSGQOO2fJu')"></div>
+</div>
+<!-- Thumbnail 6 -->
+<div class="relative size-20 rounded-lg overflow-hidden border-2 border-transparent opacity-40 hover:opacity-80 transition-all cursor-pointer">
+<div class="w-full h-full bg-cover bg-center" data-alt="Miniatura de foto de progreso 6" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBu5dDnXLjL21iAOKFhE1FM969HOYDBBUSyiobUAXSVSWyXL3xFVvJuOUejjzVgPp8TnhbtYa9yrU37WJa6212-n8ZQB92DRKBSoT190vB7WqIztUVrzqrLqYAOYeQUwceF-HnwSu-fQiCacfyUitkOefIXnbz2bF_EGFQ2NQgFQvFK-PmW4m-wjRV2aO7B2ylpJWFQPifTXezlufazqeGSDRfkMR0P_lzA30rZ64k5_Dp3YRfRC59QwNBcUfRGM4kYe-LZKbTL5Wwz')"></div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gym Tracker - Restaurar Backup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                        "charcoal": "#111817",
+                        "caution": "#fbbf24",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-modal {
+            background: rgba(17, 24, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(13, 242, 204, 0.1);
+        }
+        .amber-glow {
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
+        .checkbox-custom:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='rgb(17,24,23)' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark min-h-screen text-white overflow-hidden">
+<!-- Blurred Background Dashboard Mockup -->
+<div class="fixed inset-0 z-0 flex flex-col blur-md grayscale-[0.2] opacity-40 pointer-events-none">
+<header class="flex items-center justify-between px-10 py-4 border-b border-white/10">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary rounded-lg"></div>
+<div class="h-6 w-32 bg-white/20 rounded"></div>
+</div>
+<div class="flex gap-6">
+<div class="h-4 w-20 bg-white/20 rounded"></div>
+<div class="h-4 w-20 bg-white/20 rounded"></div>
+<div class="h-4 w-20 bg-white/20 rounded"></div>
+</div>
+</header>
+<main class="p-10 grid grid-cols-3 gap-6">
+<div class="h-40 bg-white/10 rounded-xl"></div>
+<div class="h-40 bg-white/10 rounded-xl"></div>
+<div class="h-40 bg-white/10 rounded-xl"></div>
+<div class="col-span-2 h-80 bg-white/10 rounded-xl"></div>
+<div class="h-80 bg-white/10 rounded-xl"></div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+<!-- Modal Container -->
+<div class="glass-modal w-full max-w-[560px] rounded-lg shadow-2xl overflow-hidden flex flex-col">
+<!-- Header -->
+<div class="flex items-start justify-between p-6 pb-4">
+<div class="flex flex-col gap-1">
+<h2 class="text-2xl font-bold tracking-tight text-white">Restaurar backup</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-caution text-[18px]">warning</span>
+<p class="text-[#9cbab5] text-sm leading-relaxed">
+                            Esto reemplaza DB + uploads actuales por el backup seleccionado.
+                        </p>
+</div>
+</div>
+<button class="text-[#9cbab5] hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Body -->
+<div class="px-6 py-4 flex flex-col gap-6">
+<!-- Dropzone -->
+<div class="group relative flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-caution/40 bg-caution/5 px-6 py-12 transition-all hover:border-caution hover:bg-caution/10 cursor-pointer">
+<div class="mb-4 rounded-full bg-caution/20 p-4 text-caution group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">upload_file</span>
+</div>
+<div class="text-center">
+<p class="text-white text-lg font-semibold tracking-tight">Arrastra tu archivo .zip aquí</p>
+<p class="text-[#9cbab5] text-sm mt-1">o haz clic para buscar en tu equipo</p>
+</div>
+<input accept=".zip" class="absolute inset-0 opacity-0 cursor-pointer" type="file"/>
+</div>
+<!-- Confirmation Checkbox -->
+<label class="group flex items-center gap-3 cursor-pointer select-none">
+<div class="relative flex items-center">
+<input class="checkbox-custom h-6 w-6 rounded border-white/20 bg-transparent text-primary focus:ring-primary focus:ring-offset-0 focus:border-primary transition-all cursor-pointer" type="checkbox"/>
+</div>
+<span class="text-white/80 group-hover:text-white text-sm font-medium transition-colors">
+                        Entiendo que se reemplazarán los datos actuales.
+                    </span>
+</label>
+</div>
+<!-- Footer -->
+<div class="flex items-center justify-end gap-3 p-6 bg-white/5 border-t border-white/10">
+<button class="px-6 h-11 rounded-lg text-white/70 font-semibold hover:text-white hover:bg-white/5 transition-all">
+                    Cancelar
+                </button>
+<button class="amber-glow px-8 h-11 rounded-lg bg-primary text-charcoal font-bold text-sm tracking-wide hover:brightness-110 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">settings_backup_restore</span>
+                    Restaurar ahora
+                </button>
+</div>
+</div>
+</div>
+</body></html>

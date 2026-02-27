@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gym Tracker - Entrenos</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                        "charcoal": "#121212",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .table-row-hover:hover {
+            background: rgba(13, 242, 204, 0.04);
+            box-shadow: inset 0 0 10px rgba(13, 242, 204, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white min-h-screen flex flex-col font-display">
+<!-- Topbar & Navigation -->
+<header class="sticky top-0 z-50 glass border-b border-white/10 px-6 py-3">
+<div class="max-w-[1200px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-background-dark font-bold">fitness_center</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Gym Tracker</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-white/60 hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1 pt-1" href="#">Entrenos</a>
+<a class="text-white/60 hover:text-primary transition-colors text-sm font-medium" href="#">Progreso</a>
+<a class="text-white/60 hover:text-primary transition-colors text-sm font-medium" href="#">Perfil</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/80 transition-all">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/80 transition-all">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary/20 border border-primary/30 overflow-hidden ml-2">
+<img alt="User Avatar" data-alt="User profile placeholder avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxDp5PiQFlmx3Lsh8f3ovhT1yoIWI2lm0rwD5Gg2P5h-sKuU6cKQA-shBkCif1YTeERqoY2WdFfkbP8ZrbsM641AxicFgIRr5HeEZopdXAWu531DhnnlDSDtHD4Bo166kq6XISKX_umS2YSz8bzXDV-rcb3T1R86-iDSIv_YfX-eA3obuodZkcSU8K0zNqQwrtA5AN4jTags_3fW3pQUpmJxLiY_7LJ9G2KSDrE99pQFJMiUbpSyTBQTyn1uHhxjcW9L7kcOmIXVzv"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-[1200px] mx-auto px-6 py-8">
+<!-- Section Header -->
+<div class="flex flex-col gap-6 mb-8">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h2 class="text-2xl font-bold">Rutina (últimos 14)</h2>
+<span class="material-symbols-outlined text-white/40 cursor-help text-[20px]">info</span>
+</div>
+</div>
+<!-- Actions Row -->
+<div class="flex flex-wrap items-center gap-4">
+<div class="flex-1 min-w-[300px]">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-white/5 border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary focus:border-primary transition-all placeholder:text-white/30" placeholder="Filtrar por fecha / tipo / clase / kg / reps…" type="text"/>
+</div>
+</div>
+<button class="px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-sm font-medium hover:bg-white/10 transition-all">
+                    Ver todo
+                </button>
+<button class="px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-sm font-medium hover:bg-white/10 transition-all">
+                    Cambiar a 30
+                </button>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="glass rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-white/10 bg-white/5">
+<th class="px-4 py-4 text-xs font-bold text-white/50 uppercase tracking-wider">Fecha</th>
+<th class="px-4 py-4 text-xs font-bold text-white/50 uppercase tracking-wider">Sesión</th>
+<th class="px-4 py-4 text-xs font-bold text-white/50 uppercase tracking-wider text-center">Hecho</th>
+<th class="px-4 py-4 text-xs font-bold text-white/50 uppercase tracking-wider">Tipo</th>
+<th class="px-4 py-4 text-xs font-bold text-white/50 uppercase tracking-wider">Clase / Foco</th>
+<th class="px-4 py-4 text-xs font-bold text-white/50 uppercase tracking-wider text-center">RPE</th>
+<th class="px-4 py-4 text-xs font-bold text-white/50 uppercase tracking-wider">Ejercicios</th>
+<th class="px-4 py-4 text-xs font-bold text-white/50 uppercase tracking-wider">Notas</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<!-- Row 1 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-4 py-4 text-sm font-medium">12 Oct</td>
+<td class="px-4 py-4 text-sm font-semibold">Pierna A</td>
+<td class="px-4 py-4 text-center">
+<span class="material-symbols-outlined text-green-400 text-[20px]">check_circle</span>
+</td>
+<td class="px-4 py-4">
+<span class="bg-orange-500/20 text-orange-400 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wide border border-orange-500/30">Pesas</span>
+</td>
+<td class="px-4 py-4 text-sm text-white/70">Hipertrofia</td>
+<td class="px-4 py-4 text-center text-sm font-medium">8</td>
+<td class="px-4 py-4 text-[12px] leading-tight text-white/60">
+<div class="max-w-[180px]">
+<span class="text-white">Hip Thrust</span> 120kg×6<br/>
+<span class="text-white">Sentadilla</span> 80kg×8
+                                </div>
+</td>
+<td class="px-4 py-4 text-xs text-white/40 italic">Buen progreso en empuje</td>
+</tr>
+<!-- Row 2 -->
+<tr class="table-row-hover transition-colors bg-white/[0.01]">
+<td class="px-4 py-4 text-sm font-medium">10 Oct</td>
+<td class="px-4 py-4 text-sm font-semibold">Empuje Vertical</td>
+<td class="px-4 py-4 text-center">
+<span class="material-symbols-outlined text-green-400 text-[20px]">check_circle</span>
+</td>
+<td class="px-4 py-4">
+<span class="bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wide border border-blue-500/30">Clase</span>
+</td>
+<td class="px-4 py-4 text-sm text-white/70">Crossfit Skill</td>
+<td class="px-4 py-4 text-center text-sm font-medium">9</td>
+<td class="px-4 py-4 text-[12px] leading-tight text-white/60">
+<div class="max-w-[180px]">
+<span class="text-white">HSPU</span> 3×5 reps<br/>
+<span class="text-white">Push Press</span> 45kg×10
+                                </div>
+</td>
+<td class="px-4 py-4 text-xs text-white/40 italic">Hombro cargado al final</td>
+</tr>
+<!-- Row 3 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-4 py-4 text-sm font-medium">08 Oct</td>
+<td class="px-4 py-4 text-sm font-semibold">Full Body</td>
+<td class="px-4 py-4 text-center">
+<span class="material-symbols-outlined text-red-400 text-[20px]">cancel</span>
+</td>
+<td class="px-4 py-4">
+<span class="bg-primary/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wide border border-primary/30">Mixta</span>
+</td>
+<td class="px-4 py-4 text-sm text-white/70">Acondicionamiento</td>
+<td class="px-4 py-4 text-center text-sm font-medium">-</td>
+<td class="px-4 py-4 text-[12px] leading-tight text-white/60">
+<div class="max-w-[180px]">
+<span class="text-white">Burpees</span> 50 reps<br/>
+<span class="text-white">Remo</span> 2000m
+                                </div>
+</td>
+<td class="px-4 py-4 text-xs text-white/40 italic">Cancelado por viaje</td>
+</tr>
+<!-- Row 4 -->
+<tr class="table-row-hover transition-colors bg-white/[0.01]">
+<td class="px-4 py-4 text-sm font-medium">06 Oct</td>
+<td class="px-4 py-4 text-sm font-semibold">Tracción B</td>
+<td class="px-4 py-4 text-center">
+<span class="material-symbols-outlined text-green-400 text-[20px]">check_circle</span>
+</td>
+<td class="px-4 py-4">
+<span class="bg-orange-500/20 text-orange-400 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wide border border-orange-500/30">Pesas</span>
+</td>
+<td class="px-4 py-4 text-sm text-white/70">Fuerza Máxima</td>
+<td class="px-4 py-4 text-center text-sm font-medium">7</td>
+<td class="px-4 py-4 text-[12px] leading-tight text-white/60">
+<div class="max-w-[180px]">
+<span class="text-white">Peso Muerto</span> 140kg×3<br/>
+<span class="text-white">Dominadas</span> +10kg×8
+                                </div>
+</td>
+<td class="px-4 py-4 text-xs text-white/40 italic">Fácil, subir kg semana próxima</td>
+</tr>
+<!-- Row 5 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-4 py-4 text-sm font-medium">04 Oct</td>
+<td class="px-4 py-4 text-sm font-semibold">Técnica</td>
+<td class="px-4 py-4 text-center">
+<span class="material-symbols-outlined text-green-400 text-[20px]">check_circle</span>
+</td>
+<td class="px-4 py-4">
+<span class="bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wide border border-blue-500/30">Clase</span>
+</td>
+<td class="px-4 py-4 text-sm text-white/70">Halterofilia</td>
+<td class="px-4 py-4 text-center text-sm font-medium">6</td>
+<td class="px-4 py-4 text-[12px] leading-tight text-white/60">
+<div class="max-w-[180px]">
+<span class="text-white">Snatch Balance</span> 30kg×5<br/>
+<span class="text-white">Clean &amp; Jerk</span> 50kg×3
+                                </div>
+</td>
+<td class="px-4 py-4 text-xs text-white/40 italic">Foco en extensión de cadera</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto border-t border-white/5 py-6 px-6 glass">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 text-white/40 text-sm">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Sincronizado hace 2 min</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-xs text-white/40 hover:text-primary transition-colors" href="#">Manual de uso</a>
+<a class="text-xs text-white/40 hover:text-primary transition-colors" href="#">Changelog</a>
+<a class="text-xs text-white/40 hover:text-primary transition-colors" href="#">Soporte</a>
+<span class="text-[10px] text-white/20 font-bold uppercase tracking-widest">v2.4.0 Premium</span>
+</div>
+</div>
+</footer>
+</body></html>

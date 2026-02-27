@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gym Tracker - Acceso</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 0 4px rgba(13, 242, 204, 0.2);
+            border-color: #0df2cc;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display">
+<!-- Top Navigation Bar -->
+<header class="w-full px-6 py-4 flex items-center justify-between bg-white/50 backdrop-blur-sm border-b border-[#e5e7eb]">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg flex items-center justify-center text-[#111817]">
+<span class="material-symbols-outlined text-2xl font-bold">fitness_center</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-[#111817] text-xl font-bold leading-none tracking-tight">Gym Tracker</h1>
+<p class="text-[#6b7280] text-xs font-medium uppercase tracking-wider mt-1">Acceso privado local</p>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-2 text-[#6b7280]">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span class="text-xs font-medium">Conexión segura local</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex items-center justify-center p-6 relative overflow-hidden">
+<!-- Abstract Background Decorative Elements -->
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-primary/5 rounded-full blur-[100px]"></div>
+<!-- Centered Login Card -->
+<div class="w-full max-w-[440px] z-10">
+<div class="glass-card rounded-xl p-8 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white">
+<!-- Card Header -->
+<div class="mb-8 text-center md:text-left">
+<h2 class="text-2xl font-bold text-[#111817] mb-2">Introduce tu clave</h2>
+<p class="text-[#6b7280] text-sm leading-relaxed">
+                        Solo hay una cuenta local vinculada a este dispositivo. <br class="hidden md:block"/>No necesitas nombre de usuario.
+                    </p>
+</div>
+<!-- Login Form -->
+<form action="#" class="space-y-6" method="POST">
+<div>
+<label class="block text-sm font-semibold text-[#111817] mb-2" for="password">Clave de acceso</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#9ca3af] text-xl">
+                                vpn_key
+                            </span>
+<input class="w-full pl-12 pr-4 py-4 rounded-lg border border-[#d1d5db] bg-white text-[#111817] placeholder:text-[#9ca3af] focus:outline-none input-glow transition-all duration-200" id="password" name="password" placeholder="Tu clave local" required="" type="password"/>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-[#0cdbb9] text-[#111817] font-bold py-4 rounded-lg shadow-[0_4px_14px_0_rgba(13,242,204,0.39)] transition-all duration-200 flex items-center justify-center gap-2 group active:scale-[0.98]" type="submit">
+<span>Entrar</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</form>
+<!-- Help/Privacy Links -->
+<div class="mt-8 pt-6 border-t border-[#f3f4f6] flex flex-col sm:flex-row items-center justify-between gap-4">
+<a class="text-xs font-medium text-[#6b7280] hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">help_outline</span>
+                        ¿Olvidaste tu clave?
+                    </a>
+<a class="text-xs font-medium text-[#6b7280] hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">shield</span>
+                        Privacidad local
+                    </a>
+</div>
+</div>
+<!-- Optional Card Shadow Enhancement for Premium Feel -->
+<div class="mt-8 text-center">
+<p class="text-[#9ca3af] text-[10px] uppercase tracking-[0.2em] font-bold">
+                    Potenciado por Gym Tracker Engine v2.4
+                </p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-6 text-center border-t border-[#f3f4f6] bg-white/30">
+<div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+<p class="text-[#6b7280] text-sm font-medium">
+                © 2024 Gym Tracker. Almacenamiento local privado.
+            </p>
+<div class="flex items-center gap-6">
+<a class="text-[#6b7280] hover:text-[#111817] text-sm transition-colors" href="#">Términos</a>
+<a class="text-[#6b7280] hover:text-[#111817] text-sm transition-colors" href="#">Ayuda</a>
+<a class="text-[#6b7280] hover:text-[#111817] text-sm transition-colors" href="#">Contacto</a>
+</div>
+</div>
+</footer>
+</body></html>

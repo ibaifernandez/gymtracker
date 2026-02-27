@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                        "charcoal": "#1a2624",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-effect {
+            background: rgba(26, 38, 36, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(13, 242, 204, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white min-h-screen">
+<!-- Background Mockup (Dimmed Dashboard) -->
+<div class="fixed inset-0 z-0 overflow-hidden opacity-40 pointer-events-none select-none">
+<div class="max-w-[1200px] mx-auto p-8">
+<div class="flex items-center justify-between mb-12">
+<div class="h-10 w-48 bg-charcoal rounded-lg"></div>
+<div class="flex gap-4">
+<div class="size-10 bg-charcoal rounded-full"></div>
+<div class="size-10 bg-charcoal rounded-full"></div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<div class="h-64 bg-charcoal rounded-xl"></div>
+<div class="h-64 bg-charcoal rounded-xl"></div>
+<div class="h-64 bg-charcoal rounded-xl"></div>
+</div>
+</div>
+</div>
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+<!-- Confirmation Dialog -->
+<div class="glass-effect w-full max-w-[420px] rounded-xl shadow-2xl overflow-hidden flex flex-col">
+<!-- Header -->
+<div class="p-6 pb-4 flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<h2 class="text-xl font-bold tracking-tight text-white leading-tight">Reemplazar foto</h2>
+<p class="text-[#9cbab5] text-sm">Ya existe una foto para esa fecha.</p>
+</div>
+<button class="text-[#9cbab5] hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+</div>
+<!-- Body -->
+<div class="px-6 py-4 flex flex-col items-center gap-6">
+<!-- Current Photo Section -->
+<div class="w-full flex flex-col items-center gap-2">
+<span class="text-[11px] font-bold uppercase tracking-widest text-primary/70 self-start ml-4">Foto actual</span>
+<div class="relative group">
+<div class="w-48 h-48 rounded-lg overflow-hidden border-2 border-white/5 bg-charcoal shadow-lg">
+<img alt="Progreso actual" class="w-full h-full object-cover grayscale-[0.2]" data-alt="Hombre entrenando en el gimnasio progreso actual" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlmNv10B-2bq0EsRuPPjTv-WJpxh6G-84FPFMMthT45dShPX5dKia2errH-NPndwZn27-FQKF5uB0TrJbUDQgT2l_-wOqf5vcPzIE5InutPH5fudrDG88tv1fy1-JpnYg3tgANhkz_FqhzBCl1_QHQdK7NT07nQCbSo3R_WFKOGZMUzvMQ1FBaZeTU__RQQhsx8b1TfKeMUpE37s5T4e5HnYQ_RBxZnPIdSoPXoCIqPmLa-_r2dD4qfTVtpma9YbLFyxhIkhxXmjg3"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-charcoal border border-white/10 p-1.5 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-red-400 text-[18px]">history</span>
+</div>
+</div>
+</div>
+<!-- Action Arrow -->
+<div class="flex flex-col items-center -my-2 relative z-10">
+<div class="h-8 w-px bg-gradient-to-b from-primary/50 to-transparent"></div>
+<div class="bg-primary/10 p-2 rounded-full border border-primary/20">
+<span class="material-symbols-outlined text-primary text-[24px]">arrow_downward</span>
+</div>
+<div class="h-8 w-px bg-gradient-to-t from-primary/50 to-transparent"></div>
+</div>
+<!-- New Photo Placeholder -->
+<div class="w-full flex flex-col items-center gap-2">
+<span class="text-[11px] font-bold uppercase tracking-widest text-primary self-start ml-4">Nueva foto</span>
+<div class="w-48 h-48 rounded-lg border-2 border-dashed border-primary/40 bg-primary/5 flex flex-col items-center justify-center gap-2 group cursor-pointer hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-primary/60 text-[32px]">add_a_photo</span>
+<span class="text-[10px] text-primary/60 font-medium">Subir imagen</span>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="p-6 bg-white/5 mt-2 flex items-center justify-end gap-3">
+<button class="px-5 py-2.5 rounded-lg text-sm font-semibold text-white/70 hover:text-white hover:bg-white/5 transition-all">
+                    Cancelar
+                </button>
+<button class="bg-primary hover:bg-[#0be6c2] text-[#10221f] px-6 py-2.5 rounded-lg text-sm font-bold shadow-[0_0_15px_rgba(13,242,204,0.3)] transition-all active:scale-95">
+                    Reemplazar
+                </button>
+</div>
+</div>
+</div>
+<!-- Notification Toast (Optional for Context) -->
+<div class="fixed bottom-6 right-6 z-40">
+<div class="bg-charcoal/90 backdrop-blur border border-white/5 p-4 rounded-xl shadow-2xl flex items-center gap-4 max-w-xs translate-y-20 opacity-0 pointer-events-none">
+<div class="size-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<p class="text-sm font-bold">Foto actualizada</p>
+<p class="text-xs text-[#9cbab5]">Tu progreso se guardó con éxito.</p>
+</div>
+</div>
+</div>
+</body></html>

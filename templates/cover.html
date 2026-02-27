@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Gym Tracker Landing</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='cover.css', v=asset_v_cover_css) }}"/>
+</head>
+<body class="page-cover-light">
+  <div class="landing-shell">
+    <header class="landing-header">
+      <a class="landing-brand" href="/portada" aria-label="GymTracker landing">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 10h2v4H4V10Zm14 0h2v4h-2V10ZM7 8h2v8H7V8Zm8 0h2v8h-2V8Zm-5 3h4v2h-4v-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <strong>GymTracker</strong>
+      </a>
+
+      <nav class="cover-actions" aria-label="Landing actions">
+        <a class="header-link" href="/help">Docs</a>
+        <a id="coverLoginBtn" class="login-local-btn" href="/login?next=/">Local Login</a>
+        <span class="header-avatar" aria-hidden="true"></span>
+      </nav>
+    </header>
+
+    <main class="cover-layout">
+      <section class="hero-block">
+        <p class="hero-kicker">GymTracker: Absolute Data Sovereignty</p>
+        <h1>
+          My health, my database.
+          <span>Zero forced cloud.</span>
+        </h1>
+        <p class="hero-sub">
+          Local-first fitness tracking with absolute data sovereignty.
+          Keep full ownership while running deterministic SQLite speed on your own machine.
+        </p>
+        <div class="hero-actions">
+          <a id="coverEnterBtn" class="hero-btn hero-btn-primary" href="/">git clone &amp;&amp; run local</a>
+          <a class="hero-btn hero-btn-secondary" href="#architecture">View Architecture</a>
+        </div>
+      </section>
+
+      <section id="architecture" class="command-section">
+        <div class="command-head">
+          <h2 class="command-title">
+            <span class="command-dot" aria-hidden="true"></span>
+            Data Sovereignty Command Center
+          </h2>
+          <span class="system-pill">System Active</span>
+        </div>
+
+        <div class="command-grid">
+          <article class="command-card">
+            <header>
+              <p class="label">REQUESTS_EXTERNAL</p>
+              <span class="card-icon"></span>
+            </header>
+            <div class="metric-row">
+              <strong>0</strong>
+              <span>PING_ERR</span>
+            </div>
+            <div class="metric-bar"><span></span></div>
+          </article>
+
+          <article class="command-card">
+            <header>
+              <p class="label">STORAGE_ENGINE</p>
+              <span class="card-icon"></span>
+            </header>
+            <div class="metric-row">
+              <strong class="metric-word">LOCAL_HOST</strong>
+            </div>
+            <div class="chip-row">
+              <span class="chip-ok">ENCRYPTED_AES256</span>
+            </div>
+          </article>
+
+          <article class="command-card">
+            <header>
+              <p class="label">SQLITE_LATENCY</p>
+              <span class="card-icon"></span>
+            </header>
+            <div class="metric-row">
+              <strong>1.24</strong>
+              <span>ms</span>
+            </div>
+            <p class="delta">-0.02ms vs avg</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="viz-section">
+        <div class="viz-card">
+          <div class="viz-top">
+            <div>
+              <p class="viz-kicker">Performance Visualization</p>
+              <h3>Vibrant Teal Gradients</h3>
+              <p class="viz-live">
+                <span class="dot"></span>
+                Real-time
+                <strong>+0.00% DRIFT</strong>
+              </p>
+            </div>
+            <div class="viz-tabs">
+              <button type="button">Day</button>
+              <button type="button" class="active">Week</button>
+              <button type="button">Month</button>
+            </div>
+          </div>
+
+          <div class="chart-wrap">
+            <div class="chart-grid" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <svg viewBox="0 0 1000 400" preserveAspectRatio="none" role="img" aria-label="Weekly performance chart">
+              <defs>
+                <linearGradient id="coverChartGradient" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#0df2cc" stop-opacity="0.34"/>
+                  <stop offset="100%" stop-color="#0df2cc" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 300 C 100 280, 150 350, 200 320 C 250 290, 300 150, 400 180 C 500 210, 550 50, 650 80 C 750 110, 850 250, 1000 220 L 1000 400 L 0 400 Z" fill="url(#coverChartGradient)"/>
+              <path d="M0 300 C 100 280, 150 350, 200 320 C 250 290, 300 150, 400 180 C 500 210, 550 50, 650 80 C 750 110, 850 250, 1000 220" fill="none" stroke="#0df2cc" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="400" cy="180" r="6" fill="#0df2cc" stroke="white" stroke-width="2"/>
+              <circle cx="650" cy="80" r="6" fill="#0df2cc" stroke="white" stroke-width="2"/>
+            </svg>
+
+            <div class="peak-card">
+              <span class="peak-ico" aria-hidden="true"></span>
+              <div>
+                <p>PEAK VELOCITY</p>
+                <strong>142.5 kg</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-days">
+            <span>MON</span>
+            <span>TUE</span>
+            <span>WED</span>
+            <span>THU</span>
+            <span>FRI</span>
+            <span>SAT</span>
+            <span>SUN</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="landing-footer">
+      <div class="foot-brand">
+        <span class="foot-dot"></span>
+        <strong>GymTracker</strong>
+      </div>
+      <nav class="foot-links" aria-label="Footer links">
+        <a href="/help">Privacy</a>
+        <a href="/help">Local SDK</a>
+        <a href="/help">Open Source</a>
+        <a href="/changelog">Changelog</a>
+      </nav>
+      <p class="foot-build">v1.0.0.0 STABLE // BUILD_LOCAL_ONLY</p>
+    </footer>
+  </div>
+</body>
+</html>

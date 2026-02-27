@@ -138,6 +138,7 @@ npm run test:e2e
 - Guía IA CSV dieta: [`docs/PLAN_CSV_AI_INSTRUCTIONS_DIET.md`](docs/PLAN_CSV_AI_INSTRUCTIONS_DIET.md)
 - Guía IA CSV entreno: [`docs/PLAN_CSV_AI_INSTRUCTIONS_WORKOUT.md`](docs/PLAN_CSV_AI_INSTRUCTIONS_WORKOUT.md)
 - System prompt IA CSV: [`docs/PLAN_CSV_AI_SYSTEM_PROMPT.md`](docs/PLAN_CSV_AI_SYSTEM_PROMPT.md)
+- QA manual portada local: [`docs/QA_MANUAL_PORTADA_V1_0_0_1.md`](docs/QA_MANUAL_PORTADA_V1_0_0_1.md)
 
 ## Nota para contribuidores con IA
 

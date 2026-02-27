@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Data Hub View - Gym Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                        "neutral-dark": "#1a2e2a",
+                        "neutral-card": "rgba(26, 46, 42, 0.7)",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(26, 46, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(13, 242, 204, 0.1);
+        }
+        .action-card:hover {
+            border-color: #0df2cc;
+            background: rgba(13, 242, 204, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-display">
+<!-- Topbar -->
+<header class="border-b border-white/5 bg-background-light/50 dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-9 bg-primary flex items-center justify-center rounded-lg shadow-[0_0_15px_rgba(13,242,204,0.3)]">
+<span class="material-symbols-outlined text-background-dark font-bold">fitness_center</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight dark:text-white">Gym<span class="text-primary">Tracker</span></h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-lg hover:bg-white/5 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-white/5 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-[1px] bg-white/10 mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-semibold dark:text-white">Carlos Pérez</p>
+<p class="text-[10px] text-slate-400">Pro Member</p>
+</div>
+<div class="size-10 rounded-full border-2 border-primary/20 bg-cover bg-center" data-alt="User profile avatar circle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKsta8pGt8G1pif9SsRaWxVwo8cNphfWWQy1hAXW2MfXaJxvqzafxPWN1Z15iF-J_UypKIQ5L_XDdFfzC604-bbygswRRafxnmpVDbRdePvb2muFObHyr44AuiVLwgbdmpx8iVPUZ0MIX_r9BMMJhA8tggodzSfeeKw4tZa6YN3hqtqUBUuV1RCI2DsIfK905FVt2rj5Udk1wMKHdPiosIoUIZDNkop6_NC_z5-HtB7uG9vFhWyREYo4DvGTbeOww3PdjUzBRtraUW')"></div>
+</div>
+</div>
+</div>
+</header>
+<!-- Navigation Tabs -->
+<nav class="border-b border-white/5 bg-background-light dark:bg-background-dark pt-4">
+<div class="max-w-7xl mx-auto px-6">
+<div class="flex gap-8">
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-slate-200 transition-all border-b-2 border-transparent" href="#">Entrenos</a>
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-slate-200 transition-all border-b-2 border-transparent" href="#">Dieta</a>
+<a class="pb-4 text-sm font-medium text-primary border-b-2 border-primary" href="#">Datos</a>
+<a class="pb-4 text-sm font-medium text-slate-400 hover:text-slate-200 transition-all border-b-2 border-transparent" href="#">Perfil</a>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 max-w-7xl mx-auto w-full px-6 py-10">
+<!-- Data Hub Container -->
+<div class="glass-card rounded-xl p-8 shadow-2xl overflow-hidden relative">
+<!-- Decorative Glow -->
+<div class="absolute -top-24 -right-24 size-64 bg-primary/10 blur-[80px] rounded-full pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex items-start justify-between mb-8">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h2 class="text-2xl font-bold dark:text-white">Operaciones de datos</h2>
+<span class="material-symbols-outlined text-slate-500 text-lg cursor-help">info</span>
+</div>
+<p class="text-slate-400 text-sm">Todo lo técnico está aquí, separado del registro diario.</p>
+</div>
+<div class="bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">sync</span>
+<span class="text-xs font-semibold text-primary">Sincronización activa</span>
+</div>
+</div>
+<!-- 3x3 Grid of Actions -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Action Item 1 -->
+<button class="action-card group flex flex-col items-start p-5 rounded-lg border border-white/5 bg-white/[0.02] transition-all duration-300 text-left">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors group-hover:bg-primary/20">
+<span class="material-symbols-outlined text-primary">download</span>
+</div>
+<h3 class="font-bold text-slate-200 mb-1">Exportar registros</h3>
+<p class="text-xs text-slate-500">Descarga tu historial de dieta en formato CSV.</p>
+</button>
+<!-- Action Item 2 -->
+<button class="action-card group flex flex-col items-start p-5 rounded-lg border border-white/5 bg-white/[0.02] transition-all duration-300 text-left">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors group-hover:bg-primary/20">
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<h3 class="font-bold text-slate-200 mb-1">Exportar entrenos</h3>
+<p class="text-xs text-slate-500">CSV detallado con ejercicios, series y RPE.</p>
+</button>
+<!-- Action Item 3 -->
+<button class="action-card group flex flex-col items-start p-5 rounded-lg border border-white/5 bg-white/[0.02] transition-all duration-300 text-left">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors group-hover:bg-primary/20">
+<span class="material-symbols-outlined text-primary">upload_file</span>
+</div>
+<h3 class="font-bold text-slate-200 mb-1">Importar dieta</h3>
+<p class="text-xs text-slate-500">Sube tus planes externos o copias previas.</p>
+</button>
+<!-- Action Item 4 -->
+<button class="action-card group flex flex-col items-start p-5 rounded-lg border border-white/5 bg-white/[0.02] transition-all duration-300 text-left">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors group-hover:bg-primary/20">
+<span class="material-symbols-outlined text-primary">bookmark_manager</span>
+</div>
+<h3 class="font-bold text-slate-200 mb-1">Importar plan diario</h3>
+<p class="text-xs text-slate-500">Carga marcadores y rutinas guardadas.</p>
+</button>
+<!-- Action Item 5 -->
+<button class="action-card group flex flex-col items-start p-5 rounded-lg border border-white/5 bg-white/[0.02] transition-all duration-300 text-left">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors group-hover:bg-primary/20">
+<span class="material-symbols-outlined text-primary">cloud_download</span>
+</div>
+<h3 class="font-bold text-slate-200 mb-1">Exportar backup</h3>
+<p class="text-xs text-slate-500">Copia de seguridad completa de la base de datos.</p>
+</button>
+<!-- Action Item 6 -->
+<button class="action-card group flex flex-col items-start p-5 rounded-lg border border-white/5 bg-white/[0.02] transition-all duration-300 text-left">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors group-hover:bg-primary/20">
+<span class="material-symbols-outlined text-primary">refresh</span>
+</div>
+<h3 class="font-bold text-slate-200 mb-1">Restaurar backup</h3>
+<p class="text-xs text-slate-500">Vuelve a un estado anterior desde la nube.</p>
+</button>
+<!-- Action Item 7 -->
+<button class="action-card group flex flex-col items-start p-5 rounded-lg border border-white/5 bg-white/[0.02] transition-all duration-300 text-left">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors group-hover:bg-primary/20">
+<span class="material-symbols-outlined text-primary">bug_report</span>
+</div>
+<h3 class="font-bold text-slate-200 mb-1">Reportar bug</h3>
+<p class="text-xs text-slate-500">Informa sobre errores técnicos o de UI.</p>
+</button>
+<!-- Placeholder 8 -->
+<div class="flex flex-col items-center justify-center p-5 rounded-lg border border-dashed border-white/10 bg-transparent text-center opacity-40">
+<span class="material-symbols-outlined text-slate-500 mb-2">lock</span>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Próximamente</p>
+</div>
+<!-- Placeholder 9 -->
+<div class="flex flex-col items-center justify-center p-5 rounded-lg border border-dashed border-white/10 bg-transparent text-center opacity-40">
+<span class="material-symbols-outlined text-slate-500 mb-2">lock</span>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Próximamente</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Status Bar -->
+<footer class="border-t border-white/5 bg-background-light dark:bg-background-dark/80 py-6">
+<div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="size-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#0df2cc]"></div>
+<p class="text-xs text-slate-400">Última sincronización: <span class="text-slate-200 font-medium">Hace 2 min</span></p>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-xs text-slate-400 hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">menu_book</span>
+                    Manual de uso
+                </a>
+<a class="text-xs text-slate-400 hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">history</span>
+                    Changelog
+                </a>
+<div class="flex items-center gap-2 text-[10px] text-slate-500 font-medium tracking-tight">
+<span>v2.4.12-build</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

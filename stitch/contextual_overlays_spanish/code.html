@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(16, 34, 31, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<title>Gym Tracker - Contextual Overlays</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white selection:bg-primary/30">
+<div class="relative min-h-screen flex flex-col">
+<!-- Header / Nav -->
+<header class="flex items-center justify-between border-b border-primary/10 px-6 py-4 bg-background-dark/50 backdrop-blur-md sticky top-0 z-10">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">exercise</span>
+<h2 class="text-xl font-bold tracking-tight">Gym Tracker</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-white text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-white/60 text-sm font-medium hover:text-primary transition-colors" href="#">Entrenamientos</a>
+<a class="text-white/60 text-sm font-medium hover:text-primary transition-colors" href="#">Progreso</a>
+<a class="text-white/60 text-sm font-medium hover:text-primary transition-colors" href="#">Comunidad</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-primary transition-colors">search</span>
+<input class="bg-primary/5 border-none focus:ring-1 focus:ring-primary/50 rounded-lg pl-10 pr-4 py-2 text-sm w-48 transition-all" placeholder="Buscar..." type="text"/>
+</div>
+<button class="p-2 hover:bg-primary/10 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full border border-primary/20 bg-cover bg-center" data-alt="User profile avatar icon small circle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAL1sNxE4sNYd_pNnmVZP1SInRBSGjQO2qzQIbERdurGoKpqjZjSVsZF8QrS3Q24yqiGyaZRREzRmk-eW2EwYfyXmbco8epYZv0K_nw4c-tqiV-7ylgsdekkBoX7fclDtbf2NLxIhrJ80j15E70W99goSoJbZ_duPcn61PRqBfDC8EwxaDPhTTWPQFwMkF0HhJjC-_SoHK1377WskHxpUOlD6p5TMoVzUtfiyLzBzxF5Z2Yy1_gzab14Gi0r6soimReo1sH10-mkilS');"></div>
+</div>
+</header>
+<!-- Main Dashboard Content (Dimmed) -->
+<main class="flex-1 p-6 lg:px-40 transition-all duration-500 blur-[2px] opacity-40 select-none pointer-events-none">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="text-4xl font-black tracking-tight mb-2">Panel de Control</h1>
+<p class="text-white/50">Lunes, 12 de Junio • Tu mejor semana hasta ahora</p>
+</div>
+<button class="bg-primary text-background-dark font-bold px-6 py-2.5 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                    Nueva Actividad
+                </button>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-primary/5 border border-primary/10 p-6 rounded-xl">
+<p class="text-white/60 text-sm font-medium mb-1">Calorías Quemadas</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold">2,450</span>
+<span class="text-primary text-sm font-bold">kcal</span>
+</div>
+<div class="flex items-center gap-1 mt-2 text-xs text-primary font-bold">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+                        +5.2% vs ayer
+                    </div>
+</div>
+<div class="bg-primary/5 border border-primary/10 p-6 rounded-xl">
+<p class="text-white/60 text-sm font-medium mb-1">Pasos Diarios</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold">12,840</span>
+<span class="text-white/40 text-sm font-medium">/ 15,000</span>
+</div>
+<div class="w-full bg-white/10 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+</div>
+<div class="bg-primary/5 border border-primary/10 p-6 rounded-xl">
+<p class="text-white/60 text-sm font-medium mb-1">Tiempo Activo</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold">1h 45m</span>
+</div>
+<div class="flex items-center gap-1 mt-2 text-xs text-white/40">
+<span class="material-symbols-outlined text-xs">schedule</span>
+                        Meta diaria cumplida
+                    </div>
+</div>
+</div>
+<!-- Main KPI Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="bg-primary/5 border border-primary/10 p-8 rounded-xl min-h-[300px] flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold">Progreso Semanal</h3>
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div class="h-40 w-full bg-primary/5 rounded-lg flex items-end justify-between px-4 pb-2">
+<!-- Placeholder Chart -->
+<div class="w-8 bg-primary/20 h-[30%] rounded-t"></div>
+<div class="w-8 bg-primary/40 h-[50%] rounded-t"></div>
+<div class="w-8 bg-primary/60 h-[45%] rounded-t"></div>
+<div class="w-8 bg-primary h-[80%] rounded-t"></div>
+<div class="w-8 bg-primary/30 h-[20%] rounded-t"></div>
+<div class="w-8 bg-primary/50 h-[60%] rounded-t"></div>
+<div class="w-8 bg-primary/70 h-[90%] rounded-t"></div>
+</div>
+</div>
+</div>
+<!-- KPI WHR CARD - ANCHOR POINT -->
+<div class="bg-primary/5 border border-primary/10 p-8 rounded-xl relative overflow-hidden flex flex-col justify-center">
+<div class="flex items-center gap-2 mb-2">
+<h3 class="text-2xl font-bold">Índice WHR</h3>
+<span class="material-symbols-outlined text-primary/60 cursor-pointer hover:text-primary transition-colors text-xl">info</span>
+</div>
+<p class="text-white/60 mb-6">Nivel de composición corporal actual</p>
+<div class="text-6xl font-black text-primary mb-4 tracking-tighter">0.82</div>
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-bold w-fit">
+                        Rango Saludable
+                    </div>
+</div>
+</div>
+</main>
+<!-- Element 1: Help Popover Overlay -->
+<!-- Placed absolute relative to layout, positioned near the WHR KPI card area -->
+<div class="fixed top-[52%] left-[62%] -translate-x-1/2 -translate-y-full z-50">
+<div class="relative">
+<!-- Popover Content -->
+<div class="glass-panel border border-primary/30 rounded-lg p-5 shadow-2xl shadow-primary/10 max-w-[280px]">
+<div class="flex items-center justify-between mb-2">
+<h4 class="font-bold text-primary text-sm tracking-wider uppercase">WHR</h4>
+<span class="material-symbols-outlined text-xs text-white/30">help_outline</span>
+</div>
+<p class="text-white/90 text-sm leading-relaxed mb-4">
+                        Relación cintura/cadera. Referencia: ♀️ &lt;= 0.85 · ♂️ &lt;= 0.90.
+                    </p>
+<a class="text-primary text-xs font-bold flex items-center gap-1 group" href="#">
+                        Ver manual
+                        <span class="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform">arrow_forward_ios</span>
+</a>
+</div>
+<!-- Small Arrow pointing towards the anchor icon -->
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[90%] w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] border-t-primary/30"></div>
+<!-- Inner Arrow Shadow/Fill -->
+<div class="absolute bottom-[2px] left-1/2 -translate-x-1/2 translate-y-[90%] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-background-dark/95"></div>
+</div>
+</div>
+<!-- Element 2: Toast Notification -->
+<div class="fixed bottom-12 left-1/2 -translate-x-1/2 z-50">
+<div class="glass-panel border border-white/10 rounded-lg shadow-2xl overflow-hidden min-w-[320px] flex items-stretch">
+<!-- Teal Left Accent -->
+<div class="w-1.5 bg-primary"></div>
+<div class="flex-1 py-4 px-6 flex items-center justify-between gap-6">
+<div class="flex flex-col">
+<span class="text-primary font-black text-sm uppercase tracking-widest">OK</span>
+<span class="text-white/90 text-sm font-medium">Check-in guardado correctamente</span>
+</div>
+<button class="text-white/40 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Full-screen focus dimmer -->
+<div class="fixed inset-0 bg-background-dark/20 backdrop-blur-[1px] pointer-events-none z-40"></div>
+</div>
+</body></html>

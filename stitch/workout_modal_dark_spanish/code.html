@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gym Tracker - Registrar Entreno</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                        "charcoal-800": "#1a2b28",
+                        "charcoal-900": "#0c1413",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Inter", sans-serif
+    }
+.glass-modal {
+    background: rgba(16, 34, 31, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(13, 242, 204, 0.1)
+    }
+.bg-dashboard-blur {
+    background-image: linear-gradient(rgba(16, 34, 31, 0.7), rgba(16, 34, 31, 0.7)), url(https://lh3.googleusercontent.com/aida-public/AB6AXuAJn6LJZzq3SZk-lQIfJUcJLW_GL6H2WY5xdiKYsltWlHWuaJfA80SyO311Gk5Viu5D8_S576CSseO3kDA2MdMOt0HJUKrlzZysNgWOecyUU3H4PybKrNdiUenqXn1vwSw-T-xSRHnxUVQv3698ty6Ap5Zzig2CiQGFFk9pchZXVkTapmugi-LUZzmhfRiWc1FqQYfQs9qcCkoRp0hE9u0uQxpCgMXnQ7KXlNO-mLBT9wFJ3nz1UzK3Q5coSrATBRHTpr3wj1S_wCNf);
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px)
+    }</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen text-slate-900 dark:text-slate-100 font-display">
+<!-- Blurred Background Mockup -->
+<div class="fixed inset-0 bg-dashboard-blur z-0" data-alt="Blurred gym interior background"></div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+<div class="glass-modal w-full max-w-[800px] rounded-xl shadow-2xl flex flex-col relative overflow-hidden">
+<!-- Header -->
+<div class="px-6 pt-8 pb-4 flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<h1 class="text-3xl font-black tracking-tight text-white">Registrar Entreno</h1>
+<p class="text-[#9cbab5] text-sm font-normal">Detalla tu sesión de hoy. Click en una fila para editar.</p>
+</div>
+<button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+</div>
+<!-- Modal Content -->
+<div class="px-6 py-4 flex flex-col gap-8">
+<!-- Form Row 1: Session Meta -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#9cbab5]">Fecha</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-xl">calendar_today</span>
+<input class="w-full pl-10 pr-4 py-3 bg-charcoal-800 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" type="text" value="2026-02-17"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#9cbab5]">Tipo de entreno</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-xl">fitness_center</span>
+<select class="w-full pl-10 pr-4 py-3 bg-charcoal-800 border border-white/10 rounded-lg text-white appearance-none focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all cursor-pointer">
+<option selected="">Pesas</option>
+<option>Cardio</option>
+<option>Movilidad</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#9cbab5]">RPE (1-10)</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-xl">bolt</span>
+<input class="w-full pl-10 pr-4 py-3 bg-charcoal-800 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="7" type="number"/>
+</div>
+</div>
+</div>
+<!-- Full Width: Class/Activity -->
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#9cbab5]">Clase / actividad</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary text-xl">sports_gymnastics</span>
+<input class="w-full pl-10 pr-4 py-3 bg-charcoal-800 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="Cross-fit + core / yoga / pilates..." type="text"/>
+</div>
+</div>
+<!-- Strength Section -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">exercise</span>
+                            Ejercicios de fuerza
+                        </h3>
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-primary hover:bg-primary/10 font-semibold transition-all">
+<span class="material-symbols-outlined text-xl">add</span>
+                            Añadir ejercicio
+                        </button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Exercise Card 1 -->
+<div class="group flex flex-col md:flex-row items-center gap-4 p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 transition-all border-l-4 border-l-primary">
+<div class="flex-1 min-w-0">
+<span class="text-white font-bold block mb-1">Hip Thrust</span>
+<span class="text-xs text-[#9cbab5]">Peso libre / Barra</span>
+</div>
+<div class="grid grid-cols-3 gap-3 w-full md:w-auto">
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] uppercase font-bold text-[#9cbab5]">KG</span>
+<input class="w-16 h-10 text-center bg-charcoal-900 border-none rounded-lg text-primary font-bold focus:ring-1 focus:ring-primary" type="text" value="120"/>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] uppercase font-bold text-[#9cbab5]">Reps</span>
+<input class="w-16 h-10 text-center bg-charcoal-900 border-none rounded-lg text-white font-bold focus:ring-1 focus:ring-primary" type="text" value="6"/>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] uppercase font-bold text-[#9cbab5]">RPE</span>
+<input class="w-16 h-10 text-center bg-charcoal-900 border-none rounded-lg text-white font-bold focus:ring-1 focus:ring-primary" type="text" value="8"/>
+</div>
+</div>
+<button class="p-2 text-[#9cbab5] hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined">delete_outline</span>
+</button>
+</div>
+<!-- Exercise Card 2 -->
+<div class="group flex flex-col md:flex-row items-center gap-4 p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 transition-all border-l-4 border-l-primary">
+<div class="flex-1 min-w-0">
+<span class="text-white font-bold block mb-1">Sentadilla</span>
+<span class="text-xs text-[#9cbab5]">Rack / Barra</span>
+</div>
+<div class="grid grid-cols-3 gap-3 w-full md:w-auto">
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] uppercase font-bold text-[#9cbab5]">KG</span>
+<input class="w-16 h-10 text-center bg-charcoal-900 border-none rounded-lg text-primary font-bold focus:ring-1 focus:ring-primary" type="text" value="80"/>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] uppercase font-bold text-[#9cbab5]">Reps</span>
+<input class="w-16 h-10 text-center bg-charcoal-900 border-none rounded-lg text-white font-bold focus:ring-1 focus:ring-primary" type="text" value="8"/>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="text-[10px] uppercase font-bold text-[#9cbab5]">RPE</span>
+<input class="w-16 h-10 text-center bg-charcoal-900 border-none rounded-lg text-white font-bold focus:ring-1 focus:ring-primary" type="text" value="7"/>
+</div>
+</div>
+<button class="p-2 text-[#9cbab5] hover:text-red-400 transition-colors">
+<span class="material-symbols-outlined">delete_outline</span>
+</button>
+</div>
+</div>
+<p class="text-xs text-[#9cbab5] flex items-center gap-1 italic">
+<span class="material-symbols-outlined text-sm">info</span>
+                        Puedes registrar varios ejercicios en una misma sesión.
+                    </p>
+</div>
+<!-- Completion & Notes -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+<div class="flex flex-col gap-4">
+<label class="text-sm font-bold text-white">¿Sesión completada?</label>
+<div class="inline-flex p-1 bg-charcoal-800 rounded-lg w-fit border border-white/5">
+<button class="px-6 py-2 rounded-lg text-sm font-bold text-[#9cbab5] hover:text-white transition-all">NO</button>
+<button class="px-6 py-2 rounded-lg text-sm font-bold bg-primary text-black transition-all shadow-lg shadow-primary/20">SI</button>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#9cbab5]">Notas y observaciones</label>
+<textarea class="w-full p-4 bg-charcoal-800 border border-white/10 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all resize-none" placeholder="Sensaciones, molestias, suplementación..." rows="3"></textarea>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="mt-4 px-6 py-6 flex flex-col-reverse sm:flex-row justify-end gap-3 bg-charcoal-900/50 border-t border-white/5">
+<button class="px-8 py-3 rounded-lg text-white font-bold hover:bg-white/5 transition-all text-sm">
+                    Cancelar
+                </button>
+<button class="px-8 py-3 bg-primary text-black font-black rounded-lg hover:brightness-110 transition-all text-sm shadow-xl shadow-primary/20 active:scale-95">
+                    GUARDAR ENTRENO
+                </button>
+</div>
+</div>
+</div>
+</body></html>

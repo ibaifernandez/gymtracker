@@ -115,6 +115,7 @@ def inject_asset_versions():
         "asset_v_css": static_asset_version("styles.css"),
         "asset_v_app_js": static_asset_version("app.js"),
         "asset_v_login_js": static_asset_version("login.js"),
+        "asset_v_cover_css": static_asset_version("cover.css"),
     }
 
 
@@ -3033,6 +3034,11 @@ def index():
     summary_days = parse_summary_days(request.args.get("summary_days"), default=7)
     state = build_state(limit=15, summary_days=summary_days)
     return render_template("index.html", state=state)
+
+
+@APP.get("/portada")
+def cover_page():
+    return render_template("cover.html")
 
 
 @APP.get("/help")

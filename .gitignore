@@ -12,7 +12,6 @@ node_modules/
 # Local runtime data
 .tmp/
 test-results/
-stitch/
 tracker.db
 tracker.db-shm
 tracker.db-wal

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Progress Charts View - Gym Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df2cc",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .chart-glow {
+            filter: drop-shadow(0 0 8px rgba(13, 242, 204, 0.4));
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between border-b border-white/10 px-6 py-4 lg:px-20 bg-background-light dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">exercise</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight">Gym Tracker</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity" href="#">Dashboard</a>
+<a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity" href="#">Entrenamientos</a>
+<a class="text-sm font-medium text-primary" href="#">Progreso</a>
+<a class="text-sm font-medium opacity-60 hover:opacity-100 transition-opacity" href="#">Dieta</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-slate-400 hover:text-white">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<div class="h-8 w-[1px] bg-white/10 mx-2"></div>
+<div class="flex items-center gap-3 bg-white/5 pl-2 pr-4 py-1.5 rounded-full border border-white/5">
+<div class="size-8 rounded-full overflow-hidden bg-primary/20">
+<img class="w-full h-full object-cover" data-alt="User profile avatar showing a smiling woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk_YoU3Vy8hvrMp-c0JRCsXwqc8aSVeqRR6PD-JEHxtvr_k-RjGlgVacdsZfep8qKdUBLAcl0_JXDVOPjmK51I9uFrR-ztNzUBuZ1S6eTRpBJE7syK-28nOr4X8nyHEEvVvk7M49wlMCjwQRF1eQRYbeIf-zG6i8NOPe6g0QdiRZc4eKoX50PJrsR1ycPMem5gPqcsqeo_3-rdP4O1T-oqlE2kFnAVtuM6kabr-g03qZ6c-QVkpGaOiO3RSBYGjiG0Rt8dPZeYxeVP"/>
+</div>
+<span class="text-xs font-semibold">Ana García</span>
+</div>
+</div>
+</header>
+<!-- Secondary Navigation Tabs -->
+<div class="px-6 lg:px-20 bg-background-light dark:bg-background-dark border-b border-white/5">
+<div class="flex gap-8 overflow-x-auto no-scrollbar">
+<a class="flex flex-col items-center justify-center border-b-2 border-transparent py-4 opacity-50 hover:opacity-100 transition-all whitespace-nowrap" href="#">
+<span class="text-sm font-bold tracking-wide">Resumen</span>
+</a>
+<a class="flex flex-col items-center justify-center border-b-2 border-transparent py-4 opacity-50 hover:opacity-100 transition-all whitespace-nowrap" href="#">
+<span class="text-sm font-bold tracking-wide">Entrenos</span>
+</a>
+<a class="flex flex-col items-center justify-center border-b-2 border-primary py-4 text-primary whitespace-nowrap" href="#">
+<span class="text-sm font-bold tracking-wide">Progreso</span>
+</a>
+<a class="flex flex-col items-center justify-center border-b-2 border-transparent py-4 opacity-50 hover:opacity-100 transition-all whitespace-nowrap" href="#">
+<span class="text-sm font-bold tracking-wide">Medidas</span>
+</a>
+</div>
+</div>
+<!-- Main Content Area -->
+<main class="flex-1 px-6 py-8 lg:px-20 max-w-7xl mx-auto w-full">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<h1 class="text-2xl font-bold tracking-tight">Rendimiento del periodo</h1>
+<span class="material-symbols-outlined text-sm opacity-40 cursor-help">info</span>
+</div>
+<p class="text-slate-500 text-sm font-normal">Serie temporal en la ventana activa (últimos 7 días)</p>
+</div>
+<!-- Action Toolbar -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-bold transition-all border border-white/5">
+<span class="material-symbols-outlined text-lg text-primary">photo_camera</span>
+<span>Ver todas fotos</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-bold transition-all border border-white/5">
+<span class="material-symbols-outlined text-lg">share</span>
+<span>Compartir</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-bold transition-all border border-white/5">
+<span class="material-symbols-outlined text-lg">content_copy</span>
+<span>Copiar</span>
+</button>
+<div class="h-6 w-[1px] bg-white/10 mx-1"></div>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-bold transition-all border border-white/5">
+<span class="material-symbols-outlined text-lg text-red-400">picture_as_pdf</span>
+<span>PDF</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-bold transition-all border border-white/5">
+<span class="material-symbols-outlined text-lg text-blue-400">image</span>
+<span>PNG</span>
+</button>
+</div>
+</div>
+<!-- Performance Card Section -->
+<div class="bg-[#162a27] border border-white/5 rounded-xl shadow-2xl overflow-hidden">
+<!-- Metric Selector Row -->
+<div class="p-6 border-b border-white/5 flex flex-wrap gap-3">
+<button class="px-5 py-2 rounded-full bg-primary text-background-dark text-sm font-bold shadow-[0_0_15px_rgba(13,242,204,0.3)] transition-transform hover:scale-105 active:scale-95">
+                        Peso
+                    </button>
+<button class="px-5 py-2 rounded-full border border-white/10 hover:border-primary/50 text-sm font-semibold opacity-60 hover:opacity-100 transition-all">
+                        WHR
+                    </button>
+<button class="px-5 py-2 rounded-full border border-white/10 hover:border-primary/50 text-sm font-semibold opacity-60 hover:opacity-100 transition-all">
+                        Sueño
+                    </button>
+<button class="px-5 py-2 rounded-full border border-white/10 hover:border-primary/50 text-sm font-semibold opacity-60 hover:opacity-100 transition-all">
+                        Pasos
+                    </button>
+</div>
+<!-- Main Chart Component -->
+<div class="relative bg-[#0d1c1a] p-8 bg-grid">
+<div class="flex gap-4">
+<!-- Y-Axis labels -->
+<div class="flex flex-col justify-between text-[10px] font-mono text-slate-500 h-[300px] py-1 text-right w-10">
+<span>75.5</span>
+<span>75.0</span>
+<span>74.5</span>
+<span>74.0</span>
+<span>73.5</span>
+</div>
+<!-- Chart Area -->
+<div class="flex-1 relative">
+<!-- Horizontal Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none py-1">
+<div class="w-full h-[1px] bg-white/5"></div>
+<div class="w-full h-[1px] bg-white/5"></div>
+<div class="w-full h-[1px] bg-white/5"></div>
+<div class="w-full h-[1px] bg-white/5"></div>
+<div class="w-full h-[1px] bg-white/5"></div>
+</div>
+<!-- SVG Chart -->
+<svg class="w-full h-[300px] overflow-visible" preserveaspectratio="none">
+<!-- Line Shadow -->
+<path d="M 0 50 Q 150 20, 300 120 T 600 180 T 900 220" fill="none" stroke="rgba(13, 242, 204, 0.1)" stroke-linecap="round" stroke-width="8"></path>
+<!-- Main Line -->
+<path class="chart-glow" d="M 0 50 Q 150 20, 300 120 T 600 180 T 900 220" fill="none" stroke="#0df2cc" stroke-linecap="round" stroke-width="3"></path>
+<!-- Data Points -->
+<circle class="chart-glow" cx="0" cy="50" fill="#0df2cc" r="5"></circle>
+<circle class="chart-glow" cx="300" cy="120" fill="#0df2cc" r="5"></circle>
+<circle class="chart-glow" cx="600" cy="180" fill="#0df2cc" r="5"></circle>
+<circle class="chart-glow" cx="900" cy="220" fill="#0df2cc" r="5"></circle>
+</svg>
+<!-- X-Axis labels -->
+<div class="flex justify-between mt-4 text-[10px] font-mono text-slate-500">
+<span>11 feb</span>
+<span>12 feb</span>
+<span>13 feb</span>
+<span>14 feb</span>
+<span>15 feb</span>
+<span>16 feb</span>
+<span>17 feb</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Chart Footer -->
+<div class="p-4 bg-black/20 border-t border-white/5">
+<div class="flex items-center justify-center gap-6 text-[11px] font-mono text-slate-400 tracking-wider">
+<div class="flex items-center gap-2">
+<span class="size-1.5 rounded-full bg-slate-500"></span>
+<span>Periodo: 11-17 feb 2026</span>
+</div>
+<span class="opacity-20">|</span>
+<div class="flex items-center gap-2">
+<span class="size-1.5 rounded-full bg-red-400"></span>
+<span>Variación: <span class="text-red-400">-0.4 kg</span></span>
+</div>
+<span class="opacity-20">|</span>
+<div class="flex items-center gap-2">
+<span class="size-1.5 rounded-full bg-primary"></span>
+<span>5 registros</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Additional Quick Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+<div class="p-6 rounded-xl bg-[#162a27]/50 border border-white/5 flex items-center justify-between">
+<div>
+<p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1">IMC Actual</p>
+<h3 class="text-2xl font-bold">24.2</h3>
+</div>
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-[#162a27]/50 border border-white/5 flex items-center justify-between">
+<div>
+<p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1">Grasa Corporal</p>
+<h3 class="text-2xl font-bold">18.5%</h3>
+</div>
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">body_fat</span>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-[#162a27]/50 border border-white/5 flex items-center justify-between">
+<div>
+<p class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1">Meta semanal</p>
+<h3 class="text-2xl font-bold">85%</h3>
+</div>
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto py-8 px-6 lg:px-20 border-t border-white/5 text-center">
+<p class="text-xs text-slate-500 font-medium">© 2026 Gym Tracker Analytics • Premium Membership Active</p>
+</footer>
+</div>
+</body></html>

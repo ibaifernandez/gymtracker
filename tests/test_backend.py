@@ -83,7 +83,7 @@ class TrackerBackendTests(unittest.TestCase):
         )
 
     def test_pages_and_state(self):
-        for path in ["/", "/help", "/changelog"]:
+        for path in ["/", "/portada", "/help", "/changelog"]:
             res = self.client.get(path)
             self.assertEqual(res.status_code, 200, path)
 
@@ -99,6 +99,15 @@ class TrackerBackendTests(unittest.TestCase):
         self.assertIsInstance(payload["workout"], list)
         self.assertIsInstance(payload["photos"], list)
         self.assertIsInstance(payload["plan_today"], dict)
+
+    def test_cover_page_contains_core_message_and_actions(self):
+        res = self.client.get("/portada")
+        self.assertEqual(res.status_code, 200)
+        html = res.get_data(as_text=True)
+        self.assertIn("Absolute Data Sovereignty", html)
+        self.assertIn("Data Sovereignty Command Center", html)
+        self.assertIn('id="coverLoginBtn"', html)
+        self.assertIn('id="coverEnterBtn"', html)
 
     def test_local_auth_password_flow(self):
         tracker.AUTH_ENABLED = True
