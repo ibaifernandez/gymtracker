@@ -1,6 +1,7 @@
 import os
 import re
 import csv
+import hmac
 import json
 import secrets
 import shutil
@@ -62,6 +63,7 @@ UPLOAD_ROOT = str(
 ALLOWED_EXT = {".jpg", ".jpeg", ".png", ".webp"}
 SUMMARY_WINDOW_CHOICES = (7, 15, 30, 60, 90)
 PLAN_ADHERENCE_WINDOW_CHOICES = (7, 15, 30)
+CSRF_SESSION_KEY = "csrf_token"
 
 
 def _bool_env(name: str, default: bool = False) -> bool:
@@ -2967,7 +2969,42 @@ def is_safe_backup_member(member_name: str) -> bool:
 
 @APP.context_processor
 def inject_auth_context():
-    return {"auth_enabled": auth_enabled()}
+    return {"auth_enabled": auth_enabled(), "csrf_token": ensure_csrf_token()}
+
+
+def ensure_csrf_token() -> str:
+    token = session.get(CSRF_SESSION_KEY)
+    if not isinstance(token, str) or len(token) < 16:
+        token = secrets.token_hex(32)
+        session[CSRF_SESSION_KEY] = token
+    return token
+
+
+def request_csrf_token() -> str:
+    header_token = str(request.headers.get("X-CSRF-Token") or "").strip()
+    if header_token:
+        return header_token
+    form_token = str(request.form.get("csrf_token") or "").strip()
+    if form_token:
+        return form_token
+    if request.is_json:
+        payload = request.get_json(silent=True) or {}
+        if isinstance(payload, dict):
+            return str(payload.get("csrf_token") or "").strip()
+    return ""
+
+
+@APP.before_request
+def csrf_protect():
+    # Keep a per-session token ready for all rendered pages/forms.
+    expected = ensure_csrf_token()
+    if request.method in {"GET", "HEAD", "OPTIONS", "TRACE"}:
+        return None
+
+    received = request_csrf_token()
+    if received and hmac.compare_digest(expected, received):
+        return None
+    return jsonify({"ok": False, "error": "CSRF token inválido."}), 403
 
 
 @APP.before_request
@@ -3011,6 +3048,7 @@ def login_submit():
     if password and check_password_hash(AUTH_PASSWORD_HASH, password):
         session.clear()
         session["auth_ok"] = True
+        session[CSRF_SESSION_KEY] = secrets.token_hex(32)
         return redirect(next_path)
 
     return (
@@ -3283,14 +3321,8 @@ def api_supplements_day_post():
                 return jsonify({"ok": False, "error": f"Suplemento no encontrado (ID {sid})."}), 404
 
         conn.execute("DELETE FROM supplement_daily_log WHERE log_date = ?;", (log_date,))
-        for sid, doses_taken, notes in cleaned:
-            conn.execute(
-                """
-                INSERT INTO supplement_daily_log (
-                  log_date, supplement_id, doses_taken, notes, created_at, updated_at
-                )
-                VALUES (?, ?, ?, ?, ?, ?);
-                """,
+        if cleaned:
+            batch_rows = [
                 (
                     log_date,
                     sid,
@@ -3298,7 +3330,17 @@ def api_supplements_day_post():
                     notes,
                     now_iso,
                     now_iso,
-                ),
+                )
+                for sid, doses_taken, notes in cleaned
+            ]
+            conn.executemany(
+                """
+                INSERT INTO supplement_daily_log (
+                  log_date, supplement_id, doses_taken, notes, created_at, updated_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?);
+                """,
+                batch_rows,
             )
         conn.commit()
         day = fetch_supplement_day(conn, log_date)

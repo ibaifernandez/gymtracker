@@ -2,6 +2,10 @@
 // Buscador + UX mínima para help.html (local, sin dependencias)
 
 (function () {
+  function getCsrfToken() {
+    return String(document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "").trim();
+  }
+
   // ----------------------------
   // Theme (respeta selección del usuario)
   // ----------------------------
@@ -144,7 +148,9 @@
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
       try {
-        await fetch("/logout", { method: "POST" });
+        const token = getCsrfToken();
+        const headers = token ? { "X-CSRF-Token": token } : {};
+        await fetch("/logout", { method: "POST", headers });
       } catch (_) {}
       window.location.href = "/login";
     });

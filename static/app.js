@@ -6,6 +6,14 @@
     if (node) node.addEventListener(event, handler, opts);
     return node;
   };
+  const getCsrfToken = () =>
+    String(document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "").trim();
+  const withCsrfHeaders = (base = {}) => {
+    const headers = new Headers(base);
+    const token = getCsrfToken();
+    if (token) headers.set("X-CSRF-Token", token);
+    return headers;
+  };
 
   // ----------------------------
   // Theme toggle (GUI)
@@ -2486,7 +2494,7 @@ pre{white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radi
   async function postJSON(url, data) {
     const res = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: withCsrfHeaders({ "Content-Type": "application/json" }),
       body: JSON.stringify(data),
     });
     const text = await res.text();
@@ -2510,7 +2518,7 @@ pre{white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radi
 
   async function postMultipart(url, form) {
     const fd = new FormData(form);
-    const res = await fetch(url, { method: "POST", body: fd });
+    const res = await fetch(url, { method: "POST", headers: withCsrfHeaders(), body: fd });
     const text = await res.text();
     let payload = {};
     try {
@@ -2527,7 +2535,7 @@ pre{white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radi
   }
 
   async function deleteJSON(url) {
-    const res = await fetch(url, { method: "DELETE" });
+    const res = await fetch(url, { method: "DELETE", headers: withCsrfHeaders() });
     const text = await res.text();
     let payload = {};
     try {
@@ -3515,6 +3523,7 @@ pre{white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radi
 
       const res = await fetch(endpoint, {
         method: "POST",
+        headers: withCsrfHeaders(),
         body: fd,
       });
       const text = await res.text();
@@ -3610,6 +3619,7 @@ pre{white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radi
 
     const res = await fetch("/api/diet/import/preview", {
       method: "POST",
+      headers: withCsrfHeaders(),
       body: fd,
     });
     const text = await res.text();
@@ -3669,6 +3679,7 @@ pre{white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radi
 
     const res = await fetch("/backup/restore", {
       method: "POST",
+      headers: withCsrfHeaders(),
       body: fd,
     });
     const text = await res.text();
@@ -4099,7 +4110,7 @@ pre{white-space:pre-wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radi
   on("btnRestoreBackup", "click", () => openBackupRestoreModal());
   on("btnLogout", "click", async () => {
     try {
-      await fetch("/logout", { method: "POST" });
+      await fetch("/logout", { method: "POST", headers: withCsrfHeaders() });
     } catch (_) {}
     window.location.href = "/login";
   });

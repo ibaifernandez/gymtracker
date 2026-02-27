@@ -51,6 +51,22 @@ async function clickAndAcceptDialogs(page, selector) {
   }
 }
 
+async function csrfHeaders(request) {
+  const res = await request.get("/");
+  expect(res.ok()).toBeTruthy();
+  const html = await res.text();
+  const tokenMatch =
+    html.match(/<meta\s+name="csrf-token"\s+content="([^"]+)"/i)
+    || html.match(/<meta\s+content="([^"]+)"\s+name="csrf-token"/i);
+  expect(tokenMatch).toBeTruthy();
+  return { "X-CSRF-Token": tokenMatch[1] };
+}
+
+async function requestPostWithCsrf(request, url, options = {}) {
+  const headers = { ...(options.headers || {}), ...(await csrfHeaders(request)) };
+  return request.post(url, { ...options, headers });
+}
+
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("h1")).toContainText("Gym Tracker");
@@ -133,7 +149,7 @@ test("check-in con foto, edicion y lightbox", async ({ page, request }) => {
   ).toBeVisible();
 
   // Seed adicional para comparación en lightbox.
-  const olderPhotoRes = await request.post("/api/diet", {
+  const olderPhotoRes = await requestPostWithCsrf(request, "/api/diet", {
     multipart: {
       log_date: "2099-01-10",
       sleep_hours: "7.0",
@@ -416,7 +432,7 @@ test("suplementos: catalogo editable y registro diario", async ({ page, request 
 });
 
 test("importacion CSV dieta con preview y conflictos por fecha", async ({ page, request }) => {
-  const existing = await request.post("/api/diet", {
+  const existing = await requestPostWithCsrf(request, "/api/diet", {
     data: {
       log_date: IMPORT_EXISTING_DATE,
       sleep_hours: 7.0,
@@ -486,7 +502,7 @@ test("planes permite borrar por fecha/sesion y vaciar dieta-entreno completos", 
     `${PLAN_DAY_TWO},pesas,Bici 5,,Caminata,Movilidad,,Noche,Sentadilla,4,6,8,90,7.5,RPE 7-8,+2kg,+1 rep`,
   ].join("\n");
 
-  const importDiet = await request.post("/api/plan/import/diet", {
+  const importDiet = await requestPostWithCsrf(request, "/api/plan/import/diet", {
     multipart: {
       file: {
         name: "plan_diet.csv",
@@ -498,7 +514,7 @@ test("planes permite borrar por fecha/sesion y vaciar dieta-entreno completos", 
   });
   expect(importDiet.ok()).toBeTruthy();
 
-  const importWorkout = await request.post("/api/plan/import/workout", {
+  const importWorkout = await requestPostWithCsrf(request, "/api/plan/import/workout", {
     multipart: {
       file: {
         name: "plan_workout.csv",
@@ -569,7 +585,7 @@ test("kpis por rango libre y tendencia corporal", async ({ page, request }) => {
     { log_date: "2099-02-20", sleep_hours: 6.7, steps: 8200, weight_kg: 71.0, waist_cm: 81.1, hip_cm: 100.0 },
   ];
   for (const row of previousRows) {
-    const res = await request.post("/api/diet", { data: row });
+    const res = await requestPostWithCsrf(request, "/api/diet", { data: row });
     expect(res.ok()).toBeTruthy();
   }
 
@@ -579,7 +595,7 @@ test("kpis por rango libre y tendencia corporal", async ({ page, request }) => {
     { log_date: "2099-03-20", sleep_hours: 7.0, steps: 11000, weight_kg: 68.0, waist_cm: 78.0, hip_cm: 100.0 },
   ];
   for (const row of seedRows) {
-    const res = await request.post("/api/diet", { data: row });
+    const res = await requestPostWithCsrf(request, "/api/diet", { data: row });
     expect(res.ok()).toBeTruthy();
   }
 
@@ -625,7 +641,7 @@ test("kpis por rango libre y tendencia corporal", async ({ page, request }) => {
 });
 
 test("backup export y restauracion desde GUI", async ({ page, request }) => {
-  const baseSeed = await request.post("/api/diet", {
+  const baseSeed = await requestPostWithCsrf(request, "/api/diet", {
     data: {
       log_date: BACKUP_BASE_DATE,
       sleep_hours: 7.1,
@@ -641,7 +657,7 @@ test("backup export y restauracion desde GUI", async ({ page, request }) => {
   expect(backupRes.ok()).toBeTruthy();
   const backupBuffer = Buffer.from(await backupRes.body());
 
-  const tempSeed = await request.post("/api/diet", {
+  const tempSeed = await requestPostWithCsrf(request, "/api/diet", {
     data: {
       log_date: BACKUP_TEMP_DATE,
       sleep_hours: 8.5,
@@ -736,7 +752,7 @@ test("entreno permite varias sesiones el mismo dia y edicion por sesion", async 
 
 test("galeria fotos, filtros por ventana y reportar bug", async ({ page, request }) => {
   const galleryDate = "2099-06-01";
-  const seedPhoto = await request.post("/api/diet", {
+  const seedPhoto = await requestPostWithCsrf(request, "/api/diet", {
     multipart: {
       log_date: galleryDate,
       sleep_hours: "7.0",

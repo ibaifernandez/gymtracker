@@ -3,6 +3,8 @@
 
 (function () {
   const THEME_KEY = "theme";
+  const getCsrfToken = () =>
+    String(document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") || "").trim();
 
   function systemPrefersLight() {
     return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches);
@@ -42,7 +44,9 @@
   if (!btn) return;
   btn.addEventListener("click", async () => {
     try {
-      await fetch("/logout", { method: "POST" });
+      const token = getCsrfToken();
+      const headers = token ? { "X-CSRF-Token": token } : {};
+      await fetch("/logout", { method: "POST", headers });
     } catch (_) {}
     window.location.href = "/login";
   });

@@ -36,6 +36,25 @@ class TrackerBackendTests(unittest.TestCase):
         tracker.APP.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
         self._client_ctx = tracker.APP.test_client()
         self.client = self._client_ctx.__enter__()
+        self._csrf_token = "test-csrf-token-0123456789abcdef"
+        with self.client.session_transaction() as sess:
+            sess[tracker.CSRF_SESSION_KEY] = self._csrf_token
+        self._wrap_client_with_csrf(self.client)
+
+    def _wrap_client_with_csrf(self, client):
+        def _wrap(method_name):
+            original = getattr(client, method_name)
+
+            def wrapped(*args, **kwargs):
+                headers = dict(kwargs.get("headers") or {})
+                headers.setdefault("X-CSRF-Token", self._csrf_token)
+                kwargs["headers"] = headers
+                return original(*args, **kwargs)
+
+            setattr(client, method_name, wrapped)
+
+        for method_name in ("post", "put", "patch", "delete"):
+            _wrap(method_name)
 
     def tearDown(self):
         tracker.DB_PATH = self.orig_db_path
@@ -82,6 +101,21 @@ class TrackerBackendTests(unittest.TestCase):
             "/uploads/2026-02-15/a.jpg",
         )
 
+    def test_ensure_upload_dir_creates_date_folder_and_is_idempotent(self):
+        log_date = "2026-03-01"
+        target = self.tmp_path / "uploads" / log_date
+        self.assertFalse(target.exists())
+
+        out1 = Path(tracker.ensure_upload_dir(log_date))
+        self.assertTrue(target.exists())
+        self.assertTrue(target.is_dir())
+        self.assertEqual(out1.resolve(), target.resolve())
+
+        out2 = Path(tracker.ensure_upload_dir(log_date))
+        self.assertTrue(target.exists())
+        self.assertTrue(target.is_dir())
+        self.assertEqual(out2.resolve(), target.resolve())
+
     def test_pages_and_state(self):
         for path in ["/", "/portada", "/help", "/changelog"]:
             res = self.client.get(path)
@@ -119,9 +153,15 @@ class TrackerBackendTests(unittest.TestCase):
         self.assertEqual(res.status_code, 302)
         self.assertIn("/login", res.headers.get("Location", ""))
 
+        client.get("/login", follow_redirects=False)
+        with client.session_transaction() as sess:
+            login_csrf = sess.get(tracker.CSRF_SESSION_KEY)
+        self.assertTrue(login_csrf)
+
         bad = client.post(
             "/login",
             data={"password": "incorrecta", "next": "/"},
+            headers={"X-CSRF-Token": login_csrf},
             follow_redirects=False,
         )
         self.assertEqual(bad.status_code, 401)
@@ -129,6 +169,7 @@ class TrackerBackendTests(unittest.TestCase):
         ok = client.post(
             "/login",
             data={"password": "clave-secreta", "next": "/"},
+            headers={"X-CSRF-Token": login_csrf},
             follow_redirects=False,
         )
         self.assertEqual(ok.status_code, 302)
@@ -137,7 +178,11 @@ class TrackerBackendTests(unittest.TestCase):
         state_ok = client.get("/api/state?limit=1")
         self.assertEqual(state_ok.status_code, 200)
 
-        logout = client.post("/logout")
+        with client.session_transaction() as sess:
+            logout_csrf = sess.get(tracker.CSRF_SESSION_KEY)
+        self.assertTrue(logout_csrf)
+
+        logout = client.post("/logout", headers={"X-CSRF-Token": logout_csrf})
         self.assertEqual(logout.status_code, 200)
 
         state_blocked = client.get("/api/state?limit=1")
