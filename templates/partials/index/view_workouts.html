@@ -1,42 +1,59 @@
-    <section class="app-view" data-view="workouts">
-    <div class="section">
-      <div class="section-head">
-        <div class="section-title-row">
-          <h2><span class="section-title-main">Entrenos (últimos <span id="workLimitLabel">15</span>)</span><button class="info-dot" type="button" data-help-tip data-tip-title="Tabla de entrenos" data-tip-text="Cada fila es una sesión. Toca la fila para editar o borrar.">i</button></h2>
-          <p class="section-count mono" id="workCountMeta">0 sesiones cargadas.</p>
+<section class="app-view" data-view="workouts">
+    <!-- Header -->
+    <div class="mb-6 section-head">
+        <div class="flex items-center gap-2 mb-6">
+            <h2 class="text-2xl font-bold text-white tracking-tight flex items-center">
+                Entrenos
+                <span class="text-slate-500 text-sm font-medium ml-2 tracking-normal section-count" id="workCountMeta">
+                    Cargando...
+                </span>
+            </h2>
         </div>
-        <div class="section-actions">
-          <div class="search">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <input id="workSearch" placeholder="Filtrar por fecha / tipo / clase / kg / reps…"/>
-          </div>
-          <select id="workLimitSelect" class="limit-select" aria-label="Ventana de entrenos">
-            <option value="7">Últimos 7 días</option>
-            <option value="15" selected>Últimos 15 días</option>
-            <option value="30">Últimos 30 días</option>
-            <option value="60">Últimos 60 días</option>
-            <option value="90">Últimos 90 días</option>
-          </select>
-        </div>
-      </div>
 
-      <div class="table card">
-        <table id="workTable">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Sesión</th>
-              <th>Hecho</th>
-              <th>Tipo</th>
-              <th>Clase / foco</th>
-              <th>RPE</th>
-              <th>Ejercicios</th>
-              <th>Notas</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+        <!-- Action Row -->
+        <div class="flex flex-col md:flex-row items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5 backdrop-blur-sm section-actions">
+            <!-- View All / Limit Select Shim -->
+            <div class="w-full md:w-auto min-w-[200px] tools">
+                <select class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 text-sm focus:ring-primary focus:border-primary limit-select" id="workLimitSelect">
+                    <option value="7">Últimos 7</option>
+                    <option value="15">Últimos 15</option>
+                    <option value="30">Últimos 30</option>
+                    <option value="60">Últimos 60</option>
+                    <option value="90">Últimos 90</option>
+                </select>
+            </div>
+
+            <!-- Search -->
+            <div class="relative w-full search">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">search</span>
+                <input type="text" id="workSearch" class="w-full bg-background-dark/50 border border-white/10 rounded-lg py-2.5 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-slate-600 transition-all text-white" placeholder="Buscar por ejercicio / notas…"/>
+            </div>
+        </div>
     </div>
 
-    </section>
+    <!-- Data Table -->
+    <div class="bg-white/5 border border-white/5 rounded-xl overflow-hidden shadow-2xl table card">
+        <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left border-collapse min-w-[1000px]" id="workTable">
+                <thead>
+                    <tr class="bg-white/5 border-b border-white/10">
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Sesión</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Hecho</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Tipo</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Clase / Foco</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">RPE</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Ejercicios</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Notas</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    <!-- Rows injected by app.js -->
+                    <tr>
+                        <td colspan="8" class="px-4 py-8 text-center text-slate-500 italic">Cargando registros...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

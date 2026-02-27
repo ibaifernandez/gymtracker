@@ -1,40 +1,64 @@
-    <section class="app-view" data-view="supplements">
-      <div class="section">
-        <div class="section-head">
-          <div class="section-title-row">
-            <h2><span class="section-title-main">Suplementos (últimos <span id="suppLimitLabel">15</span>)</span><button class="info-dot" type="button" data-help-tip data-tip-title="Tabla de suplementos" data-tip-text="Cada fila resume un día. Toca la fila para editar las tomas de esa fecha.">i</button></h2>
-            <p class="section-count mono" id="suppCountMeta">0 registros cargados.</p>
-          </div>
-          <div class="section-actions">
-            <div class="search">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3m1.3-5.2a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              <input id="suppSearch" placeholder="Filtrar por fecha / estado / notas / detalle…"/>
-            </div>
-            <select id="suppLimitSelect" class="limit-select" aria-label="Ventana de suplementos">
-              <option value="7">Últimos 7 días</option>
-              <option value="15" selected>Últimos 15 días</option>
-              <option value="30">Últimos 30 días</option>
-              <option value="60">Últimos 60 días</option>
-              <option value="90">Últimos 90 días</option>
-            </select>
-          </div>
+<section class="app-view" data-view="supplements">
+    <!-- Header -->
+    <div class="mb-6 section-head">
+        <div class="flex items-center gap-2 mb-6">
+            <h2 class="text-2xl font-bold text-white tracking-tight flex items-center">
+                Suplementos
+                <span class="text-slate-500 text-sm font-medium ml-2 tracking-normal section-count" id="suppCountMeta">
+                    Cargando...
+                </span>
+            </h2>
         </div>
 
-        <div class="table card">
-          <table id="suppHistoryTable">
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Objetivo</th>
-                <th>Realizadas</th>
-                <th>Adherencia</th>
-                <th>Estado</th>
-                <th>Detalle</th>
-                <th>Notas</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+        <!-- Action Row -->
+        <div class="flex flex-col md:flex-row items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5 backdrop-blur-sm supplements-actions">
+            <div class="flex gap-3 supplements-actions-left">
+                <button class="px-4 py-2 bg-primary text-background-dark rounded-lg text-xs font-bold hover:bg-primary/90 transition-colors btn primary section-quick" id="suppNewDayBtn">
+                    + Registrar día
+                </button>
+                <button class="px-4 py-2 bg-white/5 border border-white/10 text-white rounded-lg text-xs font-bold hover:bg-white/10 transition-colors btn ghost section-quick" id="suppCatalogBtn">
+                    Catálogo
+                </button>
+            </div>
+
+            <div class="w-full md:w-auto flex gap-3 supplements-actions-right">
+                <div class="min-w-[140px] tools">
+                    <select class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-3 py-2 text-xs focus:ring-primary focus:border-primary limit-select" id="suppLimitSelect">
+                        <option value="7">Últimos 7</option>
+                        <option value="15">Últimos 15</option>
+                        <option value="30">Últimos 30</option>
+                    </select>
+                </div>
+                <div class="relative w-full search">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+                    <input type="text" id="suppSearch" class="w-full bg-background-dark/50 border border-white/10 rounded-lg py-2 pl-9 pr-4 text-xs focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-slate-600 transition-all text-white" placeholder="Buscar..."/>
+                </div>
+            </div>
         </div>
-      </div>
-    </section>
+    </div>
+
+    <!-- Data Table -->
+    <div class="bg-white/5 border border-white/5 rounded-xl overflow-hidden shadow-2xl table card">
+        <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left border-collapse min-w-[900px]" id="suppHistoryTable">
+                <thead>
+                    <tr class="bg-white/5 border-b border-white/10">
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Objetivo Total</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Tomas</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Adherencia</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Estado</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Detalle</th>
+                        <th class="px-4 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Notas</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    <!-- Rows injected by app.js -->
+                    <tr>
+                        <td colspan="7" class="px-4 py-8 text-center text-slate-500 italic">Cargando historial...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
