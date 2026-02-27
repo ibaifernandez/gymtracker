@@ -1,92 +1,9 @@
 <!doctype html>
-<html class="dark" lang="es">
+<html lang="es">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Gym Tracker</title>
-
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-
-  <script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
-        theme: {
-            extend: {
-                colors: {
-                    "primary": "#0df2cc",
-                    "background-light": "#f5f8f8",
-                    "background-dark": "#0a0f0e",
-                    "surface-dark": "#16201e",
-                    "glass-dark": "rgba(22, 32, 30, 0.75)",
-                },
-                fontFamily: {
-                    "display": ["Inter", "sans-serif"],
-                    "mono": ["Roboto Mono", "monospace"]
-                },
-                borderRadius: {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-                },
-            },
-        },
-    }
-  </script>
-
-  <style>
-    /* Global base overrides from Stitch */
-    body {
-        font-family: 'Inter', sans-serif;
-    }
-    .glass-effect {
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-    }
-    .primary-glow {
-        box-shadow: 0 0 15px rgba(13, 242, 204, 0.2);
-    }
-
-    /* Logic state classes (kept for app.js compatibility) */
-    [hidden] { display: none !important; }
-
-    /* Toast state */
-    .toast {
-        transition: transform .16s ease, opacity .16s ease;
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(16px);
-    }
-    .toast.show {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Modal scroll lock */
-    html.modal-open,
-    body.modal-open {
-        overflow: hidden;
-    }
-
-    /* Tabs active state helper (will be applied via Tailwind classes in templates mostly,
-       but keeping this just in case or mapping .is-active to @apply if needed) */
-    .view-tab.is-active,
-    .app-view.is-active {
-        /* This is now handled by class logic in templates, but app.js toggles .is-active.
-           We will style .is-active in CSS to match the Stitch active state
-           OR we update app.js to toggle tailwind classes.
-           For minimal app.js changes, CSS mapping is safer.
-        */
-    }
-
-    /* View visibility */
-    .app-view { display: none; }
-    .app-view.is-active { display: block; }
-
-  </style>
-
   <script>
     (function () {
       try {
@@ -94,39 +11,30 @@
         if (mode !== "light" && mode !== "dark" && mode !== "system") mode = "system";
         var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
         var effective = mode === "system" ? (prefersLight ? "light" : "dark") : mode;
-
-        // Tailwind uses 'dark' class on html
-        if (effective === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
         document.documentElement.setAttribute("data-theme", effective);
         document.documentElement.setAttribute("data-theme-mode", mode);
       } catch (_) {}
     })();
   </script>
-</head>
-<body class="text-slate-900 dark:text-slate-200 min-h-screen bg-background-light dark:bg-background-dark font-display selection:bg-primary/30">
 
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css', v=asset_v_css) }}"/>
+</head>
+<body class="page-index">
   {% include "partials/index/topbar.html" %}
 
-  <main class="max-w-7xl mx-auto px-4 lg:px-6 py-8 space-y-8 app-shell">
+  <div class="wrap app-shell">
     {% include "partials/index/view_home.html" %}
-    {% include "partials/index/view_checkin.html" %}
-    {% include "partials/index/view_workouts.html" %}
-    {% include "partials/index/view_progress.html" %}
     {% include "partials/index/view_plans.html" %}
+    {% include "partials/index/view_progress.html" %}
+    {% include "partials/index/view_checkin.html" %}
     {% include "partials/index/view_supplements.html" %}
+    {% include "partials/index/view_workouts.html" %}
     {% include "partials/index/view_data.html" %}
-  </main>
+    {% include "partials/index/footer.html" %}
+  </div>
 
-  {% include "partials/index/footer.html" %}
   {% include "partials/index/mobile_nav.html" %}
   {% include "partials/index/utility_ui.html" %}
   {% include "partials/index/modals.html" %}
-
-  <script src="{{ url_for('static', filename='app.js', v=asset_v_app_js) }}"></script>
 </body>
 </html>

@@ -1,170 +1,108 @@
-<section class="app-view is-active" data-view="home">
-    <!-- Analysis Window Card -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <div class="lg:col-span-2 bg-surface-dark border border-white/10 rounded-xl p-6 relative overflow-hidden summary-bar">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] -z-10"></div>
-
-            <div class="flex flex-col gap-6">
-                <!-- Summary Controls Row -->
-                <div class="flex flex-wrap items-end gap-6 summary-controls">
-                    <div class="flex-1 min-w-[200px] field">
-                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Ventana</label>
-                        <select id="summaryModeSelect" class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 focus:ring-primary focus:border-primary">
-                            <option value="7">Últimos 7 días</option>
-                            <option value="15">Últimos 15 días</option>
-                            <option value="30">Últimos 30 días</option>
-                            <option value="60">Últimos 60 días</option>
-                            <option value="90">Últimos 90 días</option>
-                            <option value="custom">Período personalizado</option>
-                        </select>
-                    </div>
-
-                    <!-- Custom Range Fields (Hidden by default) -->
-                    <div id="summaryRangeFields" class="flex gap-4 flex-1 min-w-[300px] summary-range-fields" hidden>
-                        <div class="flex-1 field">
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Desde</label>
-                            <input type="date" id="summaryFrom" class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 focus:ring-primary focus:border-primary"/>
-                        </div>
-                        <div class="flex-1 field">
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Hasta</label>
-                            <input type="date" id="summaryTo" class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 focus:ring-primary focus:border-primary"/>
-                        </div>
-                    </div>
-
-                    <button id="summaryApplyBtn" type="button" class="bg-primary/10 text-primary border border-primary/20 px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/20 transition-all btn" hidden>
-                        Aplicar cambios
-                    </button>
-                </div>
-
-                <!-- Info Caption -->
-                <div class="flex items-center gap-2 font-mono text-xs text-primary/70 bg-primary/5 self-start px-3 py-1 rounded border border-primary/10">
-                    <span class="material-symbols-outlined text-xs">info</span>
-                    <span id="summaryCaption" class="summary-caption">Cargando datos...</span>
-                </div>
+    <section class="app-view is-active" data-view="home">
+    <div class="home-overview">
+      <div class="home-main">
+        <div class="home-main-panel card">
+          <div class="kpis">
+            <div class="kpi card">
+              <div class="kpi-top">
+                <span class="kpi-title" id="kpiSleepTitle">SUEÑO</span>
+                <button class="info-dot" type="button" data-help-tip data-tip-title="Sueño" data-tip-text="Promedio de horas registradas en el período seleccionado.">i</button>
+              </div>
+              <div class="kpi-period mono" id="kSleepPeriod">
+                <span class="kpi-period-line">Del: —</span>
+                <span class="kpi-period-line">Al: —</span>
+              </div>
+              <div class="kpi-val" id="kSleep">—</div>
+              <div class="kpi-sub">promedio horas</div>
+              <div class="kpi-delta muted" id="kSleepDelta">Sin comparativa previa</div>
             </div>
-        </div>
 
-        <!-- Trend Summary Card -->
-        <div class="bg-surface-dark border border-white/10 rounded-xl p-6 flex flex-col justify-between trend-line">
-            <div>
-                <div class="flex items-center justify-between mb-2 trend-title-row">
-                    <h3 class="text-white font-bold trend-title" id="trendTitle">Resumen del período</h3>
-                    <!-- Info dot retained for functional parity, styled minimal -->
-                    <button class="text-slate-500 hover:text-primary transition-colors info-dot" type="button" data-help-tip data-tip-title="Resumen del período" data-tip-text="Compara el inicio y el final del período seleccionado.">
-                        <span class="material-symbols-outlined text-sm">help</span>
-                    </button>
-                </div>
-                <p class="text-slate-400 text-sm leading-relaxed italic trend-text" id="trendText">
-                    Calculando tendencias...
-                </p>
-                <div class="mt-4 text-xs text-slate-500 trend-delta" id="trendDelta">
-                    <!-- Delta content injected by JS -->
-                </div>
+            <div class="kpi card">
+              <div class="kpi-top">
+                <span class="kpi-title" id="kpiStepsTitle">PASOS</span>
+                <button class="info-dot" type="button" data-help-tip data-tip-title="Pasos" data-tip-text="Promedio de pasos diarios dentro del período seleccionado.">i</button>
+              </div>
+              <div class="kpi-period mono" id="kStepsPeriod">
+                <span class="kpi-period-line">Del: —</span>
+                <span class="kpi-period-line">Al: —</span>
+              </div>
+              <div class="kpi-val" id="kSteps">—</div>
+              <div class="kpi-sub">promedio diario</div>
+              <div class="kpi-delta muted" id="kStepsDelta">Sin comparativa previa</div>
             </div>
+
+            <div class="kpi card">
+              <div class="kpi-top">
+                <span class="kpi-title" id="kpiWeightTitle">PESO</span>
+                <button class="info-dot" type="button" data-help-tip data-tip-title="Peso" data-tip-text="Promedio de peso corporal en el período seleccionado.">i</button>
+              </div>
+              <div class="kpi-period mono" id="kWeightPeriod">
+                <span class="kpi-period-line">Del: —</span>
+                <span class="kpi-period-line">Al: —</span>
+              </div>
+              <div class="kpi-val" id="kWeight">—</div>
+              <div class="kpi-sub">promedio kg</div>
+              <div class="kpi-delta muted" id="kWeightDelta">Sin comparativa previa</div>
+            </div>
+
+            <div class="kpi card">
+              <div class="kpi-top">
+                <span class="kpi-title" id="kpiWHRTitle">WHR</span>
+                <button class="info-dot" type="button" data-help-tip data-tip-title="WHR" data-tip-text="Relación cintura/cadera del período seleccionado.\n\nGuía de referencia general:\nmujer <= 0.85\nhombre <= 0.90.\n\nSi supera ambos umbrales, se considera fuera de rango.">i</button>
+              </div>
+              <div class="kpi-period mono" id="kWHRPeriod">
+                <span class="kpi-period-line">Del: —</span>
+                <span class="kpi-period-line">Al: —</span>
+              </div>
+              <div class="kpi-val" id="kWHR">—</div>
+              <div class="kpi-sub">cintura/cadera</div>
+              <div class="kpi-delta muted" id="kWHRDelta">Sin comparativa previa</div>
+            </div>
+          </div>
+
+          <div class="trend-line">
+            <div class="trend-title-row">
+              <div class="trend-title" id="trendTitle">Resumen del período</div>
+              <button class="info-dot" type="button" data-help-tip data-tip-title="Resumen del período" data-tip-text="Compara el inicio y el final del período seleccionado. Muestra la señal general y los cambios por métrica.">i</button>
+            </div>
+            <div class="trend-text" id="trendText">Aun no hay datos suficientes para mostrar tendencia.</div>
+            <div class="trend-delta" id="trendDelta">Necesitamos al menos dos registros comparables para calcular cambios.</div>
+          </div>
         </div>
+      </div>
+
+      <aside class="home-side" aria-label="Análisis y filtros">
+        <div class="summary-bar card">
+          <div class="summary-headline">
+            <strong>Ventana de análisis</strong>
+            <button class="info-dot" type="button" data-help-tip data-tip-title="Ventana de análisis" data-tip-text="Elige un período predefinido (7/15/30/60/90) o uno personalizado para recalcular KPIs, tendencia y gráficas.">i</button>
+          </div>
+          <div class="summary-controls">
+            <div class="field">
+              <label>Ventana</label>
+              <select id="summaryModeSelect" aria-label="Tipo de ventana de análisis">
+                <option value="7">Últimos 7 días</option>
+                <option value="15">Últimos 15 días</option>
+                <option value="30">Últimos 30 días</option>
+                <option value="60">Últimos 60 días</option>
+                <option value="90">Últimos 90 días</option>
+                <option value="custom">Período personalizado</option>
+              </select>
+            </div>
+            <div class="summary-range-fields" id="summaryRangeFields" hidden>
+              <div class="field">
+                <label>Desde</label>
+                <input type="date" id="summaryFrom"/>
+              </div>
+              <div class="field">
+                <label>Hasta</label>
+                <input type="date" id="summaryTo"/>
+              </div>
+            </div>
+            <button class="btn ghost" id="summaryApplyBtn" type="button">Aplicar cambios</button>
+          </div>
+          <div class="summary-caption mono" id="summaryCaption">0 días con datos de un total de 0 en el período.</div>
+        </div>
+      </aside>
+    </div>
     </section>
-
-    <!-- KPI Grid -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 kpis">
-        <!-- SUEÑO -->
-        <div class="bg-surface-dark border border-white/10 rounded-xl p-5 hover:border-primary/30 transition-all group kpi card">
-            <div class="flex justify-between items-start mb-4 kpi-top">
-                <div class="bg-blue-500/10 p-2 rounded-lg text-blue-400">
-                    <span class="material-symbols-outlined">bedtime</span>
-                </div>
-                <!-- JS injects the delta pill here into #kSleepDelta -->
-                <div id="kSleepDelta" class="kpi-delta text-xs font-bold text-primary flex items-center gap-1 bg-primary/10 px-2 py-1 rounded">
-                    <!-- +0.3h -->
-                </div>
-            </div>
-            <div class="flex justify-between items-center mb-1">
-                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest kpi-title" id="kpiSleepTitle">Sueño</p>
-                <button class="text-slate-600 hover:text-slate-400 info-dot" type="button" data-help-tip data-tip-title="Sueño" data-tip-text="Promedio de horas.">
-                    <span class="material-symbols-outlined text-[16px]">info</span>
-                </button>
-            </div>
-            <h4 class="text-white text-3xl font-bold kpi-val" id="kSleep">—</h4>
-            <div class="text-[10px] text-slate-600 font-mono mt-1 kpi-period" id="kSleepPeriod"></div>
-        </div>
-
-        <!-- PASOS -->
-        <div class="bg-surface-dark border border-white/10 rounded-xl p-5 hover:border-primary/30 transition-all kpi card">
-            <div class="flex justify-between items-start mb-4 kpi-top">
-                <div class="bg-orange-500/10 p-2 rounded-lg text-orange-400">
-                    <span class="material-symbols-outlined">footprint</span>
-                </div>
-                <div id="kStepsDelta" class="kpi-delta text-xs font-bold text-primary flex items-center gap-1 bg-primary/10 px-2 py-1 rounded"></div>
-            </div>
-            <div class="flex justify-between items-center mb-1">
-                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest kpi-title" id="kpiStepsTitle">Pasos</p>
-                <button class="text-slate-600 hover:text-slate-400 info-dot" type="button" data-help-tip data-tip-title="Pasos" data-tip-text="Promedio diario.">
-                    <span class="material-symbols-outlined text-[16px]">info</span>
-                </button>
-            </div>
-            <h4 class="text-white text-3xl font-bold kpi-val" id="kSteps">—</h4>
-            <div class="text-[10px] text-slate-600 font-mono mt-1 kpi-period" id="kStepsPeriod"></div>
-        </div>
-
-        <!-- PESO -->
-        <div class="bg-surface-dark border border-white/10 rounded-xl p-5 hover:border-primary/30 transition-all kpi card">
-            <div class="flex justify-between items-start mb-4 kpi-top">
-                <div class="bg-primary/10 p-2 rounded-lg text-primary">
-                    <span class="material-symbols-outlined">scale</span>
-                </div>
-                <div id="kWeightDelta" class="kpi-delta text-xs font-bold text-primary flex items-center gap-1 bg-primary/10 px-2 py-1 rounded"></div>
-            </div>
-            <div class="flex justify-between items-center mb-1">
-                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest kpi-title" id="kpiWeightTitle">Peso</p>
-                <button class="text-slate-600 hover:text-slate-400 info-dot" type="button" data-help-tip data-tip-title="Peso" data-tip-text="Promedio kg.">
-                    <span class="material-symbols-outlined text-[16px]">info</span>
-                </button>
-            </div>
-            <h4 class="text-white text-3xl font-bold kpi-val" id="kWeight">—</h4>
-            <div class="text-[10px] text-slate-600 font-mono mt-1 kpi-period" id="kWeightPeriod"></div>
-        </div>
-
-        <!-- WHR -->
-        <div class="bg-surface-dark border border-white/10 rounded-xl p-5 hover:border-primary/30 transition-all kpi card">
-            <div class="flex justify-between items-start mb-4 kpi-top">
-                <div class="bg-purple-500/10 p-2 rounded-lg text-purple-400">
-                    <span class="material-symbols-outlined">straighten</span>
-                </div>
-                <div id="kWHRDelta" class="kpi-delta text-xs font-bold text-slate-400 flex items-center gap-1 bg-white/5 px-2 py-1 rounded"></div>
-            </div>
-            <div class="flex justify-between items-center mb-1">
-                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest kpi-title" id="kpiWHRTitle">WHR</p>
-                <button class="text-slate-600 hover:text-slate-400 info-dot" type="button" data-help-tip data-tip-title="WHR" data-tip-text="Relación cintura/cadera.">
-                    <span class="material-symbols-outlined text-[16px]">info</span>
-                </button>
-            </div>
-            <h4 class="text-white text-3xl font-bold kpi-val" id="kWHR">—</h4>
-            <div class="text-[10px] text-slate-600 font-mono mt-1 kpi-period" id="kWHRPeriod"></div>
-        </div>
-    </section>
-
-    <!-- Quick Actions (Bottom Dashboard) -->
-    <section class="bg-surface-dark border border-white/10 rounded-xl p-8 mt-8 home-quick">
-        <h3 class="text-white text-lg font-bold mb-6 flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary">bolt</span>
-            Acciones Rápidas
-        </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 home-quick-actions">
-            <button class="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-white/5 bg-white/5 hover:bg-primary/5 hover:border-primary/30 transition-all group btn" id="fabDiet">
-                <span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-primary">fact_check</span>
-                <span class="text-sm font-bold">Nuevo check-in</span>
-            </button>
-            <button class="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-white/5 bg-white/5 hover:bg-primary/5 hover:border-primary/30 transition-all group btn" id="fabWorkout">
-                <span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-primary">fitness_center</span>
-                <span class="text-sm font-bold">Nuevo entreno</span>
-            </button>
-            <button class="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-white/5 bg-white/5 hover:bg-primary/5 hover:border-primary/30 transition-all group btn" onclick="document.querySelector('[data-view-target=\'plans\']').click()">
-                <span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-primary">calendar_today</span>
-                <span class="text-sm font-bold">Ver plan de hoy</span>
-            </button>
-            <button class="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-white/5 bg-white/5 hover:bg-primary/5 hover:border-primary/30 transition-all group btn" onclick="document.querySelector('[data-view-target=\'progress\']').click()">
-                <span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-primary">monitoring</span>
-                <span class="text-sm font-bold">Ver progreso</span>
-            </button>
-        </div>
-    </section>
-</section>

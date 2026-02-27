@@ -1,132 +1,121 @@
-<section class="app-view" data-view="plans">
-    <section class="bg-surface-dark border border-white/10 rounded-xl p-6 relative overflow-hidden plan-hub" aria-labelledby="planHubTitle">
-        <!-- Header -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 plan-hub-head">
-            <div class="flex items-center gap-3 plan-title-row">
-                <h3 id="planHubTitle" class="text-2xl font-bold text-white tracking-tight">Planes</h3>
-                <button class="text-slate-500 hover:text-primary transition-colors info-dot" type="button" data-help-tip data-tip-title="Plan del día" data-tip-text="Muestra lo que importaste por CSV.">
-                    <span class="material-symbols-outlined text-lg">info</span>
-                </button>
-                <p id="planHubSub" class="text-sm text-slate-400 font-medium hidden md:block plan-head-sub">Plan diario importado por CSV.</p>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto plan-hub-tools">
-                <div class="field compact">
-                    <input type="date" id="planDayDate" class="bg-background-dark border border-white/10 rounded-lg text-white px-3 py-2 text-sm focus:ring-primary focus:border-primary"/>
-                </div>
-                <button class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-bold hover:bg-white/10 transition-colors btn ghost" id="planDayLoadBtn" type="button">Cargar</button>
-                <button class="px-4 py-2 bg-gradient-to-br from-red-500 to-red-700 text-white rounded-lg text-sm font-bold hover:shadow-lg hover:shadow-red-500/20 transition-all btn plan-builder-cta" id="btnPlanHubImport" type="button">Gestión de Planes</button>
-            </div>
+    <section class="app-view" data-view="plans">
+    <section class="plan-hub card" aria-labelledby="planHubTitle">
+      <div class="plan-hub-head">
+        <div class="plan-title-row">
+          <h3 id="planHubTitle">Planes</h3>
+          <button class="info-dot" type="button" data-help-tip data-tip-title="Plan del día" data-tip-text="Muestra lo que importaste por CSV para la fecha elegida. No prescribe nada automáticamente.">i</button>
+          <p id="planHubSub" class="plan-head-sub">Plan diario de dieta y entrenamiento importado por CSV.</p>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 plan-cards">
-            <!-- DIET PLAN CARD -->
-            <article class="bg-white/5 border border-white/5 rounded-xl p-5 plan-card">
-                <div class="flex justify-between items-center mb-4 plan-card-head">
-                    <div class="flex items-center gap-2 plan-card-title">
-                        <h4 class="text-lg font-bold text-white">Dieta del día</h4>
-                        <button class="text-slate-500 hover:text-white transition-colors info-dot plan-card-tip" type="button" data-help-tip data-tip-title="Dieta (plan)" data-tip-text="Objetivos nutricionales planificados.">
-                            <span class="material-symbols-outlined text-sm">help</span>
-                        </button>
-                    </div>
-                    <span class="px-3 py-1 bg-white/10 text-slate-300 text-xs font-bold rounded-full pill" id="planDietActualPill">Sin plan</span>
-                </div>
-
-                <div class="flex flex-wrap gap-2 mb-4 font-mono text-xs text-primary/80 plan-macros" id="planDietMacros">
-                    Sin objetivos cargados.
-                </div>
-
-                <div class="space-y-2 text-sm text-slate-300 plan-meals" id="planDietMeals">
-                    <div class="p-4 border border-dashed border-white/10 rounded-lg text-center text-slate-500 italic plan-empty">
-                        Importa plan_diet_template.csv para ver tus comidas.
-                    </div>
-                </div>
-
-                <div class="flex justify-end gap-2 mt-4 pt-4 border-t border-white/5 plan-actions">
-                    <button class="text-red-400 hover:text-red-300 text-xs font-bold uppercase tracking-wider btn ghost danger" id="planDeleteDietDayBtn" type="button">Eliminar día</button>
-                    <button class="text-red-400 hover:text-red-300 text-xs font-bold uppercase tracking-wider btn ghost danger" id="planFlushDietBtn" type="button">Vaciar todo</button>
-                </div>
-            </article>
-
-            <!-- WORKOUT PLAN CARD -->
-            <article class="bg-white/5 border border-white/5 rounded-xl p-5 plan-card">
-                <div class="flex justify-between items-center mb-4 plan-card-head">
-                    <div class="flex items-center gap-2 plan-card-title">
-                        <h4 class="text-lg font-bold text-white">Entreno planificado</h4>
-                        <button class="text-slate-500 hover:text-white transition-colors info-dot plan-card-tip" type="button" data-help-tip data-tip-title="Entreno (plan)" data-tip-text="Sesiones planificadas para hoy.">
-                            <span class="material-symbols-outlined text-sm">help</span>
-                        </button>
-                    </div>
-                    <span class="px-3 py-1 bg-white/10 text-slate-300 text-xs font-bold rounded-full pill" id="planWorkoutActualPill">Sin plan</span>
-                </div>
-
-                <div class="mb-4 font-mono text-xs text-slate-500 plan-macros" id="planWorkoutSummary">Sin entrenos cargados.</div>
-
-                <div class="space-y-4 plan-workout-list" id="planWorkoutSessions">
-                    <div class="p-4 border border-dashed border-white/10 rounded-lg text-center text-slate-500 italic plan-empty">
-                        Importa plan_workout_template.csv para ver tus sesiones.
-                    </div>
-                </div>
-
-                <div class="flex justify-end mt-4 pt-4 border-t border-white/5 plan-actions">
-                    <button class="text-red-400 hover:text-red-300 text-xs font-bold uppercase tracking-wider btn ghost danger" id="planFlushWorkoutBtn" type="button">Vaciar todo</button>
-                </div>
-            </article>
+        <div class="plan-hub-tools">
+          <div class="field compact">
+            <label>Fecha plan</label>
+            <input type="date" id="planDayDate"/>
+          </div>
+          <button class="btn ghost" id="planDayLoadBtn" type="button">Cargar día</button>
+          <button class="btn plan-builder-cta" id="btnPlanHubImport" type="button">Crear dieta y plan de entreno</button>
         </div>
+      </div>
 
-        <!-- ADHERENCE SECTION -->
-        <div class="mt-8 pt-6 border-t border-white/10 plan-adherence">
-            <h4 class="text-white font-bold mb-4">Registro de Adherencia</h4>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 plan-adherence-grid">
-                <div class="field">
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Dieta</label>
-                    <select id="planDietScore" class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 focus:ring-primary focus:border-primary">
-                        <option value="">—</option>
-                        <option value="1">1 · Hecho</option>
-                        <option value="0.5">0.5 · Parcial</option>
-                        <option value="0">0 · No hecho</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Entreno</label>
-                    <select id="planWorkoutScore" class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 focus:ring-primary focus:border-primary">
-                        <option value="">—</option>
-                        <option value="1">1 · Hecho</option>
-                        <option value="0.5">0.5 · Parcial</option>
-                        <option value="0">0 · No hecho</option>
-                    </select>
-                </div>
-                <div class="md:col-span-2 field span-all">
-                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Notas del día</label>
-                    <input type="text" id="planAdherenceNotes" class="w-full bg-background-dark border border-white/10 rounded-lg text-white px-4 py-2.5 focus:ring-primary focus:border-primary" placeholder="Reflexiones, ajustes..."/>
-                </div>
+      <div class="plan-cards">
+        <article class="plan-card">
+          <div class="plan-card-head">
+            <div class="plan-card-title">
+              <h4>Dieta del día</h4>
+              <button
+                class="info-dot plan-card-tip"
+                type="button"
+                data-help-tip
+                data-tip-title="Dieta del día (plan)"
+                data-tip-text="Aquí ves lo planificado para la fecha elegida. El registro real de tu día se guarda en Check-ins."
+              >i</button>
             </div>
+            <span class="pill" id="planDietActualPill">Sin plan</span>
+          </div>
+          <div class="plan-macros mono" id="planDietMacros">Sin objetivos cargados.</div>
+          <div class="plan-meals" id="planDietMeals">
+            <div class="plan-empty">Importa <code>plan_diet_template.csv</code> y verás aquí tus comidas objetivo.</div>
+          </div>
+          <div class="plan-actions">
+            <button class="btn ghost danger" id="planDeleteDietDayBtn" type="button">Eliminar dieta del día</button>
+            <button class="btn ghost danger" id="planFlushDietBtn" type="button">Vaciar dieta plan completa</button>
+          </div>
+        </article>
 
-            <div class="flex justify-end mb-6 plan-adherence-actions">
-                <button class="px-6 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-bold hover:bg-white/10 transition-colors btn ghost" id="planSaveAdherenceBtn" type="button">Guardar adherencia</button>
+        <article class="plan-card">
+          <div class="plan-card-head">
+            <div class="plan-card-title">
+              <h4>Entreno planificado</h4>
+              <button
+                class="info-dot plan-card-tip"
+                type="button"
+                data-help-tip
+                data-tip-title="Entreno planificado (plan)"
+                data-tip-text="Aquí ves lo planificado para la fecha elegida. El registro real de tus sesiones se guarda en Entrenos."
+              >i</button>
             </div>
+            <span class="pill" id="planWorkoutActualPill">Sin plan</span>
+          </div>
+          <div class="plan-macros mono" id="planWorkoutSummary">Sin entrenos cargados.</div>
+          <div class="plan-workout-list" id="planWorkoutSessions">
+            <div class="plan-empty">Importa <code>plan_workout_template.csv</code> para ver tus sesiones planificadas.</div>
+          </div>
+          <div class="plan-actions">
+            <button class="btn ghost danger" id="planFlushWorkoutBtn" type="button">Vaciar entreno plan completo</button>
+          </div>
+        </article>
+      </div>
 
-            <!-- HISTORY -->
-            <div class="bg-black/20 rounded-xl p-4 border border-white/5 plan-adherence-history">
-                <div class="flex justify-between items-center mb-4 plan-adherence-history-head">
-                    <strong class="text-sm text-white">Histórico</strong>
-                    <div class="field compact">
-                        <select id="planAdherenceWindow" class="bg-transparent border border-white/10 rounded text-xs text-slate-400 py-1 pl-2 pr-8 focus:ring-0">
-                            <option value="7">7 días</option>
-                            <option value="15" selected>15 días</option>
-                            <option value="30">30 días</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="text-xs font-mono text-slate-500 mb-4 plan-adherence-period" id="planAdherencePeriod">Cargando histórico...</div>
-                <div class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar plan-adherence-history-list" id="planAdherenceHistoryList">
-                    <div class="text-center text-slate-500 text-xs italic py-4 plan-empty">Sin datos.</div>
-                </div>
-            </div>
+      <div class="plan-adherence">
+        <div class="plan-adherence-grid">
+          <div class="field">
+            <label>Puntuación dieta</label>
+            <select id="planDietScore">
+              <option value="">—</option>
+              <option value="1">1 · Hecho</option>
+              <option value="0.5">0.5 · Parcial</option>
+              <option value="0">0 · No hecho</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Puntuación entreno</label>
+            <select id="planWorkoutScore">
+              <option value="">—</option>
+              <option value="1">1 · Hecho</option>
+              <option value="0.5">0.5 · Parcial</option>
+              <option value="0">0 · No hecho</option>
+            </select>
+          </div>
+          <div class="field span-all">
+            <label>Notas del día (opcional)</label>
+            <input type="text" id="planAdherenceNotes" placeholder="Qué salió bien, qué ajustar mañana..."/>
+          </div>
         </div>
+        <div class="plan-adherence-actions">
+          <button class="btn ghost" id="planSaveAdherenceBtn" type="button">Guardar adherencia</button>
+        </div>
+        <div class="plan-adherence-history">
+          <div class="plan-adherence-history-head">
+            <strong>Histórico de adherencia</strong>
+            <div class="field compact">
+              <label for="planAdherenceWindow">Período</label>
+              <select id="planAdherenceWindow">
+                <option value="7">Últimos 7 días</option>
+                <option value="15" selected>Últimos 15 días</option>
+                <option value="30">Últimos 30 días</option>
+              </select>
+            </div>
+          </div>
+          <div class="mono plan-adherence-period" id="planAdherencePeriod">Resumen del período: sin puntuaciones guardadas.</div>
+          <div class="plan-adherence-history-list" id="planAdherenceHistoryList">
+            <div class="plan-empty">Sin puntuaciones guardadas en este período.</div>
+          </div>
+        </div>
+      </div>
 
-        <p class="mt-6 text-xs text-slate-600 text-center plan-disclaimer">
-            Gym Tracker muestra el plan importado. No ofrece recomendaciones médicas.
-        </p>
+      <p class="plan-disclaimer">
+        Gym Tracker muestra exactamente el plan que tú importas. No ofrece recomendaciones médicas, nutricionales ni deportivas.
+      </p>
+
     </section>
-</section>
+
+    </section>

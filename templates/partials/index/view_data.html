@@ -1,67 +1,23 @@
-<section class="app-view" data-view="data">
-    <!-- Header -->
-    <div class="mb-6 section-head">
-        <div class="flex items-center gap-2">
-            <h2 class="text-2xl font-bold text-white tracking-tight data-hub-head">
-                Datos
-            </h2>
+    <section class="app-view" data-view="data">
+      <section class="data-hub card" aria-labelledby="dataHubTitle">
+        <div class="data-hub-head">
+          <h2 id="dataHubTitle">Backups <button class="info-dot" type="button" data-help-tip data-tip-title="Backups" data-tip-text="Aquí solo gestionas copias completas de seguridad de la app.">i</button></h2>
+          <p>Exporta o restaura un respaldo completo cuando necesites proteger o recuperar tu información.</p>
         </div>
-        <p class="text-slate-400 text-sm mt-1">Gestión de copias de seguridad y limpieza.</p>
-    </div>
-
-    <!-- Data Hub Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 data-hub">
-
-        <!-- Backup Section -->
-        <article class="bg-surface-dark border border-white/10 rounded-xl p-5 data-group">
-            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Backup Local</h3>
-            <div class="grid grid-cols-1 gap-3 data-hub-grid">
-                <a href="/backup/export" class="flex flex-col items-start justify-center p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 hover:border-primary/30 transition-all group btn ghost">
-                    <span class="material-symbols-outlined text-2xl text-primary mb-2">download</span>
-                    <span class="text-sm font-bold text-white">Descargar Backup</span>
-                    <span class="text-[10px] text-slate-400 mt-1">Base de datos + Fotos (.zip)</span>
-                </a>
-                <button class="flex flex-col items-start justify-center p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 hover:border-primary/30 transition-all group btn ghost" id="btnRestoreBackup">
-                    <span class="material-symbols-outlined text-2xl text-orange-400 mb-2">upload</span>
-                    <span class="text-sm font-bold text-white">Restaurar Backup</span>
-                    <span class="text-[10px] text-slate-400 mt-1">Reemplazar datos actuales</span>
-                </button>
+        <div class="data-groups">
+          <section class="data-group">
+            <h3>Backups</h3>
+            <div class="data-hub-grid">
+              <a class="btn ghost" href="/backup/export" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v11m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v4h16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Exportar backup
+              </a>
+              <button class="btn ghost" id="btnRestoreBackup" type="button">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 4v6h6M21 20v-6h-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 15a6 6 0 1 0 2-8.5L3 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Restaurar backup
+              </button>
             </div>
-        </article>
-
-        <!-- Import Section -->
-        <article class="bg-surface-dark border border-white/10 rounded-xl p-5 data-group">
-            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Importación CSV</h3>
-            <div class="grid grid-cols-1 gap-3 data-hub-grid">
-                <button class="flex flex-col items-start justify-center p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 hover:border-primary/30 transition-all group btn ghost" id="btnImportDiet">
-                    <span class="material-symbols-outlined text-2xl text-green-400 mb-2">table_view</span>
-                    <span class="text-sm font-bold text-white">Importar Check-ins</span>
-                    <span class="text-[10px] text-slate-400 mt-1">Carga masiva histórica</span>
-                </button>
-                <button class="flex flex-col items-start justify-center p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 hover:border-primary/30 transition-all group btn ghost" id="btnPlanHub">
-                    <span class="material-symbols-outlined text-2xl text-blue-400 mb-2">event_note</span>
-                    <span class="text-sm font-bold text-white">Importar Planes</span>
-                    <span class="text-[10px] text-slate-400 mt-1">Dieta y Rutina (IA / CSV)</span>
-                </button>
-            </div>
-        </article>
-
-        <!-- Help Section -->
-        <article class="bg-surface-dark border border-white/10 rounded-xl p-5 data-group">
-            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Soporte</h3>
-            <div class="grid grid-cols-1 gap-3 data-hub-grid">
-                <button class="flex flex-col items-start justify-center p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 hover:border-primary/30 transition-all group btn ghost" id="btnReportBug">
-                    <span class="material-symbols-outlined text-2xl text-red-400 mb-2">bug_report</span>
-                    <span class="text-sm font-bold text-white">Reportar Bug</span>
-                    <span class="text-[10px] text-slate-400 mt-1">Información de diagnóstico</span>
-                </button>
-                <a href="/help" class="flex flex-col items-start justify-center p-4 bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 hover:border-primary/30 transition-all group btn ghost">
-                    <span class="material-symbols-outlined text-2xl text-purple-400 mb-2">help</span>
-                    <span class="text-sm font-bold text-white">Documentación</span>
-                    <span class="text-[10px] text-slate-400 mt-1">Guías y manuales</span>
-                </a>
-            </div>
-        </article>
-
-    </div>
-</section>
+          </section>
+        </div>
+      </section>
+    </section>
